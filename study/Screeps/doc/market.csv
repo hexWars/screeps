@@ -1,0 +1,6 @@
+	sender.username	recipient.username					//可选的	order.id	order.type	order.price	距离	运费	实价（cr/(energy+cost)）	付出energy	收入energy	付出cr	收入cr	energy本金	cr余额	一单位能量值cr
+time	sender	recipient	resourceType	amount	from	to	order	id	type	price										
+																				
+																				
+31832960	Sokranotes	6g3y	energy	3000	W47S14	W19N15		6151cc2e9efe0c2284d82df8	buy	2.125	30	1897	1.301963668	4897			6375	29735	38205	1.2848495
+31832861	Sokranotes	Moose_J	energy	15000	W47S15	E56N17		6151c78e9efe0cd976d69d18	buy	2.122	32	9838	1.281517046	28117			31830	24838	31830	1.2815
