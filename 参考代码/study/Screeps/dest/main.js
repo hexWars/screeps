@@ -4878,7 +4878,7 @@ let consumer = null;
 
 // 第一次报错时创建 sourceMap
 const getConsumer = function () {
-    if (consumer == null) consumer = new SourceMapConsumer(require("study3/study/Screeps/dest/main.js.map"));
+    if (consumer == null) consumer = new SourceMapConsumer(require("参考代码/study/Screeps/dest/main.js.map"));
     return consumer
 };
 

@@ -31,7 +31,8 @@ var harvester = {
 					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
 				}
 			} else {
-				creep.say("error!!! posHarvester 没有目标")
+				creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+				creep.say("无目标")
 			}
 		}
 	}

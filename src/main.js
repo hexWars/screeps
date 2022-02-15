@@ -60,6 +60,9 @@ module.exports.loop = function () {
 		if (creep.memory.role == 'upgraderE53N11toE54N12') {//
 			roleUpgrader.run(creep, "E53N11", Game.rooms["E54N12"].controller);
 		}
+		if (creep.memory.role == 'upgraderE53N13toE54N12') {//
+			roleUpgrader.run(creep, "E53N13", Game.rooms["E54N12"].controller);
+		}
 	}
 
 }

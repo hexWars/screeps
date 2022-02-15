@@ -15,12 +15,30 @@ var initCreeps = {
 		// 2 creep生产
 		// 另一种维持数量的方式: StructureSpawn.renewCreep
 		// 每个if第一行调整数量
+		let roleName
+		let creepsNum
 		//------------------------------------------------------------
-		let roleName = "harvesterE54N12toE54N12";
-		let creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		roleName = "builder"
+		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum.length < 1) {
+			var newName = 'Builder' + Game.time;
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, WORK], newName,
+				{memory: {role: roleName}});
+		}
+		//------------------------------------------------------------削弱版
+		roleName = "harvesterE54N12toE54N12";
+		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
 		if (creepsNum.length < 1) {
 			var newName = 'Harvester' + Game.time;
 			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, WORK], newName,
+				{memory: {role: roleName}});
+		}
+		//------------------------------------------------------------增强版
+		roleName = "harvesterE54N12toE54N12";
+		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum.length < 1) {
+			var newName = 'Harvester' + Game.time;
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, WORK, WORK], newName,
 				{memory: {role: roleName}});
 		}
 		//------------------------------------------------------------
@@ -51,17 +69,17 @@ var initCreeps = {
 		//------------------------------------------------------------
 		roleName = "upgraderE53N11toE54N12";
 		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
-		if (creepsNum.length < 3) {
+		if (creepsNum.length < 2) {
 			var newName = 'Harvester' + Game.time;
 			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, CARRY, MOVE], newName,
 				{memory: {role: roleName}});
 		}
 		//------------------------------------------------------------
-		roleName = "builder"
+		roleName = "upgraderE53N13toE54N12";
 		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
-		if (creepsNum.length < 1) {
-			var newName = 'Builder' + Game.time;
-			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, WORK], newName,
+		if (creepsNum.length < 3) {
+			var newName = 'Harvester' + Game.time;
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, CARRY, MOVE], newName,
 				{memory: {role: roleName}});
 		}
 		//------------------------------------------------------------

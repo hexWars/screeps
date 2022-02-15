@@ -56,7 +56,7 @@ if(roomStructsData){
  */
 
 
-import {RoomArray} from "study3/study/Screeps/src/modules_no_use/超级抠位置自动布局1.0/class_RoomArray"
+import {RoomArray} from "参考代码/study/Screeps/src/modules_no_use/超级抠位置自动布局1.0/class_RoomArray"
 
 let minPlaneCnt = 140 // 内部布局最小面积！ 试过了，140是 基本上最低配置了
 

@@ -219,7 +219,7 @@ function ReclaimNode(node){
 }
 
 // @ts-ignore
-const binary = require('study3/study/Screeps/src/modules_no_use/超级抠位置自动布局1.0/algo_wasm_PriorityQueue');   // 读取二进制文件
+const binary = require('参考代码/study/Screeps/src/modules_no_use/超级抠位置自动布局1.0/algo_wasm_PriorityQueue');   // 读取二进制文件
 const wasmModule = new WebAssembly.Module(binary);  // 初始化为wasm类
 
 /**
