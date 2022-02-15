@@ -1,5 +1,5 @@
-var roleHarvester = require('study3/tutorial-scripts/section3/role.harvester');
-var roleBuilder = require('study3/tutorial-scripts/section3/role.builder');
+var roleHarvester = require('role.harvester');
+var roleBuilder = require('role.builder');
 
 module.exports.loop = function () {
 
