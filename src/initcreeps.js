@@ -3,53 +3,69 @@ var initCreeps = {
 	/** @param {Creep} Cai **/
 	run: function () {
 		// 1 清除内存
-		for (var name in Memory.creeps) {
+		// -------------------------------------------------------------------------------------
+		for (let name in Memory.creeps) {
 			// 还在内存中需要清除
 			if (!Game.creeps[name]) {
 				delete Memory.creeps[name];
-				console.log('Clearing non-existing creep memory:', name);
 			}
 		}
 
-		// 2 harvesters,upgraders,builders生产
-		let creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-		let harvesterNum = 1;
-		let upgraderNum = 1;
-		let builderNum = 1;
-		let buttomNum = 4;
-		//------------------------------------------------------------
+		// -------------------------------------------------------------------------------------
+		// 2 creep生产
 		// 另一种维持数量的方式: StructureSpawn.renewCreep
-		if (creepsNum.length < harvesterNum) {
-			// Game.time 系统游戏 tick 计数
+		// 每个if第一行调整数量
+		//------------------------------------------------------------
+		let roleName = "harvesterE54N12toE54N12";
+		let creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum.length < 1) {
 			var newName = 'Harvester' + Game.time;
-			console.log('Spawning new harvester: ' + newName);
-			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName,
-				{memory: {role: 'harvester'}});
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, WORK], newName,
+				{memory: {role: roleName}});
 		}
 		//------------------------------------------------------------
-		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-		if (creepsNum.length < upgraderNum) {
-			var newName = 'Upgrader' + Game.time;
-			console.log('Spawning new upgraders: ' + newName);
+		roleName = "harvesterE54N11toE54N12";
+		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum.length < 0) {
+			var newName = 'Harvester' + Game.time;
 			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName,
-				{memory: {role: 'upgrader'}});
+				{memory: {role: roleName}});
+		}
+
+		//------------------------------------------------------------
+		roleName = "upgraderE54N12toE54N12";
+		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum.length < 0) {
+			var newName = 'Harvester' + Game.time;
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, CARRY, MOVE], newName,
+				{memory: {role: roleName}});
 		}
 		//------------------------------------------------------------
-		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-		if (creepsNum.length < builderNum) {
+		roleName = "upgraderE54N11toE54N12";
+		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum.length < 5) {
+			var newName = 'Harvester' + Game.time;
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, CARRY, MOVE], newName,
+				{memory: {role: roleName}});
+		}
+		//------------------------------------------------------------
+		roleName = "upgraderE53N11toE54N12";
+		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum.length < 3) {
+			var newName = 'Harvester' + Game.time;
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, CARRY, MOVE], newName,
+				{memory: {role: roleName}});
+		}
+		//------------------------------------------------------------
+		roleName = "builder"
+		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum.length < 1) {
 			var newName = 'Builder' + Game.time;
-			console.log('Spawning new builders: ' + newName);
-			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName,
-				{memory: {role: 'builder'}});
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, WORK], newName,
+				{memory: {role: roleName}});
 		}
 		//------------------------------------------------------------
-		creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == 'buttom');
-		if (creepsNum.length < buttomNum) {
-			var newName = 'Buttom' + Game.time;
-			console.log('Spawning new Buttoms: ' + newName);
-			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], newName,
-				{memory: {role: 'buttom'}});
-		}
+
 	}
 };
 
