@@ -10,6 +10,8 @@ var roleButtomUpgrader = require('role.buttomupgrader')
 // 激活安全模式: Game.spawns['Spawn1'].room.controller.activateSafeMode();
 // src: ['src/*.js']
 // Game.spawns['Spawn1'].room.createConstructionSite( 23, 22, STRUCTURE_TOWER ); // 创建塔
+// Game.spawns['Spawn1'].room.createConstructionSite( 23, 22, STRUCTURE_EXTENSION ); // 创建拓展
+// findExitTo
 
 module.exports.loop = function () {
 
@@ -26,7 +28,7 @@ module.exports.loop = function () {
 		if (creep.memory.role == 'builder') {
 			roleBuilder.run(creep);
 		}
-		if (creep.memory.role == 'buttomupgrader') {
+		if (creep.memory.role == 'buttom') {
 			roleButtomUpgrader.run(creep)
 		}
 	}

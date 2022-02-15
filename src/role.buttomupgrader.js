@@ -20,10 +20,16 @@ var roleButtomUpgrader = {
 				creep.moveTo(Game.spawns['Spawn1'].room.controller, {visualizePathStyle: {stroke: '#ffffff'}});
 			}
 		} else {
-			var sources = creep.room.find(FIND_SOURCES_ACTIVE);
-			if (creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(sources[1], {visualizePathStyle: {stroke: '#ffaa00'}});
+			if (creep.room == Game.spawns['Spawn1'].room) {
+				const targets = creep.room.find(FIND_EXIT_BOTTOM);
+				creep.moveTo(targets[targets.length-1], {visualizePathStyle: {stroke: '#ffffff'}})
+			} else {
+				var sources = creep.room.find(FIND_SOURCES_ACTIVE);
+				if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
+					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+				}
 			}
+
 		}
 	}
 };

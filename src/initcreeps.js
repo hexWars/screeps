@@ -15,8 +15,8 @@ var initCreeps = {
 		let creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
 		let harvesterNum = 1;
 		let upgraderNum = 1;
-		let builderNum = 0;
-		let buttomNum = 3;
+		let builderNum = 1;
+		let buttomNum = 4;
 		//------------------------------------------------------------
 		// 另一种维持数量的方式: StructureSpawn.renewCreep
 		if (creepsNum.length < harvesterNum) {
@@ -47,7 +47,7 @@ var initCreeps = {
 		if (creepsNum.length < buttomNum) {
 			var newName = 'Buttom' + Game.time;
 			console.log('Spawning new Buttoms: ' + newName);
-			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, CARRY, MOVE], newName,
+			Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE, MOVE, MOVE], newName,
 				{memory: {role: 'buttom'}});
 		}
 	}
