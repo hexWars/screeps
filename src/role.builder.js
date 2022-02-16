@@ -11,6 +11,7 @@ var roleBuilder = {
 			creep.memory.building = true;
 			creep.say('🚧 build');
 		}
+		// console.log(creep.memory.building + " " + creep.store.getFreeCapacity())
 
 		if (creep.memory.building) {
 			// FIND_MY_CONSTRUCTION_SITES 所有属于您的建筑地
@@ -21,7 +22,6 @@ var roleBuilder = {
 			// }
 			if (targets.length > 0) {
 				if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-					// creep.say("正在前往目标")
 					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
 				}
 			}

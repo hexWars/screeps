@@ -1,9 +1,12 @@
 var rolePosHarvester = require('role.posHarvester');
 var rolePosUpgrader = require('role.posUpgrader');
 var roleBuilder = require('role.builder');
-var role_Harvester = require('role.harvester')
 var initCreeps = require('initcreeps')
 var war = require('war')
+
+// todo 测试挖取分离
+var role_harvester = require('role_harvester')
+var role_comprehensive = require('role_comprehensive')
 
 
 // Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'Harvester1' );
@@ -37,19 +40,22 @@ module.exports.loop = function () {
 
 	for (let name in Game.creeps) {
 		let creep = Game.creeps[name];
-		// const target = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-		// if (target) {
-		// 	if (creep.pickup(target) == ERR_NOT_IN_RANGE) {
-		// 		creep.moveTo(target);
-		// 	}
-		// }
 
+		// 挖取分离----------
+		if (creep.memory.role == 'role_harvester') {
+			role_harvester.run(creep, "E54N12", 47, 38);
+		}
+		if (creep.memory.role == 'com_builder_E54N12_E54N12') {
+			role_comprehensive.run(creep,"E54N12","E54N12", 2);
+		}
+		if (creep.memory.role == 'com_harvester_E54N12_E54N12') {
+			role_comprehensive.run(creep,"E54N12","E54N12", 1);
+		}
+		// 挖取分离----------
 
 		if (creep.memory.role == 'builder') {
 			roleBuilder.run(creep);
 		}
-
-
 
 		if (creep.memory.role == 'harvesterE54N12toE54N12') {//
 			rolePosHarvester.run(creep, "E54N12", "E54N12");

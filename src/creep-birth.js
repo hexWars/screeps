@@ -10,10 +10,10 @@ var creepsBirth = {
 		if (creepsNum.length < limitNum) {// 没有到规定数量
 			var newName = roleName + Game.time;
 			let ex = Game.spawns['Spawn1'].spawnCreep(body, newName, {memory: {role: roleName}})
-			// console.log(roleName + "创建成功" + ex)
+			// console.log(roleName + "创建" + ex)
 			return false;
 		}
-		// console.log(roleName + "到了规定数量")
+		console.log(roleName + "到了规定数量")
 		return true;
 	}
 };
