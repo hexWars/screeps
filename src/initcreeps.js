@@ -9,12 +9,11 @@ var initCreeps = {
 		let flag = true
 		//------------------------------------------------------------todo 优先级最高
 		// arr.push(creepBirth.run("builder", 0, [WORK, CARRY, MOVE, WORK]))
-		//------------------------------------------------------------削弱版
-		// arr.push(creepBirth.run("harvesterE54N12toE54N12", 0, [WORK, CARRY, MOVE, WORK]))
+		//------------------------------------------------------------削弱版(临时)
+		arr.push(creepBirth.run("harvesterE54N12toE54N12", 1, [WORK, CARRY, MOVE, WORK]))
 		// ------------------------------------------------------------纯收割
 		arr.push(creepBirth.run("com_harvester_E54N12_47_38", 1, [WORK, MOVE, WORK, WORK, WORK, CARRY]))
-		// //------------------------------------------------------------纯搬运
-		// creepBirth.run("harvester_E54N12_x47_y38", 0, [WORK, MOVE, WORK, WORK]);
+		//------------------------------------------------------------纯搬运
 		//------------------------------------------------------------xxxxxxxxxxxxxxxxxxxxxxx
 		//todo 挖运分离
 		arr.push(comCreepBirth.run("com_builder_E54N12_E54N12", 1, [WORK, CARRY, MOVE, WORK]))
@@ -23,7 +22,6 @@ var initCreeps = {
 		//------------------------------------------------------------
 
 		for (let i = 0; i < arr.length; i++) {
-			// console.log(arr[i])
 			if (arr[i] == false) {
 				flag = false;
 			}

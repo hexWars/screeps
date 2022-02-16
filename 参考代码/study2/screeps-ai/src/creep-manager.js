@@ -20,7 +20,7 @@ module.exports = {
     }
 
     for (const role of roles) {
-      role.run(creep, opts);
+      role.run(opts);
     }
   },
   preRun(creep) {

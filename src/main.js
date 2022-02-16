@@ -8,6 +8,8 @@ var war = require('war')
 var com_harvester = require('com_harvester')
 var com_comprehensive = require('com_comprehensive')
 
+var tower = require('tower')
+
 
 // Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'Harvester1' );
 // Game.creeps['Harvester1'].memory.role = 'harvester';
@@ -21,9 +23,9 @@ var com_comprehensive = require('com_comprehensive')
 // 强大的寻路算法 PathFinder.search
 // todo 另一种维持数量的方式: StructureSpawn.renewCreep
 // todo 采和运送分离暂时仅限本地,采1个,运送两个,采的需要定位(必须修路),送的必须使用定位然后送回房间
-// todo 优先级问题
-// todo 掉落物品
-// todo Container 专门储存能量
+// todo 优先级问题(半解决)
+// todo 掉落物品(半解决)
+// todo Container 专门储存能量(在建)
 module.exports.loop = function () {
 	console.log("本轮" + Game.time + "-------------------------------------")
 	// console.log(Game.resources)
@@ -43,7 +45,7 @@ module.exports.loop = function () {
 
 		// 挖取分离----------
 		if (creep.memory.role == 'com_harvester_E54N12_47_38') {
-			com_harvester.run(creep, "E54N12", 46, 37);
+			com_harvester.run(creep, "E54N12");
 		}
 		if (creep.memory.role == 'com_builder_E54N12_E54N12') {
 			com_comprehensive.run(creep,"E54N12","E54N12", 2);

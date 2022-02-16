@@ -1,11 +1,9 @@
 var com_Harvester = {
 
 	/** @param {Creep} creep 单纯采集资源的creep
-	 * @param roomName 所在房间名
-	 * @param x 房间x坐标
-	 * @param y 房间y坐标
+	 * @param roomName 所在房间名(自动扫描房间资源并产出)
 	 */
-	run: function (creep, roomName, x, y) {
+	run: function (creep, roomName) {
 		if (creep.store.getFreeCapacity() == 0) {
 			creep.drop(RESOURCE_ENERGY)
 		} else {

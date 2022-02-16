@@ -16,7 +16,7 @@ var powermove=require('role.power');
 var movehomepower=require('role.movehomepower')
 
 var runRole = {
-    run: function(creep){ 
+    run: function(creep){
         //run role
         if(creep.memory.role == 'harvester') {
             runcreeprole(roleHarvester,creep)
@@ -59,15 +59,15 @@ var runRole = {
         }
         if(creep.memory.role == 'outclaimer'){
             runcreeprole(roleOutclaimer,creep)
-        }   
+        }
         if(creep.memory.role == 'dh'){
-            runcreeprole(dpharvest,creep) 
-        }    
+            runcreeprole(dpharvest,creep)
+        }
         if(creep.memory.role=='pt'){
             powermove.atrun(creep);
         }
         if(creep.memory.role=='hpt'){
-            powermove.ahrun(creep);   
+            powermove.ahrun(creep);
         }
         if(creep.memory.role=='pm'){
             powermove.powerm(creep);
@@ -77,7 +77,7 @@ var runRole = {
 module.exports = runRole;
 function runcreeprole(role,creep){
     try{
-        role.run(creep)
+        role.run()
     }catch(err){
         console.log(err.stack)
     }
