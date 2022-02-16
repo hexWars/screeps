@@ -16,7 +16,7 @@ var initCreeps = {
 		//------------------------------------------------------------纯搬运
 		//------------------------------------------------------------xxxxxxxxxxxxxxxxxxxxxxx
 		//todo 挖运分离
-		arr.push(comCreepBirth.run("com_builder_E54N12_E54N12", 2, [WORK, CARRY, CARRY, MOVE, MOVE, MOVE]))
+		arr.push(comCreepBirth.run("com_builder_E54N12_E54N12", 3, [WORK, CARRY, CARRY, MOVE, MOVE, MOVE]))
 		arr.push(comCreepBirth.run("com_harvester_E54N12_E54N12", 1, [WORK, CARRY, CARRY, MOVE, MOVE, MOVE]))
 
 		arr.push(creepBirth.run("com_E54N12_energy", 1, [WORK, MOVE, WORK, WORK, WORK, WORK, CARRY]))

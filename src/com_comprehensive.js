@@ -51,9 +51,11 @@ var com_comprehensive = {
 	harvester: function (creep, toRoomName) {
 		var targets = Game.rooms[toRoomName].find(FIND_STRUCTURES, {
 			filter: (structure) => {
-				// 是母巢或者拓展或者塔
+				// 母巢,拓展,塔,小容器,大容器
 				return (structure.structureType == STRUCTURE_EXTENSION ||
 						structure.structureType == STRUCTURE_SPAWN ||
+						structure.structureType == STRUCTURE_STORAGE ||
+						structure.structureType== STRUCTURE_CONTAINER ||
 						structure.structureType == STRUCTURE_TOWER) &&
 					structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 			}

@@ -13,7 +13,7 @@ var creepsBirth = {
 			// console.log(roleName + "创建" + ex)
 			return false;
 		}
-		console.log(roleName + "到了规定数量")
+		console.log(roleName + "达到了规定数量")
 		return true;
 	}
 };
