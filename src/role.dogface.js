@@ -1,4 +1,4 @@
-var roleRider = {
+var roleDogface = {
 
 	/** @param {Creep} creep *
 	 * @param target 目标
@@ -8,4 +8,4 @@ var roleRider = {
 	}
 };
 
-module.exports = roleRider;
+module.exports = roleDogface;

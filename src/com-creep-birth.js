@@ -9,7 +9,7 @@ var creepsBirth = {
 		let creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
 		if (creepsNum.length < limitNum) {// 没有到规定数量
 			var newName = roleName + Game.time;
-			let ex = Game.spawns['Spawn1'].spawnCreep(body, newName, {memory: {role: roleName}})
+			let ex = Game.spawns['Spawn1'].spawnCreep(body, newName, {memory: {role: roleName, pick: true}})
 			// console.log(roleName + "创建" + ex)
 			return false;
 		}
