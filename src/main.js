@@ -5,8 +5,8 @@ var initCreeps = require('initcreeps')
 var war = require('war')
 
 // todo 测试挖取分离
-var role_harvester = require('role_harvester')
-var role_comprehensive = require('role_comprehensive')
+var com_harvester = require('com_harvester')
+var com_comprehensive = require('com_comprehensive')
 
 
 // Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'Harvester1' );
@@ -42,14 +42,14 @@ module.exports.loop = function () {
 		let creep = Game.creeps[name];
 
 		// 挖取分离----------
-		if (creep.memory.role == 'role_harvester') {
-			role_harvester.run(creep, "E54N12", 47, 38);
+		if (creep.memory.role == 'com_harvester_E54N12_47_38') {
+			com_harvester.run(creep, "E54N12", 46, 37);
 		}
 		if (creep.memory.role == 'com_builder_E54N12_E54N12') {
-			role_comprehensive.run(creep,"E54N12","E54N12", 2);
+			com_comprehensive.run(creep,"E54N12","E54N12", 2);
 		}
 		if (creep.memory.role == 'com_harvester_E54N12_E54N12') {
-			role_comprehensive.run(creep,"E54N12","E54N12", 1);
+			com_comprehensive.run(creep,"E54N12","E54N12", 1);
 		}
 		// 挖取分离----------
 

@@ -1,4 +1,4 @@
-var role_Comprehensive = {
+var com_comprehensive = {
 
 	/** @param {Creep} creep 单纯采集资源的creep
 	 * @param roomName 房间名
@@ -35,9 +35,9 @@ var role_Comprehensive = {
 					creep.memory.pick = true
 				}
 				if (type == 1) {
-					role_Comprehensive.harvester(creep,toRoomName)
+					com_comprehensive.harvester(creep,toRoomName)
 				} else if (type == 2) {
-					role_Comprehensive.builder(creep)
+					com_comprehensive.builder(creep)
 				} else {
 					console.log("异常1")
 				}
@@ -78,4 +78,4 @@ var role_Comprehensive = {
 	}
 };
 
-module.exports = role_Comprehensive;
+module.exports = com_comprehensive;
