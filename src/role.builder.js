@@ -15,8 +15,13 @@ var roleBuilder = {
 		if (creep.memory.building) {
 			// FIND_MY_CONSTRUCTION_SITES 所有属于您的建筑地
 			var targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
+			// console.log("----------")
+			// for (let i=0; i<targets.length; i++) {
+			// 	console.log(targets[i].pos)
+			// }
 			if (targets.length > 0) {
 				if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+					// creep.say("正在前往目标")
 					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
 				}
 			}

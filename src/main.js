@@ -22,6 +22,8 @@ var war = require('war')
 // todo 掉落物品
 // todo Container 专门储存能量
 module.exports.loop = function () {
+	console.log("本轮" + Game.time + "-------------------------------------")
+	// console.log(Game.resources)
 	for (let name in Memory.creeps) {
 		// 还在内存中需要清除
 		if (!Game.creeps[name]) {
@@ -73,5 +75,7 @@ module.exports.loop = function () {
 			rolePosUpgrader.run(creep, "E54N13", Game.rooms["E54N12"].controller);
 		}
 	}
-
+	console.log("Game.cpu.getUsed(): " + Game.cpu.getUsed())
+	console.log("tickLimit: " + Game.cpu.tickLimit)
+	console.log("bucket: " + Game.cpu.bucket)
 }

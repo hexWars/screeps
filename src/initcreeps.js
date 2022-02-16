@@ -11,23 +11,29 @@ var initCreeps = {
 		//------------------------------------------------------------削弱版
 		arr.push(creepBirth.run("harvesterE54N12toE54N12", 1, [WORK, CARRY, MOVE, WORK]))
 		//------------------------------------------------------------增强版
-		creepBirth.run("harvesterE54N12toE54N12", 0, [WORK, CARRY, MOVE, WORK, WORK]);
-		//------------------------------------------------------------纯收割
-		creepBirth.run("harvester-E54N12-x47-y38", 0, [WORK, MOVE, WORK, WORK]);
-		//------------------------------------------------------------纯搬运
-		creepBirth.run("harvester-E54N12-x47-y38", 0, [WORK, MOVE, WORK, WORK]);
+		// creepBirth.run("harvesterE54N12toE54N12", 0, [WORK, CARRY, MOVE, WORK, WORK]);
+		// //------------------------------------------------------------纯收割
+		// creepBirth.run("harvester_E54N12_x47_y38", 0, [WORK, MOVE, WORK, WORK]);
+		// //------------------------------------------------------------纯搬运
+		// creepBirth.run("harvester_E54N12_x47_y38", 0, [WORK, MOVE, WORK, WORK]);
 		//------------------------------------------------------------
-		for (let i = 0; i < arr.length; i++) {
-			if (arr[i] == false) {
-				flag = false; break;
-			}
-		}
+		// console.log("--以下为第一优先级的所有内容")
+		// for (let i = 0; i < arr.length; i++) {
+		// 	console.log(arr[i])
+		// 	if (arr[i] == false) {
+		// 		flag = false;
+		// 	}
+		// }
+		console.log("第一优先级" + flag)
 		//------------------------------------------------------------todo 优先级第二
-		if (flag) {
+		if (flag) {//如果flag是true,上面准备生产的会被覆盖
+			console.log("第二优先级进行中")
 			//------------------------------------------------------------
 			creepBirth.run("harvesterE54N11toE54N12", 0, [WORK, CARRY, MOVE]);
 			//------------------------------------------------------------
 			creepBirth.run("upgraderE54N12toE54N12", 0, [WORK, CARRY, MOVE, CARRY, MOVE]);
+			//------------------------------------------------------------
+			//todo 重要的放下面,不重要的放上面,因为会覆盖
 			//------------------------------------------------------------
 			creepBirth.run("upgraderE54N11toE54N12", 5, [WORK, CARRY, MOVE, CARRY, MOVE]);
 			//------------------------------------------------------------
@@ -37,6 +43,7 @@ var initCreeps = {
 			//------------------------------------------------------------
 			creepBirth.run("upgraderE54N13toE54N12", 5, [WORK, CARRY, MOVE, CARRY, MOVE]);
 			//------------------------------------------------------------
+
 		}
 
 
