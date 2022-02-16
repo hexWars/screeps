@@ -36,6 +36,8 @@ module.exports.loop = function () {
 		}
 	}
 
+	// tower.run("620ccdfa3bbc39a25d04bd45")
+
 	initCreeps.run();
 
 	// war.run();
@@ -44,7 +46,7 @@ module.exports.loop = function () {
 		let creep = Game.creeps[name];
 
 		// 挖取分离----------
-		if (creep.memory.role == 'com_harvester_E54N12_47_38') {
+		if (creep.memory.role == 'com_E54N12_energy' || "com_harvester_E54N12_47_3835930583" == creep.memory.role) {
 			com_harvester.run(creep, "E54N12");
 		}
 		if (creep.memory.role == 'com_builder_E54N12_E54N12') {
@@ -81,6 +83,9 @@ module.exports.loop = function () {
 		}
 		if (creep.memory.role == 'upgraderE54N13toE54N12') {//
 			rolePosUpgrader.run(creep, "E54N13", Game.rooms["E54N12"].controller);
+		}
+		if (creep.memory.role == 'upgraderE55N11toE54N12') {//
+			rolePosUpgrader.run(creep, "E55N11", Game.rooms["E54N12"].controller);
 		}
 	}
 	console.log("Game.cpu.getUsed(): " + Game.cpu.getUsed())

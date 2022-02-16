@@ -13,8 +13,9 @@ var harvester = {
 				}
 			} else {
 				const exitDir = creep.room.findExitTo(Game.rooms[roomName]);// 找到通往另一个房间的出口方向
+				// console.log(exitDir)
 				const exit = creep.pos.findClosestByRange(exitDir);// 查找到该位置线性距离最短的对象
-				creep.moveTo(exit);
+				creep.moveTo(exit, {visualizePathStyle: {stroke: '#ffaa00'}});
 			}
 		} else {// 返回房间
 			var targets = Game.rooms[toRoomName].find(FIND_STRUCTURES, {

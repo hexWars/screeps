@@ -7,7 +7,7 @@ var com_comprehensive = {
 	 * 采取随机维护的方式
 	 */
 	run: function (creep, roomName, toRoomName, type) {
-
+		// creep.memory.pick = true
 		if (creep.memory.pick) {// 去
 			if (Game.rooms[roomName] == creep.room) {// 相同房间
 				//todo 捡资源
@@ -15,8 +15,8 @@ var com_comprehensive = {
 					creep.memory.pick = false
 				} else {// 可以装
 					var targets = creep.room.find(FIND_DROPPED_RESOURCES);
-					if(targets.length > 0) {
-						creep.moveTo(targets[0]);
+					if (targets.length > 0) {
+						creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffaa00'}});
 						creep.pickup(targets[0]);
 					} else {
 						console.log(creep.name + "未发现资源")
@@ -26,7 +26,7 @@ var com_comprehensive = {
 			} else {// 不同房间
 				const exitDir = creep.room.findExitTo(Game.rooms[roomName]);// 找到通往另一个房间的出口方向
 				const exit = creep.pos.findClosestByRange(exitDir);// 查找到该位置线性距离最短的对象
-				creep.moveTo(exit);
+				creep.moveTo(exit, {visualizePathStyle: {stroke: '#ffaa00'}});
 			}
 		} else {// 回
 			if (Game.rooms[roomName] == creep.room) {// 相同房间
@@ -35,7 +35,7 @@ var com_comprehensive = {
 					creep.memory.pick = true
 				}
 				if (type == 1) {
-					com_comprehensive.harvester(creep,toRoomName)
+					com_comprehensive.harvester(creep, toRoomName)
 				} else if (type == 2) {
 					com_comprehensive.builder(creep)
 				} else {
@@ -44,7 +44,7 @@ var com_comprehensive = {
 			} else {// 不同房间
 				const exitDir = creep.room.findExitTo(Game.rooms[toRoomName]);// 找到通往另一个房间的出口方向
 				const exit = creep.pos.findClosestByRange(exitDir);// 查找到该位置线性距离最短的对象
-				creep.moveTo(exit);
+				creep.moveTo(exit,{visualizePathStyle: {stroke: '#ffaa00'}});
 			}
 		}
 	},
@@ -71,9 +71,10 @@ var com_comprehensive = {
 		var targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
 		if (targets.length > 0) {
 			if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-				// creep.say("正在前往目标")
 				creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
 			}
+		} else {
+			console.log("没有找到建筑地")
 		}
 	}
 };

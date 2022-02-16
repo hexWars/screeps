@@ -11,7 +11,7 @@ var tower = {
 			});
 			if (closestDamagedStructure) {
 				// repair 远程维修房间里的任意建筑
-				tower.repair(closestDamagedStructure);
+				tower.repair(closestDamagedStructure[0]);
 			}
 
 			// FIND_HOSTILE_CREEPS 寻找敌对creeps(最近的)
