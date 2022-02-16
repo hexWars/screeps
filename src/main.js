@@ -26,9 +26,11 @@ var tower = require('tower')
 // todo 优先级问题(半解决)
 // todo 掉落物品(半解决)
 // todo Container 专门储存能量(在建)
+// todo 警报状态(没有刷资源的creep的话)
 module.exports.loop = function () {
 	console.log("本轮" + Game.time + "-------------------------------------")
 	// console.log(Game.resources)
+	let com_h_num = 0;
 	for (let name in Memory.creeps) {
 		// 还在内存中需要清除
 		if (!Game.creeps[name]) {
