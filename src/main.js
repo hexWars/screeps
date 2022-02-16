@@ -2,6 +2,7 @@ var rolePosHarvester = require('role.posHarvester');
 var rolePosUpgrader = require('role.posUpgrader');
 var roleBuilder = require('role.builder');
 var initCreeps = require('initcreeps')
+var roleDogface = require('role.dogface')
 var war = require('war')
 
 // todo 测试挖取分离
@@ -26,7 +27,7 @@ var tower = require('tower')
 // todo 优先级问题(半解决)
 // todo 掉落物品(半解决)
 // todo Container 专门储存能量(在建)
-// todo 警报状态(没有刷资源的creep的话)
+// todo 全局捡漏
 module.exports.loop = function () {
 	console.log("本轮" + Game.time + "-------------------------------------")
 	// console.log(Game.resources)
@@ -88,6 +89,11 @@ module.exports.loop = function () {
 		}
 		if (creep.memory.role == 'upgraderE55N11toE54N12') {//
 			rolePosUpgrader.run(creep, "E55N11", Game.rooms["E54N12"].controller);
+		}
+
+		// 攻击+++
+		if (creep.memory.role == 'dogfaceE54N12') {
+			roleDogface.run(creep, "E54N12");
 		}
 	}
 	console.log("Game.cpu.getUsed(): " + Game.cpu.getUsed())
