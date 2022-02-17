@@ -15,11 +15,12 @@ class StructStorage extends StructBase {
       avoidList: [
         AVOID_LIST[LOOK_SOURCES],
         AVOID_LIST[STRUCTURE_ROAD],
-        new AvoidStructure(STRUCTURE_SPAWN, { range: 3 }),
-        new AvoidStructure(STRUCTURE_CONTROLLER, { range: 3 }),
+        new AvoidStructure(STRUCTURE_SPAWN, {range: 3}),
+        new AvoidStructure(STRUCTURE_CONTROLLER, {range: 3}),
       ],
     });
   }
+
   buildInRoom(room) {
     super.buildInRoom(room);
 
@@ -43,11 +44,11 @@ class StructStorage extends StructBase {
     room.memory.storageId = res && res.length ? res[0].id : undefined;
   }
 
-  *getBuildingPointsOfInterests(room) {
+  * getBuildingPointsOfInterests(room) {
     if (room.controller) {
       yield room.controller;
     }
-    let s = room.find(FIND_MY_STRUCTURES, { filter: (s) => s.type === STRUCTURE_SPAWN });
+    let s = room.find(FIND_MY_STRUCTURES, {filter: (s) => s.type === STRUCTURE_SPAWN});
     for (let i = 0; i < s.length; i++) {
       yield s[i];
     }

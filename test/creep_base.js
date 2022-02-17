@@ -1,0 +1,4 @@
+
+class Creep_base {
+	
+}

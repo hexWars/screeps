@@ -10,21 +10,21 @@ var initCreeps = {
 		//------------------------------------------------------------todo 优先级最高
 		// arr.push(creepBirth.run("builder", 0, [WORK, CARRY, MOVE, WORK]))
 		//------------------------------------------------------------削弱版(临时)
-		arr.push(creepBirth.run("harvesterE54N11toE54N12", 3, [WORK, CARRY, CARRY, MOVE, MOVE]))
+		arr.push(creepBirth.run("harvesterE54N11toE54N12", 2, [WORK, CARRY, CARRY, MOVE, MOVE]))
 		arr.push(creepBirth.run("harvesterE54N12toE54N12", 1, [WORK, WORK, CARRY, MOVE]))
 		// ------------------------------------------------------------纯收割
 
 		//------------------------------------------------------------纯搬运
 		//------------------------------------------------------------xxxxxxxxxxxxxxxxxxxxxxx
 		//todo 挖运分离
-		arr.push(comCreepBirth.run("com_builder_E54N12_E54N12", 2, [WORK, CARRY, CARRY, MOVE, MOVE]))
+		arr.push(comCreepBirth.run("com_builder_E54N12_E54N12", 3, [WORK, CARRY, CARRY, MOVE, MOVE]))
 		arr.push(comCreepBirth.run("com_harvester_E54N12_E54N12", 1, [WORK, CARRY, CARRY, MOVE, MOVE]))
 
-		arr.push(creepBirth.run("com_E54N12_energy", 1, [WORK, MOVE, WORK, WORK, WORK, WORK, WORK, CARRY]))
+		arr.push(creepBirth.run("com_E54N12_energy", 1, [WORK, MOVE, WORK, WORK, WORK, WORK, CARRY]))
 
 		//------------------------------------------------------------
 		// 修路
-		arr.push(creepBirth.run("repair_road_E54N12", 1, [WORK, CARRY, CARRY, MOVE, MOVE]))
+		arr.push(creepBirth.run("repair_road_E54N12", 0, [WORK, CARRY, CARRY, MOVE, MOVE]))
 
 		for (let i = 0; i < arr.length; i++) {
 			if (arr[i] == false) {
@@ -52,9 +52,9 @@ var initCreeps = {
 			//------------------------------------------------------------
 			creepBirth.run("upgraderE55N11toE54N12", 6, [WORK, CARRY, MOVE, CARRY, MOVE]);
 			//------------------------------------------------------------
-			creepBirth.run("dogfaceE54N12", 5, [ATTACK, ATTACK, ATTACK, MOVE, MOVE]);
+			creepBirth.run("dogfaceE54N12", 3, [ATTACK, ATTACK, ATTACK, MOVE, MOVE]);
 			//------------------------------------------------------------
-			creepBirth.run("vessel_con_E54N12", 2, [WORK, CARRY, MOVE, CARRY, MOVE]);
+			creepBirth.run("vessel_con_E54N12", 0, [WORK, CARRY, MOVE, CARRY, MOVE]);
 		}
 
 
