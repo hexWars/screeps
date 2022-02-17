@@ -3,6 +3,8 @@ var rolePosUpgrader = require('role.posUpgrader');
 var roleBuilder = require('role.builder');
 var initCreeps = require('initcreeps')
 var roleDogface = require('role.dogface')
+var role_vessel_builder = require('role_vessel_builder')
+var role_repair_road = require('role_repair_road')
 var war = require('war')
 
 // todo 测试挖取分离
@@ -39,7 +41,7 @@ module.exports.loop = function () {
 		}
 	}
 
-	// tower.run("620ccdfa3bbc39a25d04bd45")
+	tower.run("620d4e8351da53fd9193b024")
 
 	initCreeps.run();
 
@@ -94,6 +96,16 @@ module.exports.loop = function () {
 		// 攻击+++
 		if (creep.memory.role == 'dogfaceE54N12') {
 			roleDogface.run(creep, "E54N12");
+		}
+
+		// 从con建筑
+		if (creep.memory.role == 'vessel_con_E54N12') {
+			role_vessel_builder.run(creep,"E54N12")
+		}
+
+		// 修路
+		if (creep.memory.role == 'repair_road_E54N12') {
+			role_repair_road.run(creep, "E54N12");
 		}
 	}
 	console.log("Game.cpu.getUsed(): " + Game.cpu.getUsed())
