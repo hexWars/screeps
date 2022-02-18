@@ -8,11 +8,91 @@
 
 //todo 采运分离(采资源,运资源)
 //todo 修路(和其他建筑,可以),资源采运(矿物采运等),建造,升级
+
+// 把所有的取和拿放到俩函数中
 let Creep_base = {
 	//todo 专门1creep维护建筑
 	//todo 优先级的确定
 	//todo 如果单独的快死了就新增
 	//todo 如果被攻击就攻击回去
+	/**
+	 * 递归
+	 * arr_type允许 container,controller
+	 * 从creep传给建筑
+	 */
+	dfs_transfer_structure: function (creep, arr_type, x, len) {
+		if (x == len) {
+			return
+		}
+		if (arr_type[x] === STRUCTURE_CONTROLLER) {
+			var sources = creep.room.controller;
+			if (sources) {
+				if (creep.upgradeController(sources) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(sources, {visualizePathStyle: {stroke: '#ffaa00'}});
+				}
+			} else {
+				this.dfs_transfer_structure(creep, arr_type, x + 1, len)
+			}
+		} else if (arr_type[x] === STRUCTURE_RAMPART) {
+			var sources = creep.room.find(FIND_MY_STRUCTURES, {
+				filter: function (obj) {
+					return obj.structureType === STRUCTURE_RAMPART && obj.hits < 1000;
+				}
+			})
+			if (sources.length > 0) {
+				creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffffff'}});
+				creep.repair(sources[0]);
+			} else {
+				this.dfs_transfer_structure(creep, arr_type, x + 1, len)
+			}
+		} else if (arr_type[x] === STRUCTURE_WALL) {
+			var sources = creep.room.find(FIND_MY_STRUCTURES, {
+				filter: function (obj) {
+					return obj.structureType === STRUCTURE_WALL && obj.hits < 1000;
+				}
+			})
+			if (sources.length > 0) {
+				creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffffff'}});
+				creep.repair(sources[0]);
+			} else {
+				this.dfs_transfer_structure(creep, arr_type, x + 1, len)
+			}
+		} else {
+			var sources = creep.room.find(FIND_MY_STRUCTURES, {
+				filter: function (obj) {
+					return obj.structureType === arr_type[x];
+				}
+			})
+			if (sources.length > 0) {
+				if (creep.transfer(sources[0]) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+				}
+			} else {
+				this.dfs_transfer_structure(creep, arr_type, x + 1, len)
+			}
+		}
+	},
+	/**
+	 * 从建筑中取出
+	 *
+	 */
+	dfs_withdraw_structure: function (creep, arr_type, x, len) {
+		if (x == len) {
+			return
+		}
+		var sources = creep.room.find(FIND_MY_STRUCTURES, {
+			filter: function (obj) {
+				return obj.structureType === arr_type[x];
+			}
+		})
+		if (sources.length > 0) {
+			if (creep.upgradeController(sources[0]) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+			}
+		} else {
+			this.dfs_withdraw_structure(creep, arr_type, x + 1, len)
+		}
+	},
 	/**
 	 * 如果小于200就新增,包括优先级问题
 	 */
@@ -22,7 +102,7 @@ let Creep_base = {
 	/**
 	 * 如果被攻击就攻击回去
 	 */
-	attack_to_attack:function (creep) {
+	attack_to_attack: function (creep) {
 
 	},
 	/**
@@ -38,14 +118,30 @@ let Creep_base = {
 	creep_body: function (work, move, carry, attack, ranged_attack, heal, claim, tough) {
 		let body = []
 		let i
-		for (i=0; i<work; i++) {body.push(WOEK)}
-		for (i=0; i<move; i++) {body.push(MOVE)}
-		for (i=0; i<carry; i++) {body.push(CARRY)}
-		for (i=0; i<attack; i++) {body.push(ATTACK)}
-		for (i=0; i<ranged_attack; i++) {body.push(RANGED_ATTACK)}
-		for (i=0; i<heal; i++) {body.push(HEAL)}
-		for (i=0; i<claim; i++) {body.push(CLAIM)}
-		for (i=0; i<tough; i++) {body.push(TOUGH)}
+		for (i = 0; i < work; i++) {
+			body.push(WOEK)
+		}
+		for (i = 0; i < move; i++) {
+			body.push(MOVE)
+		}
+		for (i = 0; i < carry; i++) {
+			body.push(CARRY)
+		}
+		for (i = 0; i < attack; i++) {
+			body.push(ATTACK)
+		}
+		for (i = 0; i < ranged_attack; i++) {
+			body.push(RANGED_ATTACK)
+		}
+		for (i = 0; i < heal; i++) {
+			body.push(HEAL)
+		}
+		for (i = 0; i < claim; i++) {
+			body.push(CLAIM)
+		}
+		for (i = 0; i < tough; i++) {
+			body.push(TOUGH)
+		}
 		return body
 	},
 	/**
