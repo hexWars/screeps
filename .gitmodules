@@ -1,6 +1,0 @@
-[submodule "study3/my-screeps"]
-	path = study3/my-screeps
-	url = https://gitee.com/wwwxd/my-screeps.git
-[submodule "study3/a-screeps-ai"]
-	path = study3/a-screeps-ai
-	url = https://gitee.com/liu1zhi2/a-screeps-ai.git
