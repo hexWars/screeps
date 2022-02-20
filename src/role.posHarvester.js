@@ -18,25 +18,50 @@ var harvester = {
 				creep.moveTo(exit, {visualizePathStyle: {stroke: '#ffaa00'}});
 			}
 		} else {// 返回房间
-			var targets = Game.rooms[toRoomName].find(FIND_STRUCTURES, {
+			var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					// 母巢,拓展,塔,小容器,大容器
-					return (structure.structureType == STRUCTURE_EXTENSION ||
-							structure.structureType == STRUCTURE_SPAWN ||
-							structure.structureType == STRUCTURE_STORAGE ||
-							structure.structureType== STRUCTURE_CONTAINER ||// todo 需要修改逻辑
-							structure.structureType == STRUCTURE_TOWER) &&
+					return (structure.structureType == STRUCTURE_EXTENSION) &&
 						structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 				}
 			});
-			if (targets.length > 0) {
-				if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+			if (target) {
+				if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
 				}
 			} else {
-				creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
-				creep.say("无目标")
+				target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+					filter: (structure) => {
+						// 母巢,拓展,塔,小容器,大容器
+						return (structure.structureType === STRUCTURE_STORAGE) &&
+							structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+					}
+				});
+				if (target) {
+					if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+						creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+					}
+				}
 			}
+			// var targets = Game.rooms[toRoomName].find(FIND_STRUCTURES, {
+			// 	filter: (structure) => {
+			// 		// 母巢,拓展,塔,小容器,大容器
+			// 		return (structure.structureType == STRUCTURE_EXTENSION ||
+			// 				// structure.structureType == STRUCTURE_SPAWN ||
+			// 				structure.structureType == STRUCTURE_STORAGE ||
+			// 				structure.structureType== STRUCTURE_CONTAINER ||// todo 需要修改逻辑
+			// 				structure.structureType == STRUCTURE_TOWER) &&
+			// 			structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+			// 	}
+			// });
+			// if (targets.length > 0) {
+			// 	if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+			// 		creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+			// 	}
+			// } else {
+			// 	creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+			// 	creep.say("无目标")
+			// }
 		}
 	}
 };

@@ -6,6 +6,8 @@ var roleDogface = require('role.dogface')
 var role_vessel_builder = require('role_vessel_builder')
 var role_repair_road = require('role_repair_road')
 var war = require('war')
+var role_new_com = require('new_com')
+var role_fix = require('fix_str')
 
 // todo 测试挖取分离
 var com_harvester = require('com_harvester')
@@ -131,8 +133,15 @@ module.exports.loop = function () {
 		if (creep.memory.role == 'repair_road_E54N12') {
 			role_repair_road.run(creep, "E54N12");
 		}
+
+		if (creep.memory.role == 'fix_str') {
+			role_fix.run(creep)
+		}
 	}
 	console.log("Game.cpu.getUsed(): " + Game.cpu.getUsed())
 	console.log("tickLimit: " + Game.cpu.tickLimit)
 	console.log("bucket: " + Game.cpu.bucket)
+	if (Game.cpu.bucket === 10000) {
+		Game.cpu.generatePixel();
+	}
 }

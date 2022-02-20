@@ -11,7 +11,7 @@ var roleVesselBuilder = {
 					filter: (structure) => {
 						// 母巢,拓展,塔,小容器,大容器
 						return (
-								structure.structureType== STRUCTURE_CONTAINER
+								structure.structureType === STRUCTURE_STORAGE
 								) &&
 							structure.store.getCapacity(RESOURCE_ENERGY) > 0;
 					}

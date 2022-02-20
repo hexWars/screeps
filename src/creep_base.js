@@ -9,8 +9,6 @@
 //todo 采运分离(采资源,运资源)
 //todo 修路(和其他建筑,可以),资源采运(矿物采运等),建造,升级
 
-//todo 依旧先使用内存轮询的方案
-
 // 把所有的取和拿放到俩函数中
 let Creep_base = {
 	//todo 专门1creep维护建筑
@@ -144,7 +142,6 @@ let Creep_base = {
 		for (i = 0; i < tough; i++) {
 			body.push(TOUGH)
 		}
-		console.log(body)
 		return body
 	},
 	/**
@@ -158,11 +155,13 @@ let Creep_base = {
 	 */
 	creep_to_room: function (creep, roomName, opts = {visualizePathStyle: {stroke: '#ffaa00'}}) {
 		if (creep.room == Game.rooms[roomName]) {
+			console.log("7788")
 			return true
 		} else {
 			const exitDir = creep.room.findExitTo(roomName);// 找到通往另一个房间的出口方向
 			const exit = creep.pos.findClosestByRange(exitDir);// 查找到该位置线性距离最短的对象
 			creep.moveTo(exit, opts);
+			console.log("44")
 			return false
 		}
 

@@ -18,7 +18,7 @@ module.exports.loop = function () {
 	let s_creeps = []
 	let sign = 3;//多少优先级
 	let creep
-	for (let i=0; i<sign; i++) { s_creeps.push([]) }//todo 想一个办法把信息录入队列
+	for (let i=0; i<sign; i++) { s_creeps.push([]) }//todo 想一个办法把信息录入队列,并且更改索引值?因为需要具体查看情况
 	for (let name in Memory.creeps) {
 		// creep, 物品, roomName, [地点], [opts], toRoomName ,[地点], [opts]
 		// 地点: 优先级:spawn>extension>tower>

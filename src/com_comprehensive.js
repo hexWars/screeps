@@ -9,9 +9,9 @@ var com_comprehensive = {
 	run: function (creep, roomName, toRoomName, type) {
 		// creep.memory.pick = true
 		if (creep.memory.pick) {// 去
-			if (Game.rooms[roomName] == creep.room) {// 相同房间
+			if (Game.rooms[roomName] === creep.room) {// 相同房间
 				//todo 捡资源
-				if (creep.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {// 装不下
+				if (creep.store.getFreeCapacity(RESOURCE_ENERGY) === 0) {// 装不下
 					creep.memory.pick = false
 				} else {// 可以装
 					var targets = creep.room.find(FIND_DROPPED_RESOURCES);
@@ -29,9 +29,9 @@ var com_comprehensive = {
 				creep.moveTo(exit, {visualizePathStyle: {stroke: '#ffaa00'}});
 			}
 		} else {// 回
-			if (Game.rooms[roomName] == creep.room) {// 相同房间
+			if (Game.rooms[roomName] === creep.room) {// 相同房间
 				//todo 放资源
-				if (creep.store[RESOURCE_ENERGY] == 0) {// 资源放到0了
+				if (creep.store[RESOURCE_ENERGY] === 0) {// 资源放到0了
 					creep.memory.pick = true
 				}
 				if (type == 1) {
@@ -49,25 +49,50 @@ var com_comprehensive = {
 		}
 	},
 	harvester: function (creep, toRoomName) {
-		var targets = Game.rooms[toRoomName].find(FIND_STRUCTURES, {
+		var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				// 母巢,拓展,塔,小容器,大容器
-				return (structure.structureType == STRUCTURE_EXTENSION ||
-						structure.structureType == STRUCTURE_SPAWN ||
-						structure.structureType == STRUCTURE_STORAGE ||
-						structure.structureType== STRUCTURE_CONTAINER ||
-						structure.structureType == STRUCTURE_TOWER) &&
+				return (structure.structureType == STRUCTURE_EXTENSION) &&
 					structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 			}
 		});
-		if (targets.length > 0) {
-			if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+		if (target) {
+			if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
 			}
 		} else {
-			creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
-			creep.say("无目标")
+			target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+				filter: (structure) => {
+					// 母巢,拓展,塔,小容器,大容器
+					return (structure.structureType === STRUCTURE_STORAGE) &&
+						structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+				}
+			});
+			if (target) {
+				if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+				}
+			}
 		}
+		// var targets = Game.rooms[toRoomName].find(FIND_STRUCTURES, {
+		// 	filter: (structure) => {
+		// 		// 母巢,拓展,塔,小容器,大容器
+		// 		return (structure.structureType == STRUCTURE_EXTENSION ||
+		// 				// structure.structureType == STRUCTURE_SPAWN ||
+		// 				structure.structureType == STRUCTURE_STORAGE ||
+		// 				structure.structureType== STRUCTURE_CONTAINER ||
+		// 				structure.structureType == STRUCTURE_TOWER) &&
+		// 			structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+		// 	}
+		// });
+		// if (targets.length > 0) {
+		// 	if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+		// 		creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+		// 	}
+		// } else {
+		// 	creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+		// 	creep.say("无目标")
+		// }
 	},
 	builder: function (creep) {
 		var targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
