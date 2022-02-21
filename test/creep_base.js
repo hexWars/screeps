@@ -17,6 +17,56 @@ let Creep_base = {
 	//todo 优先级的确定
 	//todo 如果单独的快死了就新增
 	//todo 如果被攻击就攻击回去
+
+	/**
+	 * 搬运
+	 * @param creep
+	 * @param obj1 取出的对象
+	 * @param obj2 存放的对象
+	 * @param opts
+	 */
+	creep_get_en: function (creep, obj1, obj2, opts = {reusePath: 10, visualizePathStyle: {stroke: '#ffaa00'}}) {
+
+	},
+	/**
+	 * 使用
+	 * @param creep
+	 * @param obj1 取出的对象
+	 * @param obj2 使用的对象
+	 * @param opts
+	 */
+	creep_use_en: function (creep, obj1, obj2, opts = {reusePath: 10, visualizePathStyle: {stroke: '#ffaa00'}}) {
+		if (creep.store.getFreeCapacity() > 0) {// 有余量
+			if (creep.withdraw(obj1) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(obj1, opts)
+			}
+			if(creep.withdraw(obj1, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(obj1, opts);
+			}
+		} else {
+			if (creep.transfer(obj2, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(obj2, opts);
+			}
+		}
+	},
+	/**
+	 * 采集
+	 * @param creep
+	 * @param obj1 资源对象
+	 * @param obj2 存储对象
+	 * @param opts
+	 */
+	creep_harvest_en: function (creep, obj1, obj2, opts = {reusePath: 10, visualizePathStyle: {stroke: '#ffaa00'}}) {
+		if (creep.store.getFreeCapacity() > 0) {// 有余量
+			if (creep.harvest(obj1) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(obj1, opts)
+			}
+		} else {
+			if (creep.transfer(obj2, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(obj2, opts);
+			}
+		}
+	},
 	/**
 	 * 递归
 	 * arr_type允许 container,controller

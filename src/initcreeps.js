@@ -10,7 +10,6 @@ var initCreeps = {
 		//------------------------------------------------------------todo 优先级最高
 		// arr.push(creepBirth.run("builder", 0, [WORK, CARRY, MOVE, WORK]))
 		//------------------------------------------------------------削弱版(临时)
-		arr.push(creepBirth.run("harvesterE54N11toE54N12", 2, [WORK, CARRY, CARRY, MOVE, MOVE]))
 
 		// ------------------------------------------------------------纯收割
 
@@ -59,6 +58,9 @@ var initCreeps = {
 			creepBirth.run("vessel_con_E54N12", 0, [WORK, CARRY, MOVE, CARRY, MOVE]);
 			//------------------------------------------------------------
 			creepBirth.run("fix_str", 1, [WORK, CARRY, MOVE, CARRY, MOVE]);
+
+			creepBirth.run("harvesterE54N11toE54N12", 2, [WORK, CARRY, CARRY, MOVE, MOVE])
+
 
 		}
 

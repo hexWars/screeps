@@ -1,36 +1,31 @@
 let game_prototype = require('game_prototype')
 let creep_base = require('creep_base')
 let com_harvester = require('com_harvester')
+let room_prototype = require('room_prototype')
 
 
 module.exports.loop = function () {
 	console.log("本轮" + Game.time + "----------------------------------------")
 
-	for (let name in Memory.creeps) {
-		if (!Game.creeps[name]) {
-			delete Memory.creeps[name];// 清除内存
-		}
+	if (Game.time%3 == 0) {
+		game_prototype.gc_name();
 	}
+
 	// 塔的逻辑
-	power.run(Game.rooms["roomName"]);//todo 房间里所有塔有相同职责
+	// power.run(id1, id2, id3);//todo id有相同原则,相同房间有相同逻辑等
 
+	let room
+	for (let roomName in Game.rooms) {
+		if (roomName == "E54N12") {
+			room = Game.rooms[roomName]
+			room_prototype.run_1(room)
+		} else if (roomName == "E54N12") {
 
-	let s_creeps = []
-	let sign = 3;//多少优先级
-	let creep
-	for (let i=0; i<sign; i++) { s_creeps.push([]) }//todo 想一个办法把信息录入队列,并且更改索引值?因为需要具体查看情况
-	for (let name in Memory.creeps) {
-		// creep, 物品, roomName, [地点], [opts], toRoomName ,[地点], [opts]
-		// 地点: 优先级:spawn>extension>tower>
-		creep = Game.creeps[name]
-		if (creep.memory.role == "E54N12_地点_") {
-			// 采运分离的运
-			com_harvester.run(creep,"E54N12", "E54N12")
-			role.run(creep, "roomName", ["地点"], ["harvester"],
-				"toRoomName", [""]);
 		}
 
 	}
+
+
 
 	game_prototype.basic_glabal_msg();
 }

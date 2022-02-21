@@ -81,10 +81,13 @@ module.exports.loop = function () {
 			com_harvester.run(creep, "E54N12");
 		}
 		if (creep.memory.role == 'com_builder_E54N12_E54N12') {
-			com_comprehensive.run(creep,"E54N12","E54N12", 2);
+			com_comprehensive.run(creep,"E54N12","E54N12", 0);
 		}
 		if (creep.memory.role == 'com_harvester_E54N12_E54N12') {
-			com_comprehensive.run(creep,"E54N12","E54N12", 1);
+			com_comprehensive.run(creep,"E54N12","E54N12", 2);
+			// if(creep.signController(creep.room.controller, "和平是时代的潮流") === ERR_NOT_IN_RANGE) {
+			// 	creep.moveTo(creep.room.controller);
+			// }
 		}
 		// 挖取分离----------
 
@@ -136,6 +139,7 @@ module.exports.loop = function () {
 
 		if (creep.memory.role == 'fix_str') {
 			role_fix.run(creep)
+			creep.signController(creep.room.controller, "")
 		}
 	}
 	console.log("Game.cpu.getUsed(): " + Game.cpu.getUsed())
