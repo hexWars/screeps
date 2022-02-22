@@ -17,16 +17,28 @@ let Creep_base = {
 	//todo 优先级的确定
 	//todo 如果单独的快死了就新增
 	//todo 如果被攻击就攻击回去
-
 	/**
-	 * 搬运
-	 * @param creep
-	 * @param obj1 取出的对象
-	 * @param obj2 存放的对象
-	 * @param opts
+	 *
+	 * @param role
+	 * @param targetId 目标id
+	 * @param spawnId
+	 * @param limitNum 限制数量
+	 * @param body 部件
 	 */
-	creep_get_en: function (creep, obj1, obj2, opts = {reusePath: 10, visualizePathStyle: {stroke: '#ffaa00'}}) {
-
+	creep_new: function (role, targetId, spawnId, limitNum, body) {
+		let creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
+		if (creepsNum < limitNum) {
+			var name = role + Game.time
+			var res = Game.getObjectById(spawnId).spawnCreep(body, name, {
+				memory:
+					{role: role, targetId: targetId, spawnId: spawnId}
+			})
+			console.log("未达规定")
+			return false
+		} else {
+			console.log(role + targetId + spawnId + "达到数量限制")
+			return true
+		}
 	},
 	/**
 	 * 使用
@@ -37,10 +49,7 @@ let Creep_base = {
 	 */
 	creep_use_en: function (creep, obj1, obj2, opts = {reusePath: 10, visualizePathStyle: {stroke: '#ffaa00'}}) {
 		if (creep.store.getFreeCapacity() > 0) {// 有余量
-			if (creep.withdraw(obj1) === ERR_NOT_IN_RANGE) {
-				creep.moveTo(obj1, opts)
-			}
-			if(creep.withdraw(obj1, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+			if (creep.withdraw(obj1, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 				creep.moveTo(obj1, opts);
 			}
 		} else {

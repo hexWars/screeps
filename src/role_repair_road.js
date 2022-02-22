@@ -31,11 +31,8 @@ var role_repair_road = {
 					return true;
 				}
 			});
-			if (target) {
+			if (creep.repair(target) === ERR_NOT_IN_RANGE) {
 				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-				creep.repair(target);
-			} else {
-				console.log("无目标")
 			}
 		}
 

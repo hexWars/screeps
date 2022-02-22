@@ -63,8 +63,7 @@ var com_comprehensive = {
 		} else {
 			target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
-					// 母巢,拓展,塔,小容器,大容器
-					return (structure.structureType === STRUCTURE_STORAGE) &&
+					return (structure.structureType === STRUCTURE_CONTAINER) &&
 						structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 				}
 			});
