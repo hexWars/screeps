@@ -25,8 +25,8 @@ export const loop = errorMapper(() => {
         let rooms: string[] = ['W14N12']
         mainUniversal(rooms)
     }
-    // if (Game.flags.test){
+    // if (Game.flags.src){
     //     // todo
-    //     Game.flags.test.remove()
+    //     Game.flags.src.remove()
     // }
 })

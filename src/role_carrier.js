@@ -1,4 +1,3 @@
-let repair = require('role_repairer')
 let prototype = require('prototype')
 let role = {
 	/**

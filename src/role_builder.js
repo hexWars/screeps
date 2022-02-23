@@ -1,4 +1,3 @@
-const creep_base = require('creep_base')
 const prototype = require("prototype");
 
 let role = {

@@ -11,13 +11,12 @@ const creepExtension = {
 	 * @returns {target} 目标对象
 	 */
 	checkEnemy(type = 1) {
-		// 代码实现...
 		if (type == 1) {
 			var target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 			if (target) {
 				return target
 			} else {
-				moveTo(10, 10)
+				return undefined
 			}
 		} else {
 

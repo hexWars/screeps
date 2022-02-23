@@ -1,4 +1,4 @@
-let creep_base = require('creep_base')
+let creep_base = require('src/old/creep_base')
 var com_Harvester = {
 
 	/**

@@ -1,7 +1,7 @@
 /*
 ts版本
 
-creep对穿+跨房间寻路+寻路缓存 
+creep对穿+跨房间寻路+寻路缓存
 跑的比香港记者还快从你做起
 应用此模块会导致creep.moveTo可选参数中这些项失效：reusePath、serializeMemory、noPathFinding、ignore、avoid、serialize
 保留creep.moveTo中其他全部可选参数如visualizePathStyle、range、ignoreDestructibleStructures、ignoreCreeps、ignoreRoad等
@@ -22,13 +22,13 @@ creep对穿+跨房间寻路+寻路缓存
 不会在Creep.prototype、PowerCreep.prototype上增加官方未有的键值，不会因此干扰外部代码
 本模块不可用于sim，在sim会因为房间名格式不对返回ERR_INVALID_TARGET
 模块参数见代码头部，模块接口见代码尾部
-版本号规则：alpha test = 0.1.x，beta test = 0.9.x，publish >= 1.0.0
+版本号规则：alpha src = 0.1.x，beta src = 0.9.x，publish >= 1.0.0
 
 author: Scorpior
 debug helpers: fangxm, czc
 inspired by: Yuandiaodiaodiao
 date: 2020/3/30
-version: 0.9.4(beta test)
+version: 0.9.4(beta src)
 
 Usage:
 import "./超级移动优化"
@@ -76,7 +76,7 @@ let config = {
     autoVisual: false,  // 【未启用】
     enableFlee: false   // 【未启用】是否添加flee()函数，注意这会在Creep.prototype上添加官方未有键值，flee()用法见最底下module.exports处
 }
-// 运行时参数 
+// 运行时参数
 let pathClearDelay = 5000;  // 清理相应时间内都未被再次使用的路径，同时清理死亡creep的缓存，设为undefined表示不清除缓存
 let hostileCostMatrixClearDelay = 500; // 自动清理相应时间前创建的其他玩家房间的costMatrix
 let coreLayoutRange = 3; // 核心布局半径，在离storage这个范围内频繁检查对穿（减少堵路的等待
@@ -144,7 +144,7 @@ let cacheMissCost = 0;
 let reg1 = /^([WE])([0-9]+)([NS])([0-9]+)$/;    // parse得到['E28N7','E','28','N','7']
 /**
  *  统一到大地图坐标，平均单次开销0.00005
- * @param {RoomPosition} pos 
+ * @param {RoomPosition} pos
  */
 function formalize(pos) {
     let splited = reg1.exec(pos.roomName);
@@ -172,8 +172,8 @@ function getAdjacents(pos) {
 
 /**
  *  阉割版isEqualTo，提速
- * @param {RoomPosition} pos1 
- * @param {RoomPosition} pos2 
+ * @param {RoomPosition} pos1
+ * @param {RoomPosition} pos2
  */
 function isEqual(pos1, pos2) {
     return pos1.x == pos2.x && pos1.y == pos2.y && pos1.roomName == pos2.roomName;
@@ -182,8 +182,8 @@ function isEqual(pos1, pos2) {
 /**
  *  兼容房间边界
  *  参数具有x和y属性就行
- * @param {RoomPosition} pos1 
- * @param {RoomPosition} pos2 
+ * @param {RoomPosition} pos1
+ * @param {RoomPosition} pos2
  */
 function isNear(pos1, pos2) {
     if (pos1.roomName == pos2.roomName) {    // undefined == undefined 也成立
@@ -204,9 +204,9 @@ function isNear(pos1, pos2) {
     return false
 }
 
-/** 
-* @param {RoomPosition} pos1 
-* @param {RoomPosition} pos2 
+/**
+* @param {RoomPosition} pos1
+* @param {RoomPosition} pos2
 */
 function inRange(pos1, pos2, range) {
     if (pos1.roomName == pos2.roomName) {
@@ -220,8 +220,8 @@ function inRange(pos1, pos2, range) {
 
 /**
  *  fromPos和toPos是pathFinder寻出的路径上的，只可能是同房相邻点或者跨房边界点
- * @param {RoomPosition} fromPos 
- * @param {RoomPosition} toPos 
+ * @param {RoomPosition} fromPos
+ * @param {RoomPosition} toPos
  */
 function getDirection(fromPos, toPos) {
     if (fromPos.roomName == toPos.roomName) {
@@ -278,8 +278,8 @@ let isHighWay = config.地图房号最大数字超过100 ?
 
 /**
  *  缓存的路径和当前moveTo参数相同
- * @param {MyPath} path 
- * @param {*} ops 
+ * @param {MyPath} path
+ * @param {*} ops
  */
 function isSameOps(path, ops) {
     return path.ignoreRoads == !!ops.ignoreRoads &&
@@ -310,7 +310,7 @@ function isClosedRampart(structure) {
 /**
  *  查看是否有挡路建筑
  * @param {Room} room
- * @param {RoomPosition} pos 
+ * @param {RoomPosition} pos
  * @param {boolean} ignoreStructures
  */
 function isObstacleStructure(room, pos, ignoreStructures) {
@@ -333,8 +333,8 @@ function isObstacleStructure(room, pos, ignoreStructures) {
 
 /**
  *  登记ob需求
- * @param {MyPath} path 
- * @param {number} idx 
+ * @param {MyPath} path
+ * @param {number} idx
  */
 function addObTask(path, idx) {
     let roomName = path.posArray[idx].roomName;
@@ -405,7 +405,7 @@ function checkObResult() {
 /**
  *  为房间保存costMatrix，ignoreDestructibleStructures这个参数的两种情况各需要一个costMatrix
  *  设置costMatrix缓存的过期时间
- * @param {Room} room 
+ * @param {Room} room
  * @param {RoomPosition} pos
  */
 function generateCostMatrix(room, pos) {
@@ -517,7 +517,7 @@ function generateCostMatrix(room, pos) {
 
 /**
  *  把路径上有视野的位置的正向移动方向拿到，只有在找新路时调用，找新路时会把有视野房间都缓存进costMatrixCache
- * @param {MyPath} path 
+ * @param {MyPath} path
  */
 function generateDirectionArray(path) {
     let posArray = path.posArray
@@ -538,9 +538,9 @@ function generateDirectionArray(path) {
 
 /**
  *  第一次拿到该room视野，startIdx是新房中唯一有direction的位置
- * @param {Room} room 
- * @param {MyPath} path 
- * @param {number} startIdx 
+ * @param {Room} room
+ * @param {MyPath} path
+ * @param {number} startIdx
  */
 function checkRoom(room, path, startIdx) {
     if (!(room.name in costMatrixCache)) {
@@ -572,8 +572,8 @@ function checkRoom(room, path, startIdx) {
 
 /**
  *  尝试对穿，有2种不可穿情况
- * @param {Creep} creep 
- * @param {RoomPosition} pos  
+ * @param {Creep} creep
+ * @param {RoomPosition} pos
  * @param {boolean} bypassHostileCreeps
  */
 function trySwap(creep, pos, bypassHostileCreeps, ignoreCreeps) {     // ERR_NOT_FOUND开销0.00063，否则开销0.0066
@@ -618,8 +618,8 @@ function bypassRouteCallback(nextRoomName, fromRoomName) {
 }
 /**
  *  遇到跨房寻路，先以房间为单位寻route，再寻精细的path
- * @param {string} fromRoomName 
- * @param {string} toRoomName 
+ * @param {string} fromRoomName
+ * @param {string} toRoomName
  * @param {boolean} bypass
  */
 function findRoute(fromRoomName, toRoomName, bypass) {  // TODO 以后跨shard寻路也放在这个函数里
@@ -629,8 +629,8 @@ function findRoute(fromRoomName, toRoomName, bypass) {  // TODO 以后跨shard�
 
 /**
  * @param {RoomPosition} pos
- * @param {Room} room 
- * @param {CostMatrix} costMat 
+ * @param {Room} room
+ * @param {CostMatrix} costMat
  */
 function checkTemporalAvoidExit(pos, room, costMat) {    // 用于记录因creep堵路导致的房间出口临时封闭
     let neighbors = Game.map.describeExits(room.name);
@@ -700,9 +700,9 @@ function bypassRoomCallbackWithRoute(roomName) {
 /**
  *  影响参数：bypassHostileCreeps, ignoreRoads, ignoreDestructibleStructures, ignoreSwamps, costCallback, range, bypassRange
  *  及所有PathFinder参数：plainCost, SwampCost, masOps, maxRooms, maxCost, heuristicWeight
- * @param {Creep} creep 
- * @param {RoomPosition} toPos 
- * @param {MoveToOpts} ops 
+ * @param {Creep} creep
+ * @param {RoomPosition} toPos
+ * @param {MoveToOpts} ops
  */
 function findTemporalPath(creep, toPos, ops) {
     let nearbyCreeps;
@@ -777,8 +777,8 @@ function findTemporalPath(creep, toPos, ops) {
 
 let findPathIgnoreCondition;
 /**
- * @param {{[roomName:string]:1}} temp 
- * @param {{room:string}} item 
+ * @param {{[roomName:string]:1}} temp
+ * @param {{room:string}} item
  * @returns {{[roomName:string]:1}}
  */
 function roomCallback(roomName) {
@@ -813,9 +813,9 @@ function roomCallbackWithRoute(roomName) {
 /**
  *  影响参数：ignoreRoads, ignoreDestructibleStructures, ignoreSwamps, costCallback, range
  *  及所有PathFinder参数：plainCost, SwampCost, masOps, maxRooms, maxCost, heuristicWeight
- * @param {RoomPosition} fromPos 
- * @param {RoomPosition} toPos 
- * @param {MoveToOpts} ops 
+ * @param {RoomPosition} fromPos
+ * @param {RoomPosition} toPos
+ * @param {MoveToOpts} ops
  */
 function findPath(fromPos, toPos, ops) {
 
@@ -863,7 +863,7 @@ function findPath(fromPos, toPos, ops) {
 
 let combinedX, combinedY;
 /**
- * @param {MyPath} newPath 
+ * @param {MyPath} newPath
  */
 function addPathIntoCache(newPath) {
     combinedX = newPath.start.x + newPath.start.y;
@@ -882,7 +882,7 @@ function invalidate() {
     return 0;
 }
 /**
- * @param {MyPath} path 
+ * @param {MyPath} path
  */
 function deletePath(path) {
     if (path.start) {     // 有start属性的不是临时路
@@ -895,11 +895,11 @@ function deletePath(path) {
 let minX, maxX, minY, maxY;
 /**
  *  寻找房内缓存路径，起始位置两步限制避免复用非最优路径
- * @param {RoomPosition} formalFromPos 
+ * @param {RoomPosition} formalFromPos
  * @param {RoomPosition} formalToPos
  * @param {RoomPosition} fromPos
- * @param {CreepPaths} creepCache 
- * @param {MoveToOpts} ops 
+ * @param {CreepPaths} creepCache
+ * @param {MoveToOpts} ops
  */
 function findShortPathInCache(formalFromPos, formalToPos, fromPos, creepCache, ops) {     // ops.range设置越大找的越慢
     startCacheSearch = Game.cpu.getUsed();
@@ -959,7 +959,7 @@ function findLongPathInCache(formalFromPos, formalToPos, creepCache, ops) {     
 let startRoomName, endRoomName;
 /**
  *  起止点都在自己房间的路不清理
- * @param {CreepPaths['name']} creepCache 
+ * @param {CreepPaths['name']} creepCache
  */
 function setPathTimer(creepCache) {
     if (pathClearDelay) {
@@ -979,13 +979,13 @@ function setPathTimer(creepCache) {
 /**@type {RoomPosition[]} */
 let tempArray = [];
 /**
- *  
- * @param {Creep} creep 
- * @param {RoomPosition} toPos 
- * @param {RoomPosition[]} posArray 
- * @param {number} startIdx 
- * @param {number} idxStep 
- * @param {PolyStyle} visualStyle 
+ *
+ * @param {Creep} creep
+ * @param {RoomPosition} toPos
+ * @param {RoomPosition[]} posArray
+ * @param {number} startIdx
+ * @param {number} idxStep
+ * @param {PolyStyle} visualStyle
  */
 function showVisual(creep, toPos, posArray, startIdx, idxStep, visualStyle) {
     tempArray.length = 0;
@@ -1003,9 +1003,9 @@ function showVisual(creep, toPos, posArray, startIdx, idxStep, visualStyle) {
 
 /**
  *  按缓存路径移动
- * @param {Creep} creep 
- * @param {PolyStyle} visualStyle 
- * @param {RoomPosition} toPos 
+ * @param {Creep} creep
+ * @param {PolyStyle} visualStyle
+ * @param {RoomPosition} toPos
  */
 function moveOneStep(creep, visualStyle, toPos) {
     let creepCache = creepPathCache[creep.name];
@@ -1030,9 +1030,9 @@ function moveOneStep(creep, visualStyle, toPos) {
 
 /**
  *  按缓存路径移动
- * @param {Creep} creep 
- * @param {PolyStyle} visualStyle 
- * @param {RoomPosition} toPos 
+ * @param {Creep} creep
+ * @param {PolyStyle} visualStyle
+ * @param {RoomPosition} toPos
  */
 function moveOneStepReverse(creep, visualStyle, toPos) {    // deprecated
     let creepCache = creepPathCache[creep.name];
@@ -1048,15 +1048,15 @@ function moveOneStepReverse(creep, visualStyle, toPos) {    // deprecated
 }
 
 /**
- * 
- * @param {Creep} creep 
+ *
+ * @param {Creep} creep
  * @param {{
         path: MyPath,
         dst: RoomPosition,
         idx: number
-    }} pathCache 
- * @param {PolyStyle} visualStyle 
- * @param {RoomPosition} toPos 
+    }} pathCache
+ * @param {PolyStyle} visualStyle
+ * @param {RoomPosition} toPos
  * @param {boolean} ignoreCreeps
  */
 function startRoute(creep, pathCache, visualStyle, toPos, ignoreCreeps) {
@@ -1083,8 +1083,8 @@ function startRoute(creep, pathCache, visualStyle, toPos, ignoreCreeps) {
 
 /**
  *  将用在Creep.prototype.move中
- * @param {RoomPosition} pos 
- * @param {DirectionConstant} target 
+ * @param {RoomPosition} pos
+ * @param {DirectionConstant} target
  */
 function direction2Pos(pos, target) {
     if (typeof target != "number") {
@@ -1119,7 +1119,7 @@ function direction2Pos(pos, target) {
 }
 
 /**
- * @param {Function} fn 
+ * @param {Function} fn
  */
 function wrapFn(fn, name) {
     return function () {
@@ -1185,9 +1185,9 @@ let [ops, toPos, creepCache, path, idx, posArray, found] = [];
 /**
  *  把moveTo重写一遍
  * @param {Creep} this
- * @param {number | RoomObject} firstArg 
- * @param {number | MoveToOpts} secondArg 
- * @param {MoveToOpts} opts 
+ * @param {number | RoomObject} firstArg
+ * @param {number | MoveToOpts} secondArg
+ * @param {MoveToOpts} opts
  */
 function betterMoveTo(firstArg, secondArg, opts) {
     if (!this.my) {
@@ -1392,9 +1392,9 @@ function betterMoveTo(firstArg, secondArg, opts) {
 }
 
 /**
- * 
+ *
  * @param {Creep} this 写好后删这个参数
- * @param {DirectionConstant | Creep} target 
+ * @param {DirectionConstant | Creep} target
  */
 function betterMove(target) {
 
@@ -1402,8 +1402,8 @@ function betterMove(target) {
 
 /**
  * @param {RoomPosition} this 写好后删这个参数
- * @param {FindConstant} type 
- * @param {FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string }} opts 
+ * @param {FindConstant} type
+ * @param {FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string }} opts
  */
 function betterFindClosestByPath(type, opts) {
 
@@ -1412,8 +1412,8 @@ function betterFindClosestByPath(type, opts) {
 /**
  *  opts: memberPos:relativePos[], avoidTowersHigherThan:number, avoidObstaclesHigherThan:number
  * @param {RoomPosition} this 写好后删这个参数
- * @param {RoomPosition} toPos 
- * @param {*} opts 
+ * @param {RoomPosition} toPos
+ * @param {*} opts
  */
 function findSquadPathTo(toPos, opts) {
 

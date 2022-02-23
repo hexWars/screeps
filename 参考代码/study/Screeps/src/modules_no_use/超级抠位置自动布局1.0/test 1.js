@@ -1335,13 +1335,13 @@ let pro={
                 costRoad.forNear((x,y,val)=>{
                     if(val)dist = Math.min(dist,val)
                 },x,y)
-                // let src = Math.sqrt(Math.pow(x-storageX,2)+Math.pow(y-storageY,2))
+                // let v1 = Math.sqrt(Math.pow(x-storageX,2)+Math.pow(y-storageY,2))
                 if(val==12){// 8 && 12 上面有写，注意！！！
                     spawnPos.push([x,y,dist])
                 }
                 else{
                     extensionPos.push([x,y,dist])
-                    // visual.text(src,x, y+0.25, {color: "pink",opacity:0.99,font: 7})
+                    // visual.text(v1,x, y+0.25, {color: "pink",opacity:0.99,font: 7})
                 }
             }
         })

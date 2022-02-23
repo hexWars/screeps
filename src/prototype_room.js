@@ -17,10 +17,11 @@ const roomExtension = {
 	 * @return {boolean}
 	 */
 	keep_creep_num: function (limitNum, role, selfId, selfRoomName, targetId, targetRoomName, spawnName, body) {
-		let creepsNum = _.filter(Game.creeps, (creep) =>
+		let creeps = _.filter(Game.creeps, (creep) =>
 			creep.memory.role == role && creep.memory.targetId == targetId && creep.memory.spawnName == spawnName
 			&& creep.memory.targetRoomName == targetRoomName && creep.memory.selfId == selfId && creep.memory.selfRoomName == selfRoomName);
-		if (creepsNum < limitNum) {
+		// console.log(creeps.length + " " + " " + role + " " + selfRoomName)
+		if (creeps.length < limitNum) {
 			var name = role + Game.time
 			var res = Game.spawns[spawnName].spawnCreep(body, name, {
 				memory:

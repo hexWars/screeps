@@ -1,4 +1,4 @@
-const p_creep = require('prototype_creep')
+
 const prototype = require("prototype");
 let role = {
 	/**

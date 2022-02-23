@@ -11,7 +11,7 @@ global.cpuEcharts=(divName,data,data2)=>{
 return `
 <div id="${divName}" style="height: 400px;width:1200px;color:#000"/>
 <script>
-eval($.ajax({url:"https://cdn.jsdelivr.net/npm/echarts@5/src/echarts.min.js",async:false}).responseText);
+eval($.ajax({url:"https://cdn.jsdelivr.net/npm/echarts@5/v1/echarts.min.js",async:false}).responseText);
 function showCpuUsed(divName,data,data2){
 var chartDom = document.getElementById(divName);
 var myChart = echarts.init(chartDom, 'dark');

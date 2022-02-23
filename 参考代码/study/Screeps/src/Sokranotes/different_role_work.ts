@@ -117,7 +117,7 @@ export const different_role_work = function(){
         else if (creep.memory.role == 'attack_invader_core'){
             attack_invader_core_work(creep)
         }
-        
+
         else if (creep.memory.role == 'occupy'){
             occupy_work(creep)
         }
@@ -136,7 +136,7 @@ export const different_role_work = function(){
         // else if (creep.memory.role == 'help'){
         //     help_work(creep)
         // }
-        
+
         // else if (creep.memory.role == 'new_room_help'){
         //     new_room_help_work(creep)
         // }
@@ -165,7 +165,7 @@ export const different_role_work = function(){
         //     harvest_repair_work(creep)
         // }
 
-        // else if (creep.memory.role == 'test'){
+        // else if (creep.memory.role == 'src'){
         //     test_work(creep)
         // }
 

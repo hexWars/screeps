@@ -17,10 +17,10 @@
       * Creates a Priority queue.
       * To avoid future frustration, I added a trap if the memory_structure param is undefined.
       * You must pass either an empty object - i.e.: let queue = new FlatQueue({});
-      * or a Screeps memory object - i.e.: let queue = new FlatQueue(Memory.test).
+      * or a Screeps memory object - i.e.: let queue = new FlatQueue(Memory.src).
       *
       * IMPORTANT: When using a Screeps memory object, make sure to initialize it first!
-      * i.e.: Memory.test = {}
+      * i.e.: Memory.src = {}
       *
       * @param memory_structure {Object} Empty object or Screeps memory object
       */
@@ -29,11 +29,11 @@
          if (memory_structure === undefined)
          {
              console.log('Memory structure is undefined! Initialize the memory first!\n' + Error().stack);
- 
+
              // This will abort code execution, forcing us to look at the code
              throw 'Memory structure is undefined! Initialize the memory first!';
          }
- 
+
          // If we're storing in a Screeps memory object, initialize for the first use.
          if (memory_structure.data === undefined ||
              memory_structure.priority === undefined ||
@@ -43,13 +43,13 @@
              memory_structure.priority = [];
              memory_structure.length = 0;
          }
- 
+
          // Since javascript can't pass by reference when we want, there is
          // no way to bind "length" (a number) to a member variable. So, we
          // store the entire data structure in a member variable.
          this.memory_structure = memory_structure;
      }
- 
+
      /**
       * Empties the priority queue
       */
@@ -59,7 +59,7 @@
          this.memory_structure.priority = [];
          this.memory_structure.length = 0;
      }
- 
+
      /**
       * Return the size of the priority queue
       * @return {number}
@@ -68,7 +68,7 @@
      {
          return this.memory_structure.length;
      }
- 
+
      /**
       * Add a new element to the priority queue
       *
@@ -80,24 +80,24 @@
          let pos = this.memory_structure.length++;
          this.memory_structure.data[pos] = data;
          this.memory_structure.priority[pos] = priorityNum;
- 
+
          while (pos > 0)
          {
              const parent = (pos - 1) >> 1;
              const parentValue = this.memory_structure.priority[parent];
- 
+
              if (priorityNum >= parentValue)
                  break;
- 
+
              this.memory_structure.data[pos] = this.memory_structure.data[parent];
              this.memory_structure.priority[pos] = parentValue;
              pos = parent;
          }
- 
+
          this.memory_structure.data[pos] = data;
          this.memory_structure.priority[pos] = priorityNum;
      }
- 
+
      /**
       * Removes and returns the highest priority element of the queue.
       * If the queue is empty, undefined is returned.
@@ -108,17 +108,17 @@
      {
          if (this.memory_structure.length === 0)
              return undefined;
- 
+
          const top = this.memory_structure.data[0];
          this.memory_structure.length--;
- 
+
          if (this.memory_structure.length > 0)
          {
              const id = this.memory_structure.data[0] = this.memory_structure.data[this.memory_structure.length];
              const value = this.memory_structure.priority[0] = this.memory_structure.priority[this.memory_structure.length];
              const halfLength = this.memory_structure.length >> 1;
              let pos = 0;
- 
+
              while (pos < halfLength)
              {
                  let left = (pos << 1) + 1;
@@ -126,7 +126,7 @@
                  let bestIndex = this.memory_structure.data[left];
                  let bestValue = this.memory_structure.priority[left];
                  const rightValue = this.memory_structure.priority[right];
- 
+
                  if (right < this.memory_structure.length && rightValue < bestValue)
                  {
                      left = right;
@@ -134,12 +134,12 @@
                      bestValue = rightValue;
                  }
                  if (bestValue >= value) break;
- 
+
                  this.memory_structure.data[pos] = bestIndex;
                  this.memory_structure.priority[pos] = bestValue;
                  pos = left;
              }
- 
+
              this.memory_structure.data[pos] = id;
              this.memory_structure.priority[pos] = value;
          }
@@ -150,7 +150,7 @@
 
          return top;
      }
- 
+
      /**
       * Look at the top element of the priority queue, without removing it.
       *
@@ -162,7 +162,7 @@
              return undefined;
          return this.memory_structure.data[0];
      }
- 
+
      /**
       * Take a peek at the priority number for the top element of the priority queue.
       *
@@ -174,7 +174,7 @@
              return undefined;
          return this.memory_structure.priority[0];
      }
- 
+
      /**
       * Dumps the contents of the priority queue.
       * Hint: Use an external text editor to sort it ;)
@@ -191,10 +191,9 @@
              output += JSON.stringify(this.memory_structure.data[i]);
              output += "\n";
          }
- 
+
          return output;
      }
  }
- 
+
  module.exports = FlatQueue;
- 

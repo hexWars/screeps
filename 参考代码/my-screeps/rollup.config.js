@@ -18,11 +18,11 @@ const pluginDeploy = config && config.copyPath ?
     copy({
         targets: [
             {
-                src: 'src/main.js',
+                src: 'v1/main.js',
                 dest: config.copyPath
             },
             {
-                src: 'src/main.js.map',
+                src: 'v1/main.js.map',
                 dest: config.copyPath,
                 rename: name => name + '.map.js',
                 transform: contents => `module.exports = ${contents.toString()};`
@@ -35,9 +35,9 @@ const pluginDeploy = config && config.copyPath ?
     screeps({ config, dryRun: !config })
 
 export default {
-    input: 'src/main.ts',
+    input: 'v1/main.ts',
     output: {
-        file: 'src/main.js',
+        file: 'v1/main.js',
         format: 'cjs',
         sourcemap: true
     },
