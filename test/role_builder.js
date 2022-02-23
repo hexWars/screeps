@@ -11,27 +11,29 @@ let role = {
 	// selfId, selfRoomName, targetId, targetRoomName
 	run: function (creep) {
 		prototype()
-		if (creep.store[RESOURCE_ENERGY] == 0) {
-			var target = Game.getObjectById(creep.memory.targetId)
-			if (target) {
-				if(creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-					creep.moveTo(target);
+		if (creep.store[RESOURCE_ENERGY] == 0) {// self
+			if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
+				var target = Game.getObjectById(creep.memory.selfId)
+				if (target) {
+					if(creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+						creep.moveTo(target);
+					}
 				}
+			} else {
+				creep.to_room(creep.memory.selfRoomName)
 			}
-		} else {
-			if (creep_base.creep_to_room(creep, "E55N12")) {
-				var targets = Game.rooms["E55N12"].find(FIND_CONSTRUCTION_SITES);
+		} else {// target
+			if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
+				var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
 				if (targets.length > 0) {
 					if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
 						creep.moveTo(targets[0]);
 					}
-					return true
 				}
-				return false
+			} else {
+				creep.to_room(creep.memory.targetRoomName)
 			}
 		}
-
-
 	}
 }
 

@@ -8,21 +8,27 @@ let role = {
 	 */
 	run: function (creep) {
 		prototype()
-		var opts = {visualizePathStyle: {stroke: '#ffffff'}}
-		if (creep.store[RESOURCE_ENERGY] == 0) {
-			var target = Game.getObjectById(creep.memory.targetId)
-			if (target) {
-				if (creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-					creep.moveTo(target, opts);
+		if (creep.store[RESOURCE_ENERGY] == 0) {// 资源为0 self
+			if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
+				var target = Game.getObjectById(creep.memory.selfId)
+				if (target) {
+					if (creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+						creep.moveTo(target);
+					}
 				}
+			} else {
+				creep.to_room(creep.memory.selfRoomName)
 			}
-		} else {
-			// if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-			// 	creep.moveTo(creep.room.controller, opts);
-			// }
-			if (creep.upgradeController(Game.rooms["E55N12"].controller) == ERR_NOT_IN_RANGE) {
-				creep.moveTo(Game.rooms["E55N12"].controller, opts);
+		} else {// target
+			if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
+				var target = Game.getObjectById(creep.memory.targetId)
+				if (creep.upgradeController(target) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(target);
+				}
+			} else {
+				creep.to_room(creep.memory.targetRoomName)
 			}
+
 		}
 	}
 }

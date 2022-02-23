@@ -8,25 +8,23 @@ let role = {
 	 */
 	run: function (creep) {
 		prototype()
-		if (creep.store.getFreeCapacity() == 0) {//剩余容量
-			var targets = Game.spawns[creep.memory.spawnName].room.find(FIND_STRUCTURES, {
-				filter: (structure) => {
-					return (structure.structureType === STRUCTURE_CONTAINER) &&
-						structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-				}
-			});
-			if (targets.length > 0) {
-				if (creep.transfer(targets[targets.length-1], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[targets.length-1]);
+		if (creep.store.getFreeCapacity() == 0) {//可用容量没了 target
+			if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
+				var target = Game.getObjectById(creep.memory.targetId)
+				if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(target);
 				}
 			} else {
-				creep.say("无目标")
+				creep.to_room(creep.memory.targetRoomName)
 			}
-		} else {
-			var target = Game.getObjectById(creep.memory.targetId)
-			console.log(creep.harvest(target))
-			if (creep.harvest(target) === ERR_NOT_IN_RANGE) {
-				creep.moveTo(target)
+		} else {// self
+			if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
+				var target = Game.getObjectById(creep.memory.selfId)
+				if (creep.harvest(target) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(target)
+				}
+			} else {
+				creep.to_room(creep.memory.selfRoomName)
 			}
 		}
 	}

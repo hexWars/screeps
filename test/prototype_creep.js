@@ -25,7 +25,7 @@ const creepExtension = {
 	},
 	/**
 	 * 填充所有 spawn 和 extension
-	 * @return 正常移动返回true,没目标返回false
+	 * @return 填充完成返回true
 	 */
 	fillSpawnEnergy() {
 		var target = this.pos.findClosestByRange(FIND_MY_STRUCTURES, {
@@ -40,9 +40,9 @@ const creepExtension = {
 			if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 				this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
 			}
-			return true
-		} else {
 			return false
+		} else {
+			return true
 		}
 	},
 	/**
@@ -67,6 +67,7 @@ const creepExtension = {
 	},
 	/**
 	 * 填充所有 tower
+	 * @return boolean 全部填充返回true
 	 */
 	fillTower() {
 		var target = this.pos.findClosestByRange(FIND_MY_STRUCTURES, {
@@ -80,12 +81,9 @@ const creepExtension = {
 			if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 				this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
 			}
-			if (this.store.getFreeCapacity() == 0) {
-				return false
-			}
-			return true
-		} else {
 			return false
+		} else {
+			return true
 		}
 	},
 	/**
