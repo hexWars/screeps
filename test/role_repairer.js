@@ -1,9 +1,13 @@
+const p_creep = require('prototype_creep')
+const prototype = require("./prototype");
+
 let role = {
 	/**
 	 * 血量小于 比例 的路进行修复
 	 * @param creep
 	 */
 	run: function (creep) {
+		prototype()
 		var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				// 母巢,拓展,塔,小容器,大容器

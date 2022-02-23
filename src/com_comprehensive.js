@@ -34,10 +34,11 @@ var com_comprehensive = {
 				if (creep.store[RESOURCE_ENERGY] === 0) {// 资源放到0了
 					creep.memory.pick = true
 				}
+				console.log("type: " + type)
 				if (type == 1) {
 					com_comprehensive.harvester(creep, toRoomName)
 				} else if (type == 2) {
-					com_comprehensive.builder(creep)
+					com_comprehensive.harvester(creep, toRoomName)
 				} else {
 					console.log("异常1")
 				}
@@ -49,6 +50,7 @@ var com_comprehensive = {
 		}
 	},
 	harvester: function (creep, toRoomName) {
+		console.log("9900")
 		var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 			filter: (structure) => {
 				// 母巢,拓展,塔,小容器,大容器
@@ -63,7 +65,7 @@ var com_comprehensive = {
 		} else {
 			target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
-					return (structure.structureType === STRUCTURE_CONTAINER) &&
+					return (structure.structureType === STRUCTURE_STORAGE) &&
 						structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
 				}
 			});

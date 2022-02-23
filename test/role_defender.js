@@ -1,9 +1,13 @@
+const p_creep = require('prototype_creep')
+const prototype = require("prototype");
+
 let role = {
 	/**
 	 *
 	 * @param creep
 	 */
 	run: function (creep) {
+		prototype()
 		var target = creep.checkEnemy();
 		if (target) {
 			if(creep.attack(target) === ERR_NOT_IN_RANGE) {

@@ -15,6 +15,8 @@ var com_comprehensive = require('com_comprehensive')
 
 var tower = require('tower')
 
+var zuihou = require('zuihou')
+
 
 // Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'Harvester1' );
 // Game.creeps['Harvester1'].memory.role = 'harvester';
@@ -139,7 +141,11 @@ module.exports.loop = function () {
 
 		if (creep.memory.role == 'fix_str') {
 			role_fix.run(creep)
-			creep.signController(creep.room.controller, "")
+			// creep.signController(creep.room.controller, "")
+		}
+
+		if (creep.memory.role == "chaim") {
+			zuihou.run(creep)
 		}
 	}
 	console.log("Game.cpu.getUsed(): " + Game.cpu.getUsed())

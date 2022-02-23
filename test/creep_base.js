@@ -18,29 +18,6 @@ let Creep_base = {
 	//todo 如果单独的快死了就新增
 	//todo 如果被攻击就攻击回去
 	/**
-	 *
-	 * @param role
-	 * @param targetId 目标id
-	 * @param spawnId
-	 * @param limitNum 限制数量
-	 * @param body 部件
-	 */
-	creep_new: function (role, targetId, spawnId, limitNum, body) {
-		let creepsNum = _.filter(Game.creeps, (creep) => creep.memory.role == roleName);
-		if (creepsNum < limitNum) {
-			var name = role + Game.time
-			var res = Game.getObjectById(spawnId).spawnCreep(body, name, {
-				memory:
-					{role: role, targetId: targetId, spawnId: spawnId}
-			})
-			console.log("未达规定")
-			return false
-		} else {
-			console.log(role + targetId + spawnId + "达到数量限制")
-			return true
-		}
-	},
-	/**
 	 * 使用
 	 * @param creep
 	 * @param obj1 取出的对象
@@ -81,131 +58,79 @@ let Creep_base = {
 	 * arr_type允许 container,controller
 	 * 从creep传给建筑
 	 */
-	dfs_transfer_structure: function (creep, arr_type, x, len) {
-		if (x == len) {
-			return
-		}
-		if (arr_type[x] === STRUCTURE_CONTROLLER) {
-			var sources = creep.room.controller;
-			if (sources) {
-				if (creep.upgradeController(sources) === ERR_NOT_IN_RANGE) {
-					creep.moveTo(sources, {visualizePathStyle: {stroke: '#ffaa00'}});
-				}
-			} else {
-				this.dfs_transfer_structure(creep, arr_type, x + 1, len)
-			}
-		} else if (arr_type[x] === STRUCTURE_RAMPART) {
-			var sources = creep.room.find(FIND_MY_STRUCTURES, {
-				filter: function (obj) {
-					return obj.structureType === STRUCTURE_RAMPART && obj.hits < 1000;
-				}
-			})
-			if (sources.length > 0) {
-				creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffffff'}});
-				creep.repair(sources[0]);
-			} else {
-				this.dfs_transfer_structure(creep, arr_type, x + 1, len)
-			}
-		} else if (arr_type[x] === STRUCTURE_WALL) {
-			var sources = creep.room.find(FIND_MY_STRUCTURES, {
-				filter: function (obj) {
-					return obj.structureType === STRUCTURE_WALL && obj.hits < 1000;
-				}
-			})
-			if (sources.length > 0) {
-				creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffffff'}});
-				creep.repair(sources[0]);
-			} else {
-				this.dfs_transfer_structure(creep, arr_type, x + 1, len)
-			}
-		} else {
-			var sources = creep.room.find(FIND_MY_STRUCTURES, {
-				filter: function (obj) {
-					return obj.structureType === arr_type[x];
-				}
-			})
-			if (sources.length > 0) {
-				if (creep.transfer(sources[0]) === ERR_NOT_IN_RANGE) {
-					creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
-				}
-			} else {
-				this.dfs_transfer_structure(creep, arr_type, x + 1, len)
-			}
-		}
-	},
+	// dfs_transfer_structure: function (creep, arr_type, x, len) {
+	// 	if (x == len) {
+	// 		return
+	// 	}
+	// 	if (arr_type[x] === STRUCTURE_CONTROLLER) {
+	// 		var sources = creep.room.controller;
+	// 		if (sources) {
+	// 			if (creep.upgradeController(sources) === ERR_NOT_IN_RANGE) {
+	// 				creep.moveTo(sources, {visualizePathStyle: {stroke: '#ffaa00'}});
+	// 			}
+	// 		} else {
+	// 			this.dfs_transfer_structure(creep, arr_type, x + 1, len)
+	// 		}
+	// 	} else if (arr_type[x] === STRUCTURE_RAMPART) {
+	// 		var sources = creep.room.find(FIND_MY_STRUCTURES, {
+	// 			filter: function (obj) {
+	// 				return obj.structureType === STRUCTURE_RAMPART && obj.hits < 1000;
+	// 			}
+	// 		})
+	// 		if (sources.length > 0) {
+	// 			creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffffff'}});
+	// 			creep.repair(sources[0]);
+	// 		} else {
+	// 			this.dfs_transfer_structure(creep, arr_type, x + 1, len)
+	// 		}
+	// 	} else if (arr_type[x] === STRUCTURE_WALL) {
+	// 		var sources = creep.room.find(FIND_MY_STRUCTURES, {
+	// 			filter: function (obj) {
+	// 				return obj.structureType === STRUCTURE_WALL && obj.hits < 1000;
+	// 			}
+	// 		})
+	// 		if (sources.length > 0) {
+	// 			creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffffff'}});
+	// 			creep.repair(sources[0]);
+	// 		} else {
+	// 			this.dfs_transfer_structure(creep, arr_type, x + 1, len)
+	// 		}
+	// 	} else {
+	// 		var sources = creep.room.find(FIND_MY_STRUCTURES, {
+	// 			filter: function (obj) {
+	// 				return obj.structureType === arr_type[x];
+	// 			}
+	// 		})
+	// 		if (sources.length > 0) {
+	// 			if (creep.transfer(sources[0]) === ERR_NOT_IN_RANGE) {
+	// 				creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+	// 			}
+	// 		} else {
+	// 			this.dfs_transfer_structure(creep, arr_type, x + 1, len)
+	// 		}
+	// 	}
+	// },
 	/**
 	 * 从建筑中取出
 	 *
 	 */
-	dfs_withdraw_structure: function (creep, arr_type, x, len) {
-		if (x == len) {
-			return
-		}
-		var sources = creep.room.find(FIND_MY_STRUCTURES, {
-			filter: function (obj) {
-				return obj.structureType === arr_type[x];
-			}
-		})
-		if (sources.length > 0) {
-			if (creep.upgradeController(sources[0]) === ERR_NOT_IN_RANGE) {
-				creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
-			}
-		} else {
-			this.dfs_withdraw_structure(creep, arr_type, x + 1, len)
-		}
-	},
-	/**
-	 * 如果小于200就新增,包括优先级问题
-	 */
-	creep_keep_num: function () {
-
-	},
-	/**
-	 * 如果被攻击就攻击回去
-	 */
-	attack_to_attack: function (creep) {
-
-	},
-	/**
-	 * @param work 50
-	 * @param move 100
-	 * @param carry 50
-	 * @param attack 80
-	 * @param ranged_attack 150
-	 * @param heal 250
-	 * @param claim 600
-	 * @param tough 10
-	 */
-	creep_body: function (work, move, carry, attack, ranged_attack, heal, claim, tough) {
-		let body = []
-		let i
-		for (i = 0; i < work; i++) {
-			body.push(WOEK)
-		}
-		for (i = 0; i < move; i++) {
-			body.push(MOVE)
-		}
-		for (i = 0; i < carry; i++) {
-			body.push(CARRY)
-		}
-		for (i = 0; i < attack; i++) {
-			body.push(ATTACK)
-		}
-		for (i = 0; i < ranged_attack; i++) {
-			body.push(RANGED_ATTACK)
-		}
-		for (i = 0; i < heal; i++) {
-			body.push(HEAL)
-		}
-		for (i = 0; i < claim; i++) {
-			body.push(CLAIM)
-		}
-		for (i = 0; i < tough; i++) {
-			body.push(TOUGH)
-		}
-		console.log(body)
-		return body
-	},
+	// dfs_withdraw_structure: function (creep, arr_type, x, len) {
+	// 	if (x == len) {
+	// 		return
+	// 	}
+	// 	var sources = creep.room.find(FIND_MY_STRUCTURES, {
+	// 		filter: function (obj) {
+	// 			return obj.structureType === arr_type[x];
+	// 		}
+	// 	})
+	// 	if (sources.length > 0) {
+	// 		if (creep.upgradeController(sources[0]) === ERR_NOT_IN_RANGE) {
+	// 			creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+	// 		}
+	// 	} else {
+	// 		this.dfs_withdraw_structure(creep, arr_type, x + 1, len)
+	// 	}
+	// },
 	/**
 	 * @param creep
 	 * @param roomName
@@ -224,29 +149,6 @@ let Creep_base = {
 			creep.moveTo(exit, opts);
 			return false
 		}
-
-	},
-	/**
-	 * @param creep
-	 * 开始输出creep信息
-	 */
-	start_msg: function (creep) {
-
-	},
-	/**
-	 * @param creep
-	 * 结尾输出creep信息
-	 */
-	end_msg: function (creep) {
-
-	},
-	/**
-	 * 函数: renewCreep(target)
-	 * 每次增加: floor(600/body_size)
-	 * 所需能量: ceil(creep_cost/2.5/body_size)
-	 * 经过计算废弃此函数
-	 */
-	die_renew: function () {
 
 	}
 }

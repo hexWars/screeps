@@ -54,11 +54,13 @@ module.exports.loop = function () {
 		} else {
 			creep.say("error")
 		}
-		if (creep.ticksToLive < 300) {
-			// if (creep.memory.role == role && creep.memory.targetId == targetId && creep.memory.spawnId ==spawnId) {
+		if (creep.ticksToLive < 100) {
+			// if (creep.memory.role == role && creep.memory.targetId == targetId && creep.memory.spawnId ==spawnId
+			// ||
+			// ) {
 			// 	continue
 			// }
-			creep_base.creep_new(creep.memory.role, creep.memory.targetId, creep.memory.spawnId, 1, creep.body)
+			creep_base.creep_new_no_limit(creep.memory.role, creep.memory.targetId, creep.memory.spawnName, creep.body)
 		}
 	}
 	game_base.basic_glabal_msg();

@@ -4,7 +4,6 @@ const p_source = require('prototype_source')
 
 
 module.exports = function () {
-	console.log('挂载拓展')
 	p_creep();
 	p_room();
 	p_source();
