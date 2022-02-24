@@ -85,7 +85,7 @@ let room_base = {
 			"5bbcb0569099fc012e63bfc8", "E55N12",// source
 			"621691e6f6d102d612e2dfc5", "E55N12",// 隔壁container
 			"Spawn1",[WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, CARRY])
-		room.keep_creep_num(1, "upgrader",
+		room.keep_creep_num(2, "upgrader",
 			"621691e6f6d102d612e2dfc5", "E55N12",// 隔壁container
 			"5bbcb0569099fc012e63bfc7", "E55N12",// 隔壁controller
 			"Spawn1",[MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK])
@@ -109,7 +109,7 @@ let room_base = {
 		// 	"6214c34774b79b01ce90576e", room.name,// container
 		// 	"Spawn1",[WORK, WORK, WORK, WORK, MOVE, CARRY])
 
-		room.keep_creep_num(1, "collecter",
+		room.keep_creep_num(0, "collecter",
 			"62168f78f5bd4dd5b3738d45", "E57N10",// source地点
 			"620ece6391dde3c37a95fe7b", room.name,// container
 			"Spawn1",[MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, WORK, WORK, CARRY, CARRY, CARRY, CARRY])
@@ -142,13 +142,16 @@ let room_base = {
 			"5bbcb0579099fc012e63bfcc", "E55N11",// 右下面source地点
 			"620ece6391dde3c37a95fe7b", "E54N12",
 			"Spawn2",[WORK, WORK, MOVE, CARRY])
+
 		room.keep_creep_num(3, "harvester",
 			"5bbcb0579099fc012e63bfca", "E55N11",// 右下面source地点
 			"620ece6391dde3c37a95fe7b", "E54N12",
 			"Spawn2",[WORK, WORK, MOVE, CARRY])
 
 	}
-	// creep.moveTo(target, { reusePath: 50 })
+	// Game.rooms["E55N12"]
+	// STRUCTURE_WALL
+	//
 };
 
 module.exports = room_base;
