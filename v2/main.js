@@ -21,7 +21,7 @@ module.exports.loop = function () {
 	prototype()
 	console.log("本轮" + Game.time + "----------------------------------------")
 
-	if (Game.time % 3 == 0) {
+	if (Game.time % 5 == 0) {
 		for (let name in Memory.creeps) {
 			if (!Game.creeps[name]) {
 				delete Memory.creeps[name];// 清除内存

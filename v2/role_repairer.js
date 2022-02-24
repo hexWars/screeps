@@ -29,9 +29,22 @@ let role = {
 						creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
 					}
 				} else {
-					let x = Math.ceil(Math.random() * 40)
-					let y = Math.ceil(Math.random() * 40)
-					creep.moveTo(x, y, {visualizePathStyle: {stroke: '#ffaa00'}});
+					target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+						filter: (structure) => {
+							return (structure.structureType == STRUCTURE_WALL) &&
+								structure.hits < 1000;
+						}
+					});
+					if (target) {
+						if (creep.repair(target) === ERR_NOT_IN_RANGE) {
+							creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+						}
+					} else {
+						let x = Math.ceil(Math.random() * 40)
+						let y = Math.ceil(Math.random() * 40)
+						creep.moveTo(x, y, {visualizePathStyle: {stroke: '#ffaa00'}});
+					}
+
 				}
 			} else {
 				creep.to_room(creep.memory.targetRoomName)
