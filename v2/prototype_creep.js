@@ -116,7 +116,7 @@ const creepExtension = {
 		} else {
 			const exitDir = this.room.findExitTo(roomName);// 找到通往另一个房间的出口方向
 			const exit = this.pos.findClosestByRange(exitDir);// 查找到该位置线性距离最短的对象
-			this.moveTo(exit);
+			this.moveTo(exit, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 50});
 			return false
 		}
 	}

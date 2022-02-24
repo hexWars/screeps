@@ -8,9 +8,9 @@ mp.set("HEAL", 250);
 mp.set("CLAIM", 600);
 mp.set("TOUGH", 10);
 
-let work = 4
-let move = 2
-let carry = 2
+let work = 2
+let move = 5
+let carry = 3
 let attack = 0
 let ranged_attack = 0
 let heal = 0

@@ -11,6 +11,8 @@ let role_harvester = require('role_harvester')
 let role_occupier = require('role_occupier')
 let role_repairer = require('role_repairer')
 let role_upgrader = require('role_upgrader')
+var role_collecter = require('role_collecter')
+
 
 // const HelperRoomResource = require('helper_roomResource')
 // HelperRoomResource.showAllRes();
@@ -57,6 +59,8 @@ module.exports.loop = function () {
 			role_repairer.run(creep)
 		} else if (creep.memory.role == "upgrader") {// targetId strage的Id
 			role_upgrader.run(creep)
+		} else if (creep.memory.role == "collecter") {
+			role_collecter.run(creep)
 		} else {
 			creep.say("error")
 		}
