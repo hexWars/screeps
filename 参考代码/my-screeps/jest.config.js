@@ -13,7 +13,7 @@ module.exports = {
         //'./setup.js' // setup.js 启动文件的路径
     ],
     setupFilesAfterEnv : [
-        '<rootDir>/src/setup.ts'
+        '<rootDir>/v2/setup.ts'
     ]
 
 }

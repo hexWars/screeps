@@ -11,7 +11,7 @@ let role = {
 			filter: function (structure) {
 				return (structure.structureType != STRUCTURE_WALL
 						&& structure.structureType != STRUCTURE_RAMPART)
-					&& structure.hits < structure.hitsMax
+					&& structure.hits < (structure.hitsMax* 4 / 5)
 				// return structure.hits < structure.hitsMax
 			}
 		});

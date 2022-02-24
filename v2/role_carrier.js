@@ -16,7 +16,7 @@ let role = {
 				creep.to_room(creep.memory.selfRoomName)
 			}
 		} else {// target
-			if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
+			if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 				if (creep.fillSpawnEnergy()) {
 					if (creep.fillTower()) {
 						creep.fillStorage()

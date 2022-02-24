@@ -17,10 +17,10 @@
       * Creates a Priority queue.
       * To avoid future frustration, I added a trap if the memory_structure param is undefined.
       * You must pass either an empty object - i.e.: let queue = new FlatQueue({});
-      * or a Screeps memory object - i.e.: let queue = new FlatQueue(Memory.src).
+      * or a Screeps memory object - i.e.: let queue = new FlatQueue(Memory.v2).
       *
       * IMPORTANT: When using a Screeps memory object, make sure to initialize it first!
-      * i.e.: Memory.src = {}
+      * i.e.: Memory.v2 = {}
       *
       * @param memory_structure {Object} Empty object or Screeps memory object
       */

@@ -20,7 +20,7 @@ const roomExtension = {
 		let creeps = _.filter(Game.creeps, (creep) =>
 			creep.memory.role == role && creep.memory.targetId == targetId && creep.memory.spawnName == spawnName
 			&& creep.memory.targetRoomName == targetRoomName && creep.memory.selfId == selfId && creep.memory.selfRoomName == selfRoomName);
-		// console.log(creeps.length + " " + " " + role + " " + selfRoomName)
+
 		if (creeps.length < limitNum) {
 			var name = role + Game.time
 			var res = Game.spawns[spawnName].spawnCreep(body, name, {
@@ -34,9 +34,9 @@ const roomExtension = {
 						spawnName: spawnName
 					}
 			})
-			return false
+			return creeps.length
 		} else {
-			return true
+			return creeps.length
 		}
 	},
 	/**

@@ -2,9 +2,9 @@
   "name": "mycode",
   "version": "1.0.0",
   "description": "",
-  "main": "src/main.js",
+  "main": "v2/main.js",
   "scripts": {
-    "test": "echo \\\"Error: no src specified\\\" && exit 1"
+    "test": "echo \\\\\\\"Error: no v2 specified\\\\\\\" && exit 1"
   },
   "author": "",
   "license": "ISC",

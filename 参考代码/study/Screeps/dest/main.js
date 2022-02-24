@@ -22,10 +22,10 @@ class FlatQueue
       * Creates a Priority queue.
       * To avoid future frustration, I added a trap if the memory_structure param is undefined.
       * You must pass either an empty object - i.e.: let queue = new FlatQueue({});
-      * or a Screeps memory object - i.e.: let queue = new FlatQueue(Memory.src).
+      * or a Screeps memory object - i.e.: let queue = new FlatQueue(Memory.v2).
       *
       * IMPORTANT: When using a Screeps memory object, make sure to initialize it first!
-      * i.e.: Memory.src = {}
+      * i.e.: Memory.v2 = {}
       *
       * @param memory_structure {Object} Empty object or Screeps memory object
       */
@@ -4982,13 +4982,13 @@ creep对穿+跨房间寻路+寻路缓存
 不会在Creep.prototype、PowerCreep.prototype上增加官方未有的键值，不会因此干扰外部代码
 本模块不可用于sim，在sim会因为房间名格式不对返回ERR_INVALID_TARGET
 模块参数见代码头部，模块接口见代码尾部
-版本号规则：alpha src = 0.1.x，beta src = 0.9.x，publish >= 1.0.0
+版本号规则：alpha v2 = 0.1.x，beta v2 = 0.9.x，publish >= 1.0.0
 
 author: Scorpior
 debug helpers: fangxm, czc
 inspired by: Yuandiaodiaodiao
 date: 2020/3/30
-version: 0.9.4(beta src)
+version: 0.9.4(beta v2)
 
 Usage:
 import "./超级移动优化"
@@ -6273,9 +6273,9 @@ const loop = errorMapper(() => {
         let rooms = ['W14N12'];
         mainUniversal(rooms);
     }
-    // if (Game.flags.src){
+    // if (Game.flags.v2){
     //     // todo
-    //     Game.flags.src.remove()
+    //     Game.flags.v2.remove()
     // }
 });
 

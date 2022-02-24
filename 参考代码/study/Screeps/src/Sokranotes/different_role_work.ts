@@ -165,7 +165,7 @@ export const different_role_work = function(){
         //     harvest_repair_work(creep)
         // }
 
-        // else if (creep.memory.role == 'src'){
+        // else if (creep.memory.role == 'v2'){
         //     test_work(creep)
         // }
 
