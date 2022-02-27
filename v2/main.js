@@ -12,6 +12,9 @@ let role_occupier = require('role_occupier')
 let role_repairer = require('role_repairer')
 let role_upgrader = require('role_upgrader')
 var role_collecter = require('role_collecter')
+var role_harvester_hydrogen = require('role_harvester_hydrogen')
+
+// import "./move"
 
 
 // const HelperRoomResource = require('helper_roomResource')
@@ -61,6 +64,8 @@ module.exports.loop = function () {
 			role_upgrader.run(creep)
 		} else if (creep.memory.role == "collecter") {
 			role_collecter.run(creep)
+		} else if (creep.memory.role == "harvester_hydrogen") {
+			role_harvester_hydrogen.run(creep)
 		} else {
 			creep.say("error")
 		}

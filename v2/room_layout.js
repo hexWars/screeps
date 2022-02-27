@@ -12,6 +12,11 @@ let room_base = {
 		tower.run(Game.getObjectById("62131c91803a815756709de8"))
 		// creep
 
+		//todo 化合物采集 修改
+		room.keep_creep_num(3, "harvester_hydrogen",
+			"5bbcb6f1d867df5e54207c59", room.name,// 化合物
+			"621b171f6ed3bb7eb49658f3", room.name,
+			"Spawn1",[WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY])
 
 		// -----------------------------------------------------------------------------------3
 		room.keep_creep_num(3, "harvester",
@@ -35,7 +40,7 @@ let room_base = {
 			"Spawn1",[WORK, MOVE, MOVE, MOVE, CARRY, CARRY])
 
         // -----------------------------------------------------------------------------------
-		room.keep_creep_num(2, "upgrader",
+		room.keep_creep_num(3, "upgrader",
 			"620ece6391dde3c37a95fe7b", room.name,// 本地storage
 			"5bbcb0459099fc012e63bd91", room.name,// 本地controller
 			"Spawn1",[WORK, WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY])
@@ -50,32 +55,32 @@ let room_base = {
 			"no", "E55N12",// 隔壁所有未完成建筑
 			"Spawn1",[MOVE, MOVE, MOVE, CARRY, CARRY, WORK])
 
-		room.keep_creep_num(0, "builder",
+		room.keep_creep_num(3, "builder",
 			"620ece6391dde3c37a95fe7b", room.name,// 本地storage
 			"no", room.name,// 本地所有未完成建筑
-			"Spawn1",[MOVE, MOVE, CARRY, CARRY, WORK, WORK])
+			"Spawn1",[MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK])
 
 		// ----------------------------------------------------------------------------1
 		room.keep_creep_num(1, "defender",
 			"no", "E55N12",
 			"no", "no",
-			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK])
+			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, MOVE, ATTACK, ATTACK, ATTACK])
 		room.keep_creep_num(1, "defender",
 			"no", "E54N13",
 			"no", "no",
-			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK])
+			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, MOVE, ATTACK, ATTACK, ATTACK])
 		room.keep_creep_num(1, "defender",
 			"no", "E54N11",
 			"no", "no",
-			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK])
+			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, MOVE, ATTACK, ATTACK, ATTACK])
 		room.keep_creep_num(0, "defender",
 			"no", "E53N11",
 			"no", "no",
-			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK])
+			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, MOVE, ATTACK, ATTACK, ATTACK])
 		room.keep_creep_num(1, "defender",
 			"no", "E55N11",
 			"no", "no",
-			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK])
+			"Spawn1",[MOVE, MOVE, MOVE, ATTACK, MOVE, ATTACK, ATTACK, ATTACK])
 		// ----------------------------------------------------------------------------
 
 
@@ -85,10 +90,16 @@ let room_base = {
 			"5bbcb0569099fc012e63bfc8", "E55N12",// source
 			"621691e6f6d102d612e2dfc5", "E55N12",// 隔壁container
 			"Spawn1",[WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, CARRY])
-		room.keep_creep_num(0, "upgrader",
-			"621691e6f6d102d612e2dfc5", "E55N12",// 隔壁container
+
+		room.keep_creep_num(1, "harvester",
+			"5bbcb0569099fc012e63bfc6", "E55N12",// source右上方
+			"62195fad3e5518e3c262de66", "E55N12",// 隔壁container
+			"Spawn1",[WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, CARRY])
+
+		room.keep_creep_num(1, "upgrader",
+			"62195fad3e5518e3c262de66", "E55N12",// 隔壁container
 			"5bbcb0569099fc012e63bfc7", "E55N12",// 隔壁controller
-			"Spawn1",[MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK])
+			"Spawn1",[MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK])
 		room.keep_creep_num(0, "builder",
 			"620ece6391dde3c37a95fe7b", room.name,// 本地storage
 			"no", "E55N12",// 所有未完成建筑
@@ -119,10 +130,10 @@ let room_base = {
 		// 塔
 		tower.run(Game.getObjectById("62183edc21e04a497120b848"))
 		// creep
-		room.keep_creep_num(2, "upgrader",
+		room.keep_creep_num(3, "upgrader",
 			"621691e6f6d102d612e2dfc5", room.name,// 隔壁container
 			"5bbcb0569099fc012e63bfc7", room.name,// 隔壁controller
-			"Spawn2",[MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK])
+			"Spawn2",[MOVE, MOVE, WORK, CARRY, CARRY, CARRY, WORK, WORK, WORK])
 
 		room.keep_creep_num(0, "harvester",
 			"5bbcb0569099fc012e63bfc8", "E55N12",// source
@@ -134,10 +145,10 @@ let room_base = {
 			"no", "E55N12",// 隔壁所有未完成建筑
 			"Spawn2",[MOVE, CARRY, WORK, WORK])
 		//todo 隔壁产生
-		room.keep_creep_num(1, "builder",
-			"621691e6f6d102d612e2dfc5", room.name,// 本地container
+		room.keep_creep_num(2, "builder",
+			"62195fad3e5518e3c262de66", room.name,// 本地container
 			"no", "E55N12",// 隔壁所有未完成建筑
-			"Spawn1",[MOVE, MOVE, CARRY, CARRY, WORK, WORK])
+			"Spawn2",[MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK])
 		//todo 上面
 		room.keep_creep_num(4, "harvester",
 			"5bbcb0579099fc012e63bfcc", "E55N11",// 右下面source地点
@@ -163,11 +174,16 @@ let room_base = {
 			"621691e6f6d102d612e2dfc5", room.name,// container
 			"no", room.name,// fillSpawnEnergy
 			"Spawn2",[MOVE, MOVE, CARRY, CARRY, CARRY, CARRY])
+		room.keep_creep_num(1, "carrier",
+			"62195fad3e5518e3c262de66", room.name,// container
+			"no", room.name,// fillSpawnEnergy
+			"Spawn2",[MOVE, MOVE, CARRY, CARRY, CARRY, CARRY])
 
 	}
-	// Game.rooms["E55N12"]
-	// STRUCTURE_WALL
-	//
+
 };
 
 module.exports = room_base;
+// Game.market.calcTransactionCost("2000", "E34N48", "E54N12")
+// Game.market.deal(orderId, amount, [yourRoomName])
+//
