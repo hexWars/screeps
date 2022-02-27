@@ -13,6 +13,7 @@ let role_repairer = require('role_repairer')
 let role_upgrader = require('role_upgrader')
 var role_collecter = require('role_collecter')
 var role_harvester_hydrogen = require('role_harvester_hydrogen')
+var utils = require('utils')
 
 // import "./move"
 
@@ -74,4 +75,8 @@ module.exports.loop = function () {
 	if (Game.cpu.bucket === 10000) {
 		Game.cpu.generatePixel();
 	}
+
+	// console.log(utils.getLeastCost(RESOURCE_ENERGY))
+	// console.log(utils.getAllCost(RESOURCE_HYDROGEN))
+
 }

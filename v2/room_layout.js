@@ -13,13 +13,13 @@ let room_base = {
 		// creep
 
 		//todo 化合物采集 修改
-		room.keep_creep_num(3, "harvester_hydrogen",
+		room.keep_creep_num(2, "harvester_hydrogen",
 			"5bbcb6f1d867df5e54207c59", room.name,// 化合物
 			"621b171f6ed3bb7eb49658f3", room.name,
 			"Spawn1",[WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY])
 
 		// -----------------------------------------------------------------------------------3
-		room.keep_creep_num(3, "harvester",
+		room.keep_creep_num(2, "harvester",
 			"5bbcb0469099fc012e63bd95", "E54N11",// 下面source地点
 			"620ece6391dde3c37a95fe7b", room.name,
 			"Spawn1",[WORK, MOVE, WORK, MOVE, MOVE, MOVE, CARRY, MOVE, CARRY, CARRY])
@@ -40,7 +40,7 @@ let room_base = {
 			"Spawn1",[WORK, MOVE, MOVE, MOVE, CARRY, CARRY])
 
         // -----------------------------------------------------------------------------------
-		room.keep_creep_num(3, "upgrader",
+		room.keep_creep_num(2, "upgrader",
 			"620ece6391dde3c37a95fe7b", room.name,// 本地storage
 			"5bbcb0459099fc012e63bd91", room.name,// 本地controller
 			"Spawn1",[WORK, WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY])
@@ -55,7 +55,7 @@ let room_base = {
 			"no", "E55N12",// 隔壁所有未完成建筑
 			"Spawn1",[MOVE, MOVE, MOVE, CARRY, CARRY, WORK])
 
-		room.keep_creep_num(3, "builder",
+		room.keep_creep_num(0, "builder",
 			"620ece6391dde3c37a95fe7b", room.name,// 本地storage
 			"no", room.name,// 本地所有未完成建筑
 			"Spawn1",[MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK])
@@ -118,7 +118,7 @@ let room_base = {
 		// room.keep_creep_num(1, "harvester",
 		// 	"5bbcb0459099fc012e63bd92", room.name,// source地点
 		// 	"6214c34774b79b01ce90576e", room.name,// container
-		// 	"Spawn1",[WORK, WORK, WORK, WORK, MOVE, CARRY])
+		// 	"Spawn1",[WORK, WORK, MOVE, CARRY])
 
 		room.keep_creep_num(0, "collecter",
 			"62168f78f5bd4dd5b3738d45", "E57N10",// source地点
@@ -145,7 +145,7 @@ let room_base = {
 			"no", "E55N12",// 隔壁所有未完成建筑
 			"Spawn2",[MOVE, CARRY, WORK, WORK])
 		//todo 隔壁产生
-		room.keep_creep_num(2, "builder",
+		room.keep_creep_num(0, "builder",
 			"62195fad3e5518e3c262de66", room.name,// 本地container
 			"no", "E55N12",// 隔壁所有未完成建筑
 			"Spawn2",[MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK])
