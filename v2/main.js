@@ -77,6 +77,7 @@ module.exports.loop = function () {
 	}
 
 	// console.log(utils.getLeastCost(RESOURCE_ENERGY))
-	// console.log(utils.getAllCost(RESOURCE_HYDROGEN))
+	// utils.getAllCost(RESOURCE_HYDROGEN)
+	// utils.getHighProfit(RESOURCE_ENERGY)
 
 }

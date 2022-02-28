@@ -55,7 +55,7 @@ let room_base = {
 			"no", "E55N12",// 隔壁所有未完成建筑
 			"Spawn1",[MOVE, MOVE, MOVE, CARRY, CARRY, WORK])
 
-		room.keep_creep_num(0, "builder",
+		room.keep_creep_num(1, "builder",
 			"620ece6391dde3c37a95fe7b", room.name,// 本地storage
 			"no", room.name,// 本地所有未完成建筑
 			"Spawn1",[MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK])
@@ -141,9 +141,9 @@ let room_base = {
 			"Spawn2",[WORK, WORK, MOVE, CARRY])
 
 		room.keep_creep_num(0, "builder",
-			"621691e6f6d102d612e2dfc5", room.name,// 本地container
+			"62195fad3e5518e3c262de66", room.name,// 本地container
 			"no", "E55N12",// 隔壁所有未完成建筑
-			"Spawn2",[MOVE, CARRY, WORK, WORK])
+			"Spawn2",[MOVE, CARRY, WORK])
 		//todo 隔壁产生
 		room.keep_creep_num(0, "builder",
 			"62195fad3e5518e3c262de66", room.name,// 本地container
