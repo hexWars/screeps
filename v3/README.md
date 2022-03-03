@@ -15,6 +15,18 @@
 - 代码时间优化
 
 
+1. 把生产队列写出来,参考hoho大佬
+
+
+# 内存数据
+
+creep:
+role 角色, ready 准备阶段是否完成
+
+spawn:
+spawnList 生产队列
+
+
 # creep设计
 
 去哪里,做什么
@@ -26,6 +38,7 @@ upgrader:
 从资源点,取出能量
 能量满了
 去往controller,升级controller
+
 
 ## harvest
 
@@ -78,6 +91,8 @@ creep进行采集时同时建造
 多个spawn分工,分工的解耦合
 
 ## wall和rampart
+
+如果掉下来,一次性到多少再停止,应用ready标签
 
 ## road
 

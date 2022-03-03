@@ -1,107 +1,142 @@
 module.exports = function () {
-	_.assign(Creep.prototype, creepExtension)
+	_.assign(Creep.prototype, extension)
 }
 
 
-const creepExtension = {
+const extension = {
+	/**
+	 * 缓存所有spawn和extension的位置
+	 * @param roomName
+	 * @return {*} 返回对象数组
+	 */
+	allSpawnExtensionPos: function (roomName) {
+		if (_.isUndefined(Memory.allSpawnExtensionPos)) {
+			Memory.allSpawnExtensionPos = {}
+		}
+		if (_.isUndefined(Memory.allSpawnExtensionPos[roomName])) {
+			Memory.allSpawnExtensionPos[roomName] = Game.rooms[roomName].find(FIND_MY_STRUCTURES, {
+				filter: function (obj) {
+					return obj.structureType === STRUCTURE_EXTENSION
+						|| obj.structureType === STRUCTURE_SPAWN
+				}
+			});
+		}
+		return Memory.allSpawnExtensionPos[roomName]
+	},
+	/**
+	 * 返回所有需要维护的建筑(不包括wall和rempart)
+	 * @param roomName
+	 * @return {*} 返回对象数组
+	 */
+	allFixPos: function (roomName) {
+		if (_.isUndefined(Memory.allFixPos)) {
+			Memory.allFixPos = {}
+		}
+		if (_.isUndefined(Memory.allFixPos[roomName])) {
+			Memory.allFixPos[roomName] = Game.rooms[roomName].find(FIND_STRUCTURES, {
+				filter: function (obj) {
+					return (obj.structureType != STRUCTURE_WALL
+						&& obj.structureType != STRUCTURE_RAMPART)
+						&& obj.hits < obj.hitsMax * 7 / 10
+				}
+			});
+		}
+		return Memory.allFixPos[roomName]
+	},
+	/**
+	 * 所有带攻击部件的敌人的位置
+	 * @param roomName
+	 * @return {*} 返回对象数组
+	 */
+	enemyPos: function (roomName) {
+		if (_.isUndefined(Memory.enemyPos)) {
+			Memory.allFixPos = {}
+		}
+		if (_.isUndefined(Memory.enemyPos[roomName])) {
+			Memory.enemyPos[roomName] = Game.rooms[roomName].find(FIND_HOSTILE_CREEPS, {
+				filter: function (obj) {
+					for (let i in obj.body) {
+						if (i.type == ATTACK || i.type == RANGED_ATTACK) {
+							return true
+						}
+					}
+					return false
+				}
+			});
+		}
+		return Memory.enemyPos[roomName]
+	},
+	//todo 未建成的建筑,塔
+	towerPos: function (roomName) {
+		if (_.isUndefined(Memory.towerPos)) {
+			Memory.allFixPos = {}
+		}
+		if (_.isUndefined(Memory.towerPos[roomName])) {
+			Memory.towerPos[roomName] = Game.rooms[roomName].find(FIND_STRUCTURES, {
+				filter: function (obj) {
+					return obj.structureType === STRUCTURE_TOWER
+					&& obj
+					//todo 补充能量逻辑
+				}
+			});
+		}
+		return Memory.towerPos[roomName]
+	},
+	/**
+	 * creep执行
+	 */
+	work: function () {
+		// ...
+		// 如果 creep 还没有发送重生信息的话，执行健康检查，保证只发送一次生成任务
+		// 健康检查不通过则向 spawnList 发送自己的生成任务
+		if (!this.memory.hasSendRebirth) {
+			const health = this.isHealthy()
+			if (!health) {
+				// 向指定 spawn 推送生成任务
+				// ...
+				this.memory.hasSendRebirth = true
+			}
+		}
+	},
+	/**
+	 * creep更新重生标记的时间限制
+	 * @return {boolean}
+	 */
+	isHealthy: function() {
+		return this.ticksToLive > 100;
+	},
 	/**
 	 * 自定义敌人检测
-	 * @param type 选择类型
-	 * 1: 最近的
 	 * @returns {target} 目标对象
 	 */
-	checkEnemy(type = 1) {
-		if (type == 1) {
-			var target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-			if (target) {
-				return target
-			} else {
-				return undefined
-			}
-		} else {
+	checkEnemy() {
 
-		}
 	},
 	/**
 	 * 填充所有 spawn 和 extension
 	 * @return 填充完成返回true
 	 */
 	fillSpawnEnergy() {
-		var target = this.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-			filter: (structure) => {
-				return (structure.structureType === STRUCTURE_EXTENSION
-						|| structure.structureType === STRUCTURE_SPAWN
-					) &&
-					structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-			}
-		});
-		if (target) {
-			if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-				this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-			}
-			return false
-		} else {
-			return true
-		}
+
 	},
 	/**
 	 * 填充仓库
 	 */
 	fillStorage () {
-		var target = this.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-			filter: (structure) => {
-				return (structure.structureType === STRUCTURE_STORAGE
-					) &&
-					structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-			}
-		});
-		if (target) {
-			for(const resourceType in this.store) {
-				if (this.transfer(target, resourceType) === ERR_NOT_IN_RANGE) {
-					this.moveTo(target)
-				}
-			}
-			// if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-			// 	this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-			// }
-			return true
-		} else {
-			return false
-		}
+
 	},
 	/**
 	 * 填充所有 tower
 	 * @return boolean 全部填充返回true
 	 */
 	fillTower() {
-		var target = this.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-			filter: (structure) => {
-				return (structure.structureType === STRUCTURE_TOWER) &&
-					structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-			}
-		});
-		if (target) {
-			// console.log(this.transfer(target, RESOURCE_ENERGY))
-			if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-				this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-			}
-			return false
-		} else {
-			return true
-		}
+
 	},
 	/**
 	 *
 	 */
 	buildAllStructures() {
-		var target = this.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
-		if (target) {
-			if (this.build(target) === ERR_NOT_IN_RANGE) {
-				this.moveTo(target, opts);
-			}
-			return true
-		}
-		return false
+
 	},
 	/**
 	 *
