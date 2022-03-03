@@ -27,9 +27,8 @@ let role = {
 				}
 			}
 		} else {
-			// var target = creep.pos.findClosestByRange(FIND_TOMBSTONES);
-			// if (target) {
-			if (false) {
+			var target = creep.pos.findClosestByRange(FIND_TOMBSTONES);
+			if (target) {
 				if (creep.store.getFreeCapacity() == 0) {
 					creep.fillStorage()
 				} else {

@@ -1,19 +1,19 @@
 const tower = require('structure_tower')
-const prototype = require('prototype')
+const mount = require('mount')
 /**
  *
  */
 
 let room_base = {
 	run_1: function (room) {// 布局1
-		prototype()
+		mount()
 		// 塔
 		tower.run_1(Game.getObjectById("620d4e8351da53fd9193b024"))
 		tower.run_1(Game.getObjectById("62131c91803a815756709de8"))
 		// creep
 
 		//todo 化合物采集 修改
-		room.keep_creep_num(2, "harvester_hydrogen",
+		room.keep_creep_num(0, "harvester_hydrogen",
 			"5bbcb6f1d867df5e54207c59", room.name,// 化合物
 			"621b171f6ed3bb7eb49658f3", room.name,
 			"Spawn1", [WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY])
@@ -93,24 +93,24 @@ let room_base = {
 			"62195fad3e5518e3c262de66", "E55N12",// 隔壁container
 			"5bbcb0569099fc012e63bfc7", "E55N12",// 隔壁controller
 			"Spawn1", [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK])
-		room.keep_creep_num(0, "builder",
+		room.keep_creep_num(2, "builder",
 			"620ece6391dde3c37a95fe7b", room.name,// 本地storage
 			"no", "E54N12",// 所有未完成建筑
 			"Spawn1", [MOVE, MOVE, CARRY, CARRY, WORK])
 
 		// ---------------------------------------------------------------------------------------------------
 		room.keep_creep_num(1, "carrier",
-			"6220203909356694f17c9768", room.name,// container
+			"6214c34774b79b01ce90576e", room.name,// container
 			"no", room.name,// fillSpawnEnergy
 			"Spawn1", [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY])
 
 		room.keep_creep_num(1, "harvester",
 			"5bbcb0459099fc012e63bd92", room.name,// source地点
-			"6220203909356694f17c9768", room.name,// container
+			"6214c34774b79b01ce90576e", room.name,// container
 			"Spawn1", [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY])
 		// room.keep_creep_num(1, "harvester",
 		// 	"5bbcb0459099fc012e63bd92", room.name,// source地点
-		// 	"6220203909356694f17c9768", room.name,// container
+		// 	"6214c34774b79b01ce90576e", room.name,// container
 		// 	"Spawn1",[WORK, WORK, MOVE, CARRY])
 
 		room.keep_creep_num(0, "collecter",
@@ -127,11 +127,11 @@ let room_base = {
 		room.keep_creep_num(1, "harvester",
 			"5bbcb0569099fc012e63bfc8", "E55N12",// source
 			"621691e6f6d102d612e2dfc5", "E55N12",// 隔壁container
-			"Spawn2", [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY])
+			"Spawn2", [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, CARRY])
 		room.keep_creep_num(1, "harvester",
 			"5bbcb0569099fc012e63bfc6", "E55N12",// source右上方
 			"62195fad3e5518e3c262de66", "E55N12",// 隔壁container
-			"Spawn2", [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY])
+			"Spawn2", [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, MOVE, CARRY])
 
 		room.keep_creep_num(2, "carrier",
 			"621691e6f6d102d612e2dfc5", room.name,// container
@@ -141,21 +141,21 @@ let room_base = {
 			"62195fad3e5518e3c262de66", room.name,// container
 			"no", room.name,// fillSpawnEnergy
 			"Spawn2", [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY])
-		room.keep_creep_num(2/*2*/, "upgrader",
+		room.keep_creep_num(0/*2*/, "upgrader",
 			"621c39dfae65a2ba81ee5dfb", room.name,// 隔壁storage
 			"5bbcb0569099fc012e63bfc7", room.name,// 隔壁controller
-			"Spawn2", [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK])
+			"Spawn2", [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK])
 
 
-		room.keep_creep_num(2/*2*/, "harvester",
+		room.keep_creep_num(0/*2*/, "harvester",
 			"5bbcb0579099fc012e63bfcc", "E55N11",// 右下面source地点
 			"620ece6391dde3c37a95fe7b", "E54N12",
 			"Spawn2", [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY])
-		room.keep_creep_num(2/*2*/, "harvester",
+		room.keep_creep_num(0/*2*/, "harvester",
 			"5bbcb0579099fc012e63bfca", "E55N11",// 右下面source地点
 			"620ece6391dde3c37a95fe7b", "E54N12",
 			"Spawn2", [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY])
-		room.keep_creep_num(2/*2*/, "harvester",
+		room.keep_creep_num(0/*2*/, "harvester",
 			"5bbcb0459099fc012e63bd8e", "E54N13",// 右下面source地点
 			"620ece6391dde3c37a95fe7b", "E54N12",
 			"Spawn2", [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY])

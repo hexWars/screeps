@@ -1,5 +1,5 @@
 
-let prototype = require('prototype')
+let mount = require('mount')
 let room_layout = require('room_layout')
 
 //role
@@ -8,7 +8,6 @@ let role_builder = require('role_builder')
 let role_carrier = require('role_carrier')
 let role_defender = require('role_defender')
 let role_harvester = require('role_harvester')
-let role_occupier = require('role_occupier')
 let role_repairer = require('role_repairer')
 let role_upgrader = require('role_upgrader')
 var role_collecter = require('role_collecter')
@@ -22,7 +21,7 @@ var utils = require('utils')
 // HelperRoomResource.showAllRes();
 
 module.exports.loop = function () {
-	prototype()
+	mount()
 	console.log("本轮" + Game.time + "----------------------------------------")
 
 	if (Game.time % 5 == 0) {
