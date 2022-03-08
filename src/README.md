@@ -41,41 +41,30 @@ upgrader:
 
 
 ## harvest
-
 搬送到spawn
 脚下修建container
 放入container
-
 ## upgrader
-
 从资源点采集后升级
 从container升级
 从storage升级
-
 ## carrier
-
 未出现storage,将能量传给spawn和extension和塔
 出现storage,前面做完之后再传给storage
-
 ## builder
 有建筑就去修
 没有就升级||捡漏
-
 ## repairer
 维修建筑和刷墙
-
 ## defender
 发现敌人缓存后攻击,一个优先攻击最近的带攻击部件的敌人敌人
-
 # structure设计
-
 ## tower设计
 塔的逻辑改写
 https://www.jianshu.com/p/c49fb24593b5
 - 分析部件
 - 不要进行重复搜索
 - 缓存敌人信息
-
 ## link设计
 - 传输到中央存储
 - 进攻时传给防御塔(能量不足时传给其他建筑)
@@ -86,20 +75,19 @@ SourceLink--> CenterLink--> StructureLink
 ## container设计
 creep进行采集时同时建造
 进攻时分发拓展能量
-
 ## spawn设计
 多个spawn分工,分工的解耦合
-
 ## wall和rampart
-
 如果掉下来,一次性到多少再停止,应用ready标签
-
 ## road
-
 自动修路
-
 ## flag
-
 根据flag定位source和controller
 
+
+
+
+每隔500tick检查一次
+
+其他使用分布式检查
 
