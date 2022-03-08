@@ -1,4 +1,5 @@
-let prototype = require('prototype')
+
+let mount = require('mount')
 let room_layout = require('room_layout')
 
 //role
@@ -7,22 +8,15 @@ let role_builder = require('role_builder')
 let role_carrier = require('role_carrier')
 let role_defender = require('role_defender')
 let role_harvester = require('role_harvester')
-let role_occupier = require('role_occupier')
 let role_repairer = require('role_repairer')
 let role_upgrader = require('role_upgrader')
 var role_collecter = require('role_collecter')
 var role_harvester_hydrogen = require('role_harvester_hydrogen')
-var role_harvester_x = require('role_harvester_x')
 var utils = require('utils')
 
-// import "./move"
-
-
-// const HelperRoomResource = require('helper_roomResource')
-// HelperRoomResource.showAllRes();
 
 module.exports.loop = function () {
-	prototype()
+	mount()
 	console.log("本轮" + Game.time + "----------------------------------------")
 
 	if (Game.time % 5 == 0) {
@@ -37,12 +31,10 @@ module.exports.loop = function () {
 	// power.run(id1, id2, id3);//todo id有相同原则,相同房间有相同逻辑等
 
 	for (let roomName in Game.rooms) {
-		if (roomName == "E19S53") {
-			room_layout.run_E59S53(Game.rooms[roomName])
+		if (roomName == "E54N12") {
+			room_layout.run_1(Game.rooms[roomName])
 		} else if (roomName == "E55N12") {
-			// room_layout.run_2(Game.rooms[roomName])
-		} else if (roomName == "E59N12") {
-			// room_layout.run_3(Game.rooms[roomName])
+			room_layout.run_2(Game.rooms[roomName])
 		} else {
 			// console.log("other room " + roomName)
 		}
@@ -69,10 +61,6 @@ module.exports.loop = function () {
 			role_collecter.run(creep)
 		} else if (creep.memory.role == "harvester_hydrogen") {
 			role_harvester_hydrogen.run(creep)
-		} else if (creep.memory.role == "occupier") {
-			role_occupier.run(creep)
-		} else if (creep.memory.role == "harvester_x") {
-			role_harvester_x.run(creep)
 		} else {
 			creep.say("error")
 		}
@@ -85,19 +73,13 @@ module.exports.loop = function () {
 	// console.log(utils.getLeastCost(RESOURCE_ENERGY))
 	// utils.getAllCost(RESOURCE_HYDROGEN)
 	// console.log(Game.market.calcTransactionCost(1000, "E54N12", "E58N18"))
-	// utils.getHighProfit(RESOURCE_ENERGY)
-	// Game.market.changeOrderPrice("62219f65d769302845f2afe5", 6.35)
+	// utils.getHighProfit(RESOURCE_HYDROGEN)
 	// Game.market.createOrder({
-	// 	type: ORDER_SELL,
-	// 	resourceType: RESOURCE_HYDROGEN,
-	// 	price: 6.40,
-	// 	totalAmount: 5000,
+	// 	type: ORDER_BUY,
+	// 	resourceType: PIXEL,
+	// 	price: 0.0012,
+	// 	totalAmount: 10000,
 	// 	roomName: "E54N12"
 	// });
-
-	// Game.market.calcTransactionCost("2000", "E34N48", "E54N12")
-	// Game.market.deal(orderId, amount, [yourRoomName])
-	//
-
 
 }

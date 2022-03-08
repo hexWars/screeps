@@ -43,7 +43,7 @@ upgrader:
 ## harvest
 
 搬送到spawn
-开始修建container
+脚下修建container
 放入container
 
 ## upgrader

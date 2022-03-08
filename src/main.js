@@ -14,11 +14,6 @@ var role_collecter = require('role_collecter')
 var role_harvester_hydrogen = require('role_harvester_hydrogen')
 var utils = require('utils')
 
-// import "./move"
-
-
-// const HelperRoomResource = require('helper_roomResource')
-// HelperRoomResource.showAllRes();
 
 module.exports.loop = function () {
 	mount()
