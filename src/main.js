@@ -1,14 +1,23 @@
 import {errorMapper} from './modules/errorMapper'
 import {mount} from './mount'
 import {room_layout_centralization, room_layout_distributed} from './room_layout'
-import {harvester} from './role/low/harvester'
-import {upgrader} from "./role/low/upgrader";
-import {builder} from "./role/low/builder";
+import {role_harvester} from "./role/medium/role_harvester";
+import {role_upgrader} from "./role/medium/role_upgrader";
+import {role_builder} from "./role/medium/role_builder";
+import {role_carrier} from "./role/medium/role_carrier";
 
 export const loop = errorMapper(() => {
 	console.log("本轮" + Game.time + "----------------------------------------")
 
 	mount()
+
+	if (Game.time % 5 == 0) {
+		for (let name in Memory.creeps) {
+			if (!Game.creeps[name]) {
+				delete Memory.creeps[name];// 清除内存
+			}
+		}
+	}
 
 	// if (Game.time % 500 == 0) {
 	// 	for (let roomName in Game.rooms) {
@@ -24,8 +33,13 @@ export const loop = errorMapper(() => {
 		room_layout_centralization.layout(roomName)
 	}
 
+	Game.getObjectById("622815f682606a45aacde400").run_1()
+
 	//todo 分布式
 	let flag = Game.time % 10 == 0
+
+	// let roleMap
+	// roleMap["harvester"] = harvester
 
 	for (let name in Game.creeps) {
 		var creep = Game.creeps[name]
@@ -33,11 +47,13 @@ export const loop = errorMapper(() => {
 			// creep.work()
 		}
 		if (creep.memory.role == "harvester") {
-			harvester(creep)
+			role_harvester(creep)
 		} else if (creep.memory.role == "upgrader") {
-			upgrader(creep)
+			role_upgrader(creep)
 		} else if (creep.memory.role == "builder") {
-			builder(creep)
+			role_builder(creep)
+		} else if (creep.memory.role == "carrier") {
+			role_carrier(creep)
 		}
 	}
 
@@ -47,3 +63,5 @@ export const loop = errorMapper(() => {
 		Game.cpu.generatePixel();
 	}
 })
+
+//todo 更改步入第二阶段, 从container取出

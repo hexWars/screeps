@@ -1,10 +1,10 @@
 
 export const p_creep = function () {
-	_.assign(Creep.prototype, extension)
+	_.assign(Creep.prototype, creepExtension)
 }
 
 
-const extension = {
+const creepExtension = {
 	/**
 	 * creep执行
 	 */
@@ -29,23 +29,54 @@ const extension = {
 	},
 	/**
 	 * 填充所有 spawn 和 extension
-	 * @return 填充完成返回true
+	 * @return boolean
 	 */
 	fillSpawnEnergy() {
-
+		let targets = this.room.extensionsAndSpawn()
+		if (targets.length > 0) {
+			if (this.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				this.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+			}
+			return false
+		} else {
+			return true
+		}
 	},
 	/**
 	 * 填充仓库
 	 */
 	fillStorage () {
-
+		let target = this.room.storage
+		if (target) {
+			for(const resourceType in this.store) {
+				if (this.transfer(target, resourceType) === ERR_NOT_IN_RANGE) {
+					this.moveTo(target)
+				}
+				// if (this.store.getUsedCapacity() == 0) {
+				// 	break
+				// }
+			}
+			// if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+			// 	this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+			// }
+		}
 	},
 	/**
 	 * 填充所有 tower
-	 * @return boolean 全部填充返回true
+	 * 全部填充返回true
+	 * @return boolean
 	 */
 	fillTower() {
-
+		let targets = this.room.towers()
+		if (targets) {
+			// console.log(this.transfer(target, RESOURCE_ENERGY))
+			if (this.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				this.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+			}
+			return false
+		} else {
+			return true
+		}
 	},
 	/**
 	 * 修理所有建筑,除了墙
@@ -71,7 +102,7 @@ const extension = {
 		} else {
 			const exitDir = this.room.findExitTo(roomName);// 找到通往另一个房间的出口方向
 			const exit = this.pos.findClosestByRange(exitDir);// 查找到该位置线性距离最短的对象
-			this.moveTo(exit, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 50});
+			this.moveTo(exit, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 60});
 			return false
 		}
 	}

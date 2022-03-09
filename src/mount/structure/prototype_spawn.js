@@ -1,11 +1,11 @@
 import {config} from "../../config";
 
 export const p_spawn = function () {
-	_.assign(Spawn.prototype, extension)
+	_.assign(Spawn.prototype, spawnExtension)
 }
 
 
-const extension = {
+const spawnExtension = {
 	/**
 	 * 对队列进行检查
 	 */

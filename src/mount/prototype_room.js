@@ -1,13 +1,22 @@
-import {filter} from "lodash";
 
 export const p_room = function () {
-	_.assign(Room.prototype, extension);
+	_.assign(Room.prototype, roomExtension);
 }
 
 
-const extension = {
+const roomExtension = {
 	/**
-	 * 资源缓存
+	 * 建筑点位置缓存
+	 * @return {*}
+	 */
+	allConstructionSite: function () {
+		if (!this._structuresSites) {
+			this._structuresSites = this.find(FIND_CONSTRUCTION_SITES)
+		}
+		return this._structuresSites
+	},
+	/**
+	 * 资源位置缓存
 	 * @return {*}
 	 */
 	sources: function () {
@@ -20,20 +29,30 @@ const extension = {
 		return this._sources
 	},
 	/**
-	 * 所有extension和spawn
+	 * 所有extension和spawn位置缓存
 	 * @return {*}
 	 */
 	extensionsAndSpawn: function () {
-		if (!this.memory._exten) {
-			if (!this.memory.extenId) {
-				this.memory.extenId = this.find(FIND_STRUCTURES, {
-					filter: (obj) => (obj.structureType === STRUCTURE_CONTAINER || obj.structureType === STRUCTURE_SPAWN)
-					&& obj.store.getFreeCapacity() > 0
-				}).map(structure => structure.id);
-			}
-			this._exten = this.memory.extenId.map(id => Game.getObjectById(id));
+		if (!this._extenAndSpawn) {
+			this._extenAndSpawn = this.find(FIND_MY_STRUCTURES, {
+				filter: function (obj) {
+					return (obj.structureType == STRUCTURE_EXTENSION || obj.structureType == STRUCTURE_SPAWN)
+						&& obj.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+				}
+			})
 		}
-		return this._exten
+		return this._extenAndSpawn
+	},
+	towers: function () {
+		if (!this._towers) {
+			this._towers = this.find(FIND_MY_STRUCTURES, {
+				filter: (structure) => {
+					return (structure.structureType === STRUCTURE_TOWER) &&
+						structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+				}
+			});
+		}
+		return this._towers
 	},
 	/**
 	 *
@@ -70,6 +89,20 @@ const extension = {
 		} else {
 			return creeps.length
 		}
+	},
+	/**
+	 * 敌人缓存
+	 * @return {*}
+	 */
+	checkEnemy: function () {
+		if (!this._enemys) {
+			this._enemys = this.find(FIND_HOSTILE_CREEPS, {
+				filter: function(obj) {
+					return obj.indexOf(HEAL)!=-1 || obj.indexOf(ATTACK)!=-1 || obj.indexOf(RANGED_ATTACK)!=-1
+				}
+			})
+		}
+		return this._enemys
 	}
 
 }
