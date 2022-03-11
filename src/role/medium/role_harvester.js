@@ -9,6 +9,9 @@ export const role_harvester = function (creep) {
 			if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30})
 			}
+			if (target.structureType === STRUCTURE_LINK && target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
+				target.work()
+			}
 		} else {
 			creep.to_room(creep.memory.targetRoomName)
 		}

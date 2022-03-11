@@ -3263,7 +3263,7 @@ const creepExtension = {
 			if (!health) {
 				//todo 向指定 spawn 推送生成任务
 				this.memory.hasSendRebirth = true;
-				Game.spawns["Spawn1"].addTask(this.memory);
+				Game.spawns[this.memory.spawnName].addTask(this.memory);
 			}
 		}
 	},
@@ -3279,10 +3279,24 @@ const creepExtension = {
 	 * @return boolean
 	 */
 	fillSpawnEnergy() {
-		let targets = this.room.extensionsAndSpawn();
-		if (targets.length > 0) {
-			if (this.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-				this.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+		// let targets = this.room.extensionsAndSpawn()
+		// if (targets.length > 0) {
+		// 	if (this.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+		// 		this.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+		// 	}
+		// 	return false
+		// } else {
+		// 	return true
+		// }
+		var target = this.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+			filter: function (obj) {
+				return (obj.structureType == STRUCTURE_EXTENSION || obj.structureType == STRUCTURE_SPAWN)
+					&& obj.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+			}
+		});
+		if (target) {
+			if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				this.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
 			}
 			return false
 		} else {
@@ -3362,7 +3376,7 @@ const config = {
 			role: "upgrader",
 			number: 3,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
 			selfId: "62284cb82f2a4ab633b7f42a",
 			selfRoomName: "E18S54",
 			targetId: "5bbcae039099fc012e6384c4",
@@ -3370,7 +3384,7 @@ const config = {
 		},
 		upgrader1: {
 			role: "upgrader",
-			number: 2,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
 			selfId: "622853b3cf799d2fc73d8630",
@@ -3380,9 +3394,9 @@ const config = {
 		},
 		builder: {
 			role: "builder",
-			number: 0,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, CARRY, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK],
 			selfId: "622853b3cf799d2fc73d8630",
 			selfRoomName: "E18S54",
 			targetId: "no",
@@ -3390,9 +3404,9 @@ const config = {
 		},
 		harvester: {
 			role: "harvester",
-			number: 2,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, CARRY, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae039099fc012e6384c3",
 			selfRoomName: "E18S54",
 			targetId: "62284cb82f2a4ab633b7f42a",
@@ -3434,8 +3448,29 @@ const config = {
 		},
 		occupier: {
 		},
-		structureIds: {
-			centerLink: ""
+		center: {
+			role: "center",
+			number: 0,
+			spawnName: "Spawn1",
+			body: [MOVE, CARRY, CARRY, CARRY, CARRY],
+			selfId: "",// link
+			selfRoomName: "E18S54",
+			targetId: "",// storage
+			targetRoomName: "E18S54"
+		},
+		structures: {
+			Link: {
+				center: "000",
+				from: ["111"],
+				to: ["333", "444"]
+			},
+			Tower: {
+				attack: [],
+				repair: {
+					"622815f682606a45aacde400": 25,
+					"622abfe68d3e7624f42731e0": 25
+				},
+			}
 		}
 	}
 
@@ -3455,7 +3490,7 @@ const spawnExtension = {
 		if (this.spawning || !this.memory.spawnList || this.memory.spawnList.length == 0) return
 		// 进行生成
 		//todo 智能选择spawn的方法
-		const spawnSuccess = this.mainSpawn("Spawn1", this.memory.spawnList[0]);
+		const spawnSuccess = this.mainSpawn(this.name, this.memory.spawnList[0]);
 		// 生成成功后移除任务
 		if (spawnSuccess) this.memory.spawnList.shift();
 		//fruits.reverse(); 可以实现倒序,即最后一个排到前面
@@ -3475,8 +3510,8 @@ const spawnExtension = {
 	 * @param spawnName 从哪个spawn生成
 	 * @return {boolean} 成功与否
 	 */
-	mainSpawn: function (data, spawnName) {
-		var name = role + Game.time;
+	mainSpawn: function (spawnName, data) {
+		let name = data.role + Game.time;
 		let this_spawn = Game.spawns[spawnName];
 		//todo body没有(通过json获取), 内存尽量少, 哪个spawn(其他方法,智能选择)
 		let roomJson = config[this_spawn.room];
@@ -3493,6 +3528,17 @@ const p_room = function () {
 
 
 const roomExtension = {
+	/**
+	 * 内存重新载入
+	 */
+	init: function () {
+		//todo source
+		// 塔的位置
+		// spawn和extension
+		// link 等等所有建筑的位置
+
+		//todo WALL的位置
+	},
 	/**
 	 * 建筑点位置缓存
 	 * @return {*}
@@ -3579,16 +3625,12 @@ const roomExtension = {
 		}
 	},
 	/**
-	 * 敌人缓存
+	 * 发现敌人并缓存
 	 * @return {*}
 	 */
 	checkEnemy: function () {
 		if (!this._enemys) {
-			this._enemys = this.find(FIND_HOSTILE_CREEPS, {
-				filter: function(obj) {
-					return obj.indexOf(HEAL)!=-1 || obj.indexOf(ATTACK)!=-1 || obj.indexOf(RANGED_ATTACK)!=-1
-				}
-			});
+			this._enemys = this.find(FIND_HOSTILE_CREEPS);
 		}
 		return this._enemys
 	}
@@ -3601,6 +3643,9 @@ const p_tower = function () {
 
 //todo 发现敌人放到room里写
 const towerExtension = {
+
+	//todo 指定范围维修,指定类型维修
+	// 层次修墙(repairer做的)
 
 	/**
 	 * 塔的治疗和攻击
@@ -3625,15 +3670,40 @@ const towerExtension = {
 		// 维修
 		this.fixStructure();
 		// 搜索敌人并打击
-		this.attack();
+		this.attack_creep();
 		// 治疗creep
 		this.healCreep();
 	},
-	attack: function () {
-		var creep = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-		if (creep) {
-			this.attack(creep);
+	/**
+	 * 单纯攻击
+	 */
+	run_attack: function () {
+		this.attack_creep();
+	},
+	/**
+	 * 范围修复加全局攻击
+	 */
+	run_range: function (range) {
+		if (!this.attack_creep()) {
+			//todo 治疗最近
+			if (!this.healCreep()) {
+				this.fix_range_structure(range);
+			}
 		}
+	},
+	/**
+	 * 攻击敌人
+	 * @return {boolean}
+	 */
+	attack_creep: function () {
+		// var creep = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
+		var creep = this.room.checkEnemy()[0];
+		if (creep) {
+			if (this.attack(creep) === OK) {
+				return true
+			}
+		}
+		return false
 	},
 	healCreep: function () {
 		var creep = this.pos.findClosestByRange(FIND_MY_CREEPS, {
@@ -3643,7 +3713,9 @@ const towerExtension = {
 		});
 		if (creep) {
 			this.heal(creep);
+			return true
 		}
+		return false
 	},
 	fixStructure: function () {
 		var structure = this.pos.findClosestByRange(FIND_STRUCTURES, {
@@ -3661,12 +3733,41 @@ const towerExtension = {
 				filter: function (structure) {
 					return (structure.structureType == STRUCTURE_WALL
 							|| structure.structureType == STRUCTURE_RAMPART)
-						&& structure.hits < 5000
+						&& structure.hits < 1000
 					// return structure.hits < structure.hitsMax
 				}
 			});
 			if (structure) {
 				this.repair(structure);
+			}
+		}
+	},
+	/**
+	 *
+	 * @param range
+	 */
+	fix_range_structure: function (range = 25) {
+		let structures = this.pos.findInRange(FIND_STRUCTURES, range, {
+			filter: function (structure) {
+				return (structure.structureType != STRUCTURE_WALL
+						&& structure.structureType != STRUCTURE_RAMPART)
+					&& structure.hits < (structure.hitsMax* 4 / 5)
+				// return structure.hits < structure.hitsMax
+			}
+		});
+		if (structures.length > 0) {
+			this.repair(structures[0]);
+		} else {
+			structures = this.pos.findInRange(FIND_STRUCTURES, range, {
+				filter: function (structure) {
+					return (structure.structureType == STRUCTURE_WALL
+							|| structure.structureType == STRUCTURE_RAMPART)
+						&& structure.hits < 300
+					// return structure.hits < structure.hitsMax
+				}
+			});
+			if (structures.length > 0) {
+				this.repair(structures[0]);
 			}
 		}
 	}
@@ -3680,23 +3781,100 @@ const mount = function () {
 };
 
 /**
- * 集中式
- * @type {{layout: room_layout_centralization.layout}}
+ * 房间运行
+ * @type {{}}
  */
-const room_layout_centralization = {
-	layout: function (roomName) {
+const setting_room_layout = {
+	/**
+	 * 执行设置
+	 * @param roomName
+	 */
+	run: function (roomName) {
+		this.creep_centralization(roomName);
+		//todo 根据配置文件执行
+		this.structure_load(roomName);
+	},
+	structure_load: function (roomName) {
+		let room = Game.rooms[roomName];
+		room.controller.level;
+		let roomConfig = config[roomName];
+		//todo Link和塔
+		this.towerConfig(roomConfig["structures"].Tower);
+		// this.linkConfig(roomConfig["structures"].Link)
+		//todo 捡起
+		this.pick_sources(room);
+	},
+	/**
+	 * 捡起所有掉落资源
+	 * @param room
+	 */
+	pick_sources: function (room) {
+		var targets = room.find(FIND_DROPPED_RESOURCES);
+		if (targets.length > 0) {
+			for (let i=0; i<targets.length; i++) {
+				var creep = targets[i].pos.findInRange(FIND_MY_CREEPS, 1)[0];
+				if (creep) {
+					creep.pickup(targets[i]);
+				}
+			}
+		} else {
+			targets = room.find(FIND_TOMBSTONES);
+			for (let i=0; i<targets.length; i++) {
+				creep = targets[i].pos.findInRange(FIND_MY_CREEPS, 1)[0];
+				if (creep) {
+					creep.withdraw(targets[i], RESOURCE_ENERGY);
+				}
+			}
+		}
+	},
+	/**
+	 * 根据配置执行塔逻辑
+	 * @param towerConfig
+	 */
+	towerConfig: function (towerConfig) {
+		// 攻击
+		for (let towerId in towerConfig.attack) {
+			console.log(towerId);
+			Game.getObjectById(towerId).run_attack();
+		}
+		// 维修
+		for (let towerId in towerConfig.repair) {
+			var range = towerConfig.repair[towerId];
+			Game.getObjectById(towerId).run_range(range);
+		}
+	},
+	/**
+	 * 分布式
+	 */
+	creep_distributed: function (roomName) {
+		mount();
+		let room = Game.rooms[roomName];
+		room.controller.level;
+		let spawn;
+
+		//todo 有两套方案,计数形式和分布式,计数式隔1h1次
+
+		for (let spawnName in Game.spawns) {
+			spawn = Game.spawns[spawnName];
+			spawn.work();
+		}
+	},
+	/**
+	 * 集中式
+	 * @param roomName
+	 */
+	creep_centralization: function (roomName) {
 		mount();
 		let room = Game.rooms[roomName];
 		// let level = room.controller.level
-		let roomJson = config[roomName];
+		let roomConfig = config[roomName];
 
-		for (let role in roomJson) {
-			room.keep_creep_num(roomJson[role].number, roomJson[role].role,
-				roomJson[role].selfId, roomJson[role].selfRoomName,
-				roomJson[role].targetId, roomJson[role].targetRoomName,
-				roomJson[role].spawnName, roomJson[role].body);
+		for (let role in roomConfig) {
+			room.keep_creep_num(roomConfig[role].number, roomConfig[role].role,
+				roomConfig[role].selfId, roomConfig[role].selfRoomName,
+				roomConfig[role].targetId, roomConfig[role].targetRoomName,
+				roomConfig[role].spawnName, roomConfig[role].body);
 		}
-
 	}
 };
 
@@ -3707,6 +3885,9 @@ const role_harvester = function (creep) {
 			var target = Game.getObjectById(creep.memory.targetId);
 			if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
+			}
+			if (target.structureType === STRUCTURE_LINK && target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
+				target.work();
 			}
 		} else {
 			creep.to_room(creep.memory.targetRoomName);
@@ -3745,11 +3926,11 @@ const role_upgrader = function (creep) {
 	} else {// target
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 			var target = Game.getObjectById(creep.memory.targetId);
-			if (creep.upgradeController(target) === ERR_NOT_IN_RANGE) {
-				creep.moveTo(target);
-			}
-			// creep.moveTo(target)
-			// creep.upgradeController(target)
+			// if (creep.upgradeController(target) === ERR_NOT_IN_RANGE) {
+			// 	creep.moveTo(target);
+			// }
+			creep.moveTo(target);
+			creep.upgradeController(target);
 
 		} else {
 			creep.to_room(creep.memory.targetRoomName);
@@ -3823,6 +4004,30 @@ const role_carrier = function (creep) {
 	}
 };
 
+const roleCenter = function (creep) {
+	mount();
+	if (creep.store.getFreeCapacity() == 0) {//可用容量没了 target
+		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
+			var target = Game.getObjectById(creep.memory.targetId);
+			if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
+			}
+		} else {
+			creep.to_room(creep.memory.targetRoomName);
+		}
+	} else {// self
+		if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
+			var target = Game.getObjectById(creep.memory.selfId);
+			if (creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
+			}
+		} else {
+			creep.to_room(creep.memory.selfRoomName);
+		}
+	}
+
+};
+
 const loop = errorMapper(() => {
 	console.log("本轮" + Game.time + "----------------------------------------");
 
@@ -3836,7 +4041,9 @@ const loop = errorMapper(() => {
 		}
 	}
 
-	// if (Game.time % 500 == 0) {
+
+
+	// if (Game.time % 500 == 0) {// 分布式示例
 	// 	for (let roomName in Game.rooms) {
 	// 		room_layout_centralization.layout(roomName)
 	// 	}
@@ -3847,10 +4054,23 @@ const loop = errorMapper(() => {
 	// }
 
 	for (let roomName in Game.rooms) {
-		room_layout_centralization.layout(roomName);
+		setting_room_layout.run(roomName);
+		// room_layout_centralization.layout(roomName)
+		// let num = Game.rooms[roomName].find(FIND_MY_STRUCTURES, {// 开启安全模式
+		// 	filter: function (obj) {
+		// 		return obj.structureType === STRUCTURE_EXTENSION
+		// 	}
+		// })
+		// if (num < 15) {
+		// 	Game.rooms[roomName].controller.activateSafeMode()
+		// }
 	}
 
+	//tower
 	Game.getObjectById("622815f682606a45aacde400").run_1();
+	Game.getObjectById("622abfe68d3e7624f42731e0").run_attack();
+
+	// 把查看身边的资料可否捡起来
 
 	//todo 分布式
 	let flag = Game.time % 10 == 0;
@@ -3871,6 +4091,8 @@ const loop = errorMapper(() => {
 			role_builder(creep);
 		} else if (creep.memory.role == "carrier") {
 			role_carrier(creep);
+		} else if (creep.memory.role == "center") {
+			roleCenter(creep);
 		}
 	}
 

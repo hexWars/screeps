@@ -9,7 +9,7 @@ export const config = {
 			role: "upgrader",
 			number: 3,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
 			selfId: "62284cb82f2a4ab633b7f42a",
 			selfRoomName: "E18S54",
 			targetId: "5bbcae039099fc012e6384c4",
@@ -17,7 +17,7 @@ export const config = {
 		},
 		upgrader1: {
 			role: "upgrader",
-			number: 2,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
 			selfId: "622853b3cf799d2fc73d8630",
@@ -27,9 +27,9 @@ export const config = {
 		},
 		builder: {
 			role: "builder",
-			number: 0,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, CARRY, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK],
 			selfId: "622853b3cf799d2fc73d8630",
 			selfRoomName: "E18S54",
 			targetId: "no",
@@ -37,9 +37,9 @@ export const config = {
 		},
 		harvester: {
 			role: "harvester",
-			number: 2,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, CARRY, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae039099fc012e6384c3",
 			selfRoomName: "E18S54",
 			targetId: "62284cb82f2a4ab633b7f42a",
@@ -81,8 +81,29 @@ export const config = {
 		},
 		occupier: {
 		},
-		structureIds: {
-			centerLink: ""
+		center: {
+			role: "center",
+			number: 0,
+			spawnName: "Spawn1",
+			body: [MOVE, CARRY, CARRY, CARRY, CARRY],
+			selfId: "",// link
+			selfRoomName: "E18S54",
+			targetId: "",// storage
+			targetRoomName: "E18S54"
+		},
+		structures: {
+			Link: {
+				center: "000",
+				from: ["111"],
+				to: ["333", "444"]
+			},
+			Tower: {
+				attack: [],
+				repair: {
+					"622815f682606a45aacde400": 25,
+					"622abfe68d3e7624f42731e0": 25
+				},
+			}
 		}
 	}
 

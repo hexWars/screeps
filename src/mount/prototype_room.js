@@ -6,6 +6,17 @@ export const p_room = function () {
 
 const roomExtension = {
 	/**
+	 * 内存重新载入
+	 */
+	init: function () {
+		//todo source
+		// 塔的位置
+		// spawn和extension
+		// link 等等所有建筑的位置
+
+		//todo WALL的位置
+	},
+	/**
 	 * 建筑点位置缓存
 	 * @return {*}
 	 */
@@ -91,16 +102,12 @@ const roomExtension = {
 		}
 	},
 	/**
-	 * 敌人缓存
+	 * 发现敌人并缓存
 	 * @return {*}
 	 */
 	checkEnemy: function () {
 		if (!this._enemys) {
-			this._enemys = this.find(FIND_HOSTILE_CREEPS, {
-				filter: function(obj) {
-					return obj.indexOf(HEAL)!=-1 || obj.indexOf(ATTACK)!=-1 || obj.indexOf(RANGED_ATTACK)!=-1
-				}
-			})
+			this._enemys = this.find(FIND_HOSTILE_CREEPS)
 		}
 		return this._enemys
 	}

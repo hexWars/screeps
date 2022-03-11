@@ -14,7 +14,7 @@ const spawnExtension = {
 		if (this.spawning || !this.memory.spawnList || this.memory.spawnList.length == 0) return
 		// 进行生成
 		//todo 智能选择spawn的方法
-		const spawnSuccess = this.mainSpawn("Spawn1", this.memory.spawnList[0])
+		const spawnSuccess = this.mainSpawn(this.name, this.memory.spawnList[0])
 		// 生成成功后移除任务
 		if (spawnSuccess) this.memory.spawnList.shift()
 		//fruits.reverse(); 可以实现倒序,即最后一个排到前面
@@ -34,8 +34,8 @@ const spawnExtension = {
 	 * @param spawnName 从哪个spawn生成
 	 * @return {boolean} 成功与否
 	 */
-	mainSpawn: function (data, spawnName) {
-		var name = role + Game.time
+	mainSpawn: function (spawnName, data) {
+		let name = data.role + Game.time
 		let this_spawn = Game.spawns[spawnName]
 		//todo body没有(通过json获取), 内存尽量少, 哪个spawn(其他方法,智能选择)
 		let roomJson = config[this_spawn.room]

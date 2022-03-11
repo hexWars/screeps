@@ -16,7 +16,7 @@ const creepExtension = {
 			if (!health) {
 				//todo 向指定 spawn 推送生成任务
 				this.memory.hasSendRebirth = true
-				Game.spawns["Spawn1"].addTask(this.memory);
+				Game.spawns[this.memory.spawnName].addTask(this.memory);
 			}
 		}
 	},
@@ -32,10 +32,24 @@ const creepExtension = {
 	 * @return boolean
 	 */
 	fillSpawnEnergy() {
-		let targets = this.room.extensionsAndSpawn()
-		if (targets.length > 0) {
-			if (this.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-				this.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+		// let targets = this.room.extensionsAndSpawn()
+		// if (targets.length > 0) {
+		// 	if (this.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+		// 		this.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+		// 	}
+		// 	return false
+		// } else {
+		// 	return true
+		// }
+		var target = this.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+			filter: function (obj) {
+				return (obj.structureType == STRUCTURE_EXTENSION || obj.structureType == STRUCTURE_SPAWN)
+					&& obj.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+			}
+		})
+		if (target) {
+			if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				this.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
 			}
 			return false
 		} else {
