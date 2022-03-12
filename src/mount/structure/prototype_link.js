@@ -1,6 +1,6 @@
 import {config} from "../../config";
 
-export const p_spawn = function () {
+export const p_link = function () {
 	_.assign(StructureLink.prototype, linkExtension)
 }
 
@@ -11,19 +11,18 @@ const linkExtension = {
 	// 先完成源到中心
 
 	work: function () {
-		let linkConfig = config[roomName].structures.Link
+		let linkConfig = config[this.room.name]["structures"].Link
 		let centerLink = Game.getObjectById(linkConfig.center)
 		let fromMap = []
 		for (let i=0; i<linkConfig.from.length; i++) {
-			fromMap[linkConfig.from[i]]++
+			fromMap[linkConfig.from[i]] = 1
 		}
 		let toMap = []
 		for (let i=0; i<linkConfig.to.length; i++) {
 			toMap[linkConfig.to[i]]++
 		}
 
-
-		if (fromMap[this.id] > 0) {
+		if (fromMap[this.id] == 1) {
 			this.transferEnergy(centerLink);
 		}
 		//todo 战争状态,传送给其他link的没写

@@ -3329,7 +3329,7 @@ const creepExtension = {
 	 */
 	fillTower() {
 		let targets = this.room.towers();
-		if (targets) {
+		if (targets.length > 0) {
 			// console.log(this.transfer(target, RESOURCE_ENERGY))
 			if (this.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 				this.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
@@ -3376,8 +3376,8 @@ const config = {
 			role: "upgrader",
 			number: 3,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
-			selfId: "62284cb82f2a4ab633b7f42a",
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "5bbcae039099fc012e6384c4",
 			targetRoomName: "E18S54"
@@ -3386,7 +3386,7 @@ const config = {
 			role: "upgrader",
 			number: 0,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
 			selfId: "622853b3cf799d2fc73d8630",
 			selfRoomName: "E18S54",
 			targetId: "5bbcae039099fc012e6384c4",
@@ -3394,10 +3394,10 @@ const config = {
 		},
 		builder: {
 			role: "builder",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK],
-			selfId: "622853b3cf799d2fc73d8630",
+			body: [MOVE, CARRY, WORK],
+			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "no",
 			targetRoomName: "E18S54"
@@ -3409,14 +3409,14 @@ const config = {
 			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae039099fc012e6384c3",
 			selfRoomName: "E18S54",
-			targetId: "62284cb82f2a4ab633b7f42a",
+			targetId: "622b167460854a9acbf2bdbe",
 			targetRoomName: "E18S54"
 		},
 		harvester1: {
 			role: "harvester",
-			number: 2,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, CARRY, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae039099fc012e6384c5",
 			selfRoomName: "E18S54",
 			targetId: "622853b3cf799d2fc73d8630",
@@ -3424,10 +3424,10 @@ const config = {
 		},
 		carrier: {
 			role: "carrier",
-			number: 0,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
-			selfId: "62284cb82f2a4ab633b7f42a",
+			body: [MOVE, CARRY, CARRY],
+			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "no",
 			targetRoomName: "E18S54"
@@ -3436,7 +3436,7 @@ const config = {
 			role: "carrier",
 			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
+			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
 			selfId: "622853b3cf799d2fc73d8630",
 			selfRoomName: "E18S54",
 			targetId: "no",
@@ -3447,22 +3447,30 @@ const config = {
 		defender: {
 		},
 		occupier: {
+			role: "occupier",
+			number: 0,
+			spawnName: "Spawn1",
+			body: [MOVE, MOVE, MOVE, CARRY, CLAIM, ATTACK],
+			selfId: "no",
+			selfRoomName: "E19S54",
+			targetId: "no",
+			targetRoomName: "E19S54"
 		},
 		center: {
 			role: "center",
-			number: 0,
+			number: 1,
 			spawnName: "Spawn1",
 			body: [MOVE, CARRY, CARRY, CARRY, CARRY],
-			selfId: "",// link
+			selfId: "622b08d96825c6e51cd766ed",// link
 			selfRoomName: "E18S54",
-			targetId: "",// storage
+			targetId: "6229becbd834b5981b3b33d1",// storage
 			targetRoomName: "E18S54"
 		},
 		structures: {
 			Link: {
-				center: "000",
-				from: ["111"],
-				to: ["333", "444"]
+				center: "622b08d96825c6e51cd766ed",
+				from: ["622b167460854a9acbf2bdbe"],
+				to: []
 			},
 			Tower: {
 				attack: [],
@@ -3582,7 +3590,7 @@ const roomExtension = {
 			this._towers = this.find(FIND_MY_STRUCTURES, {
 				filter: (structure) => {
 					return (structure.structureType === STRUCTURE_TOWER) &&
-						structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+						structure.store[RESOURCE_ENERGY] < 1000;
 				}
 			});
 		}
@@ -3747,6 +3755,7 @@ const towerExtension = {
 	 * @param range
 	 */
 	fix_range_structure: function (range = 25) {
+		//todo 添加container和rampart?
 		let structures = this.pos.findInRange(FIND_STRUCTURES, range, {
 			filter: function (structure) {
 				return (structure.structureType != STRUCTURE_WALL
@@ -3773,11 +3782,43 @@ const towerExtension = {
 	}
 };
 
+const p_link = function () {
+	_.assign(StructureLink.prototype, linkExtension);
+};
+
+const linkExtension = {
+	//todo 三个link
+	// 源link传能量,中央link接受能量,防御link接收
+	// 中央LinkId存到json中
+	// 先完成源到中心
+
+	work: function () {
+		let linkConfig = config[this.room.name]["structures"].Link;
+		let centerLink = Game.getObjectById(linkConfig.center);
+		let fromMap = [];
+		for (let i=0; i<linkConfig.from.length; i++) {
+			fromMap[linkConfig.from[i]] = 1;
+		}
+		let toMap = [];
+		for (let i=0; i<linkConfig.to.length; i++) {
+			toMap[linkConfig.to[i]]++;
+		}
+
+		if (fromMap[this.id] == 1) {
+			this.transferEnergy(centerLink);
+		}
+		//todo 战争状态,传送给其他link的没写
+
+
+	},
+};
+
 const mount = function () {
 	p_creep();
 	p_spawn();
 	p_room();
 	p_tower();
+	p_link();
 };
 
 /**
@@ -3795,14 +3836,20 @@ const setting_room_layout = {
 		this.structure_load(roomName);
 	},
 	structure_load: function (roomName) {
-		let room = Game.rooms[roomName];
-		room.controller.level;
-		let roomConfig = config[roomName];
-		//todo Link和塔
-		this.towerConfig(roomConfig["structures"].Tower);
-		// this.linkConfig(roomConfig["structures"].Link)
-		//todo 捡起
-		this.pick_sources(room);
+		try {
+			let room = Game.rooms[roomName];
+			let level = room.controller.level;
+			let roomConfig = config[roomName];
+			//todo Link和塔
+			this.towerConfig(roomConfig["structures"].Tower);
+
+			// this.linkConfig(roomConfig["structures"].Link)
+			//todo 捡起
+			this.pick_sources(room);
+		} catch (e) {
+			console.log("房间布局异常");
+		}
+
 	},
 	/**
 	 * 捡起所有掉落资源
@@ -4028,6 +4075,94 @@ const roleCenter = function (creep) {
 
 };
 
+const role_defender = function (creep) {
+		mount();
+		if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
+			var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+			if (target) {
+				if (creep.attack(target) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffaa00'}});
+				}
+			} else {
+				if (creep.attack(Game.getObjectById("622898208de18e47ef24d8df")) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(Game.getObjectById("622898208de18e47ef24d8df"), {visualizePathStyle: {stroke: '#ffaa00'}});
+				}
+				// let x = Math.ceil(Math.random() * 40)
+				// let y = Math.ceil(Math.random() * 40)
+				// creep.moveTo(x, y, {visualizePathStyle: {stroke: '#ffaa00'}});
+			}
+		} else {
+			creep.to_room(creep.memory.selfRoomName);
+		}
+};
+
+const role_occupier = function (creep) {
+	mount();
+
+	if (creep.room == Game.rooms["E19S54"]) {
+		if (creep.claimController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+			// creep.moveTo(new RoomPosition(14, 42, 'E59N12'))
+			creep.moveTo(Game.rooms["E19S54"].controller);
+			// creep.signController(Game.rooms["E59N12"].controller, "Bug fixes")
+		}
+		// if (creep.attackController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+		// 	// creep.moveTo(new RoomPosition(14, 42, 'E59N12'))
+		// 	creep.moveTo(Game.rooms["E19S54"].controller)
+		// 	// creep.signController(Game.rooms["E59N12"].controller, "Bug fixes")
+		// }
+		// if(creep.room.controller) {
+		// 	if(creep.signController(creep.room.controller, "BNUZ") == ERR_NOT_IN_RANGE) {
+		// 		creep.moveTo(creep.room.controller);
+		// 	}
+		// creep.signController(creep.room.controller, "Every little helps.")
+		// }
+	} else {
+		creep.to_room("E19S54");
+	}
+	// if(creep.signController(creep.room.controller, "Bug fixes") == ERR_NOT_IN_RANGE) {
+	// 	creep.moveTo(creep.room.controller);
+	// }
+
+
+	// if (creep.store.getFreeCapacity() == 100) {//可用容量没了 target
+	// 	if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
+	// 		// var targets = creep.room.find(FIND_RUINS);
+	// 		// if (targets.length > 0) {
+	// 		// 	let x = 5;
+	// 		// 	console.log(creep.withdraw(targets[x], RESOURCE_ENERGY))
+	// 		// 	if (creep.withdraw(targets[x], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+	// 		// 		creep.moveTo(targets[x], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
+	// 		// 	}
+	// 		// } else {
+	// 			var target = Game.getObjectById(creep.memory.selfId)
+	// 			if (creep.harvest(target) === ERR_NOT_IN_RANGE) {
+	// 				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30})
+	// 			}
+	// 		// }
+	//
+	// 	} else {
+	// 		creep.to_room(creep.memory.selfRoomName)
+	// 	}
+	// } else {// self
+	// 	if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
+	// 		var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+	// 		if (targets.length > 0) {
+	// 			if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
+	// 				creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
+	// 			}
+	// 		}
+	// 	} else {
+	// 		creep.to_room(creep.memory.targetRoomName)
+	// 	}
+	// }
+
+	if (creep.room == Game.rooms[creep.memory.targetRoomName]) ; else {
+		creep.to_room(creep.memory.targetRoomName);
+	}
+
+
+};
+
 const loop = errorMapper(() => {
 	console.log("本轮" + Game.time + "----------------------------------------");
 
@@ -4093,6 +4228,10 @@ const loop = errorMapper(() => {
 			role_carrier(creep);
 		} else if (creep.memory.role == "center") {
 			roleCenter(creep);
+		} else if (creep.memory.role == "defender") {
+			role_defender(creep);
+		} else if (creep.memory.role == "occupier") {
+			role_occupier(creep);
 		}
 	}
 

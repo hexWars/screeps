@@ -59,7 +59,7 @@ const roomExtension = {
 			this._towers = this.find(FIND_MY_STRUCTURES, {
 				filter: (structure) => {
 					return (structure.structureType === STRUCTURE_TOWER) &&
-						structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+						structure.store[RESOURCE_ENERGY] < 1000;
 				}
 			});
 		}

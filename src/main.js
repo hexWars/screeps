@@ -1,11 +1,13 @@
 import {errorMapper} from './modules/errorMapper'
 import {mount} from './mount'
-import {room_layout_centralization, room_layout_distributed, setting_room_layout} from './room_layout'
+import {setting_room_layout} from './room_layout'
 import {role_harvester} from "./role/medium/role_harvester";
 import {role_upgrader} from "./role/medium/role_upgrader";
 import {role_builder} from "./role/medium/role_builder";
 import {role_carrier} from "./role/medium/role_carrier";
 import {roleCenter} from "./role/high/role.centerCreep";
+import {role_defender} from "./role/medium/role_defender";
+import {role_occupier} from "./role/medium/role_occupier";
 
 export const loop = errorMapper(() => {
 	console.log("本轮" + Game.time + "----------------------------------------")
@@ -72,6 +74,10 @@ export const loop = errorMapper(() => {
 			role_carrier(creep)
 		} else if (creep.memory.role == "center") {
 			roleCenter(creep)
+		} else if (creep.memory.role == "defender") {
+			role_defender(creep)
+		} else if (creep.memory.role == "occupier") {
+			role_occupier(creep)
 		}
 	}
 

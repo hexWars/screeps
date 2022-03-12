@@ -110,6 +110,7 @@ const towerExtension = {
 	 * @param range
 	 */
 	fix_range_structure: function (range = 25) {
+		//todo 添加container和rampart?
 		let structures = this.pos.findInRange(FIND_STRUCTURES, range, {
 			filter: function (structure) {
 				return (structure.structureType != STRUCTURE_WALL

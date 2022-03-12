@@ -82,7 +82,7 @@ const creepExtension = {
 	 */
 	fillTower() {
 		let targets = this.room.towers()
-		if (targets) {
+		if (targets.length > 0) {
 			// console.log(this.transfer(target, RESOURCE_ENERGY))
 			if (this.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 				this.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
