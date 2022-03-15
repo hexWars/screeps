@@ -6,9 +6,12 @@ export const role_harvester = function (creep) {
 	if (creep.store.getFreeCapacity() == 0) {//可用容量没了 target
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 			var target = Game.getObjectById(creep.memory.targetId)
-			if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30})
+			for (let sources in creep.store) {
+				if (creep.transfer(target, sources) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30})
+				}
 			}
+
 			if (target.structureType === STRUCTURE_LINK && target.store.getFreeCapacity(RESOURCE_ENERGY) == 0) {
 				target.work()
 			}

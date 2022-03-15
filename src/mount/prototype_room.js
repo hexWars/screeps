@@ -15,6 +15,9 @@ const roomExtension = {
 		// link 等等所有建筑的位置
 
 		//todo WALL的位置
+
+		//todo Mineral的类型
+
 	},
 	/**
 	 * 建筑点位置缓存
@@ -92,7 +95,8 @@ const roomExtension = {
 						selfId: selfId,
 						selfRoomName: selfRoomName,
 						targetId: targetId,
-						targetRoomName: targetRoomName
+						targetRoomName: targetRoomName,
+						spawnName: spawnName
 						// hasSendRebirth: false
 					}
 			})

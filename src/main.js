@@ -8,6 +8,7 @@ import {role_carrier} from "./role/medium/role_carrier";
 import {roleCenter} from "./role/high/role.centerCreep";
 import {role_defender} from "./role/medium/role_defender";
 import {role_occupier} from "./role/medium/role_occupier";
+import {role_repairer} from "./role/medium/role_repairer";
 
 export const loop = errorMapper(() => {
 	console.log("本轮" + Game.time + "----------------------------------------")
@@ -24,16 +25,6 @@ export const loop = errorMapper(() => {
 
 
 
-	// if (Game.time % 500 == 0) {// 分布式示例
-	// 	for (let roomName in Game.rooms) {
-	// 		room_layout_centralization.layout(roomName)
-	// 	}
-	// } else {
-	// 	for (let roomName in Game.rooms) {
-	// 		room_layout_distributed.layout(roomName)
-	// 	}
-	// }
-
 	for (let roomName in Game.rooms) {
 		setting_room_layout.run(roomName)
 		// room_layout_centralization.layout(roomName)
@@ -48,8 +39,7 @@ export const loop = errorMapper(() => {
 	}
 
 	//tower
-	Game.getObjectById("622815f682606a45aacde400").run_1()
-	Game.getObjectById("622abfe68d3e7624f42731e0").run_attack()
+	// Game.getObjectById("622ed20e8792ad7fb29012ec").run_1()
 
 	// 把查看身边的资料可否捡起来
 
@@ -78,6 +68,8 @@ export const loop = errorMapper(() => {
 			role_defender(creep)
 		} else if (creep.memory.role == "occupier") {
 			role_occupier(creep)
+		} else if (creep.memory.role == "repairer") {
+			role_repairer(creep)
 		}
 	}
 

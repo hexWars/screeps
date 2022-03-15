@@ -11,20 +11,38 @@ export const role_carrier = function (creep) {
 	// 		creep.moveTo(target)
 	// 	}
 
-	if (creep.store[RESOURCE_ENERGY] == 0) {//没有资源, self
+	if (creep.store.getUsedCapacity() == 0) {//没有资源, self
 		if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
 			var obj = Game.getObjectById(creep.memory.selfId)
-			if (creep.withdraw(obj, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-				creep.moveTo(obj, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10})
+			if (obj.store[RESOURCE_ENERGY] == 0) {
+				for (let sources in obj.store) {
+					if (creep.withdraw(obj, sources) === ERR_NOT_IN_RANGE) {
+						creep.moveTo(obj, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10})
+					}
+				}
+			} else {
+				if (creep.withdraw(obj, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(obj, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10})
+				}
 			}
+
 		} else {
 			creep.to_room(creep.memory.selfRoomName)
 		}
 	} else {// target
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
-			if (creep.fillSpawnEnergy()) {
-				if (creep.fillTower()) {
-					creep.fillStorage()
+			if (creep.memory.targetId == "no") {
+				if (creep.fillSpawnEnergy()) {
+					if (creep.fillTower()) {
+						creep.fillStorage()
+					}
+				}
+			} else {
+				let target = Game.getObjectById(creep.memory.targetId)
+				for (let sources in creep.store) {
+					if (creep.transfer(target, sources) === ERR_NOT_IN_RANGE) {
+						creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+					}
 				}
 			}
 		} else {

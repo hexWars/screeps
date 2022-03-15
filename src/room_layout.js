@@ -11,23 +11,29 @@ export const setting_room_layout = {
 	 * @param roomName
 	 */
 	run: function (roomName) {
+		// if (Game.time % 500 == 0) {
+		// 	this.creep_centralization(roomName)
+		// } else {
+		// 	this.creep_distributed(roomName)
+		// }
 		this.creep_centralization(roomName)
+
 		//todo 根据配置文件执行
 		this.structure_load(roomName)
 	},
 	structure_load: function (roomName) {
 		try {
 			let room = Game.rooms[roomName]
+			//todo 捡起
+			this.pick_sources(room)
 			let level = room.controller.level
 			let roomConfig = config[roomName]
 			//todo Link和塔
 			this.towerConfig(roomConfig["structures"].Tower)
 
 			// this.linkConfig(roomConfig["structures"].Link)
-			//todo 捡起
-			this.pick_sources(room)
 		} catch (e) {
-			console.log("房间布局异常")
+			console.log(roomName + "建筑异常")
 		}
 
 	},

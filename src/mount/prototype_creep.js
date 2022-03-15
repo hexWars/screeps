@@ -16,7 +16,7 @@ const creepExtension = {
 			if (!health) {
 				//todo 向指定 spawn 推送生成任务
 				this.memory.hasSendRebirth = true
-				Game.spawns[this.memory.spawnName].addTask(this.memory);
+				Game.spawns[this.memory.spawnName].addTask(this.memory);//todo 内存中没有spawnName
 			}
 		}
 	},
@@ -62,13 +62,10 @@ const creepExtension = {
 	fillStorage () {
 		let target = this.room.storage
 		if (target) {
-			for(const resourceType in this.store) {
+			for(let resourceType in this.store) {
 				if (this.transfer(target, resourceType) === ERR_NOT_IN_RANGE) {
 					this.moveTo(target)
 				}
-				// if (this.store.getUsedCapacity() == 0) {
-				// 	break
-				// }
 			}
 			// if (this.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 			// 	this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
