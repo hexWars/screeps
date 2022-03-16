@@ -5,9 +5,9 @@ export const config = {
 	"E18S54": {
 		upgrader: {
 			role: "upgrader",
-			number: 0,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "5bbcae039099fc012e6384c4",
@@ -55,7 +55,7 @@ export const config = {
 		},
 		harvester2: {// mineral 矿场资源
 			role: "harvester",
-			number: 3,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcb37b40062e4259e94431",
@@ -75,7 +75,7 @@ export const config = {
 		},
 		carrie1: {
 			role: "carrier",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
 			selfId: "623039ecef7f9c58acebd978",
@@ -194,10 +194,10 @@ export const config = {
 		},
 		builder1: {
 			role: "builder",
-			number: 0,
+			number: 2,
 			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK],
-			selfId: "622dc93c40d11b64bed29cdd",
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
+			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "no",
 			targetRoomName: "E19S54"
@@ -206,7 +206,7 @@ export const config = {
 			role: "upgrader",
 			number: 3,
 			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "5bbcae159099fc012e63864e",
@@ -249,5 +249,20 @@ export const config = {
 	}
 
 }
+
+// Game.market.createOrder({
+// 	type: ORDER_SELL,
+// 	resourceType: RESOURCE_HYDROGEN,
+// 	price: 6.3,
+// 	totalAmount: 20000,
+// 	roomName: "E18S54"
+// });
+
+// console.log(Game.market.getOrderById("买入的id").price - Game.market.calcTransactionCost(1, "你自己的房间名", Game.market.getOrderById("买入的id").roomName) * 1.5)
+// console.log(Game.market.getOrderById("623095a12a7a9fa93d1ee32e").price - Game.market.calcTransactionCost(1, "E18S54", Game.market.getOrderById("623095a12a7a9fa93d1ee32e").roomName) * 1.5)
+
+// "623077412a7a9f1ca3153d1d"
+// Game.market.deal('623077412a7a9f1ca3153d1d', 1000, "E18S54");
+
 
 

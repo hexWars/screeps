@@ -9,6 +9,7 @@ import {roleCenter} from "./role/high/role.centerCreep";
 import {role_defender} from "./role/medium/role_defender";
 import {role_occupier} from "./role/medium/role_occupier";
 import {role_repairer} from "./role/medium/role_repairer";
+import {HelperRoomResource} from "./other/helper_roomResource";
 
 export const loop = errorMapper(() => {
 	console.log("本轮" + Game.time + "----------------------------------------")
@@ -78,6 +79,9 @@ export const loop = errorMapper(() => {
 	if (Game.cpu.bucket === 10000) {
 		Game.cpu.generatePixel();
 	}
+
+	global.help = HelperRoomResource
+
 })
 
 //todo 更改步入第二阶段, 从container取出

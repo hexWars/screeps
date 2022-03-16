@@ -3371,9 +3371,9 @@ const config = {
 	"E18S54": {
 		upgrader: {
 			role: "upgrader",
-			number: 0,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "5bbcae039099fc012e6384c4",
@@ -3421,7 +3421,7 @@ const config = {
 		},
 		harvester2: {// mineral 矿场资源
 			role: "harvester",
-			number: 3,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcb37b40062e4259e94431",
@@ -3441,7 +3441,7 @@ const config = {
 		},
 		carrie1: {
 			role: "carrier",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
 			selfId: "623039ecef7f9c58acebd978",
@@ -3560,10 +3560,10 @@ const config = {
 		},
 		builder1: {
 			role: "builder",
-			number: 0,
+			number: 2,
 			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK],
-			selfId: "622dc93c40d11b64bed29cdd",
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
+			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "no",
 			targetRoomName: "E19S54"
@@ -3572,7 +3572,7 @@ const config = {
 			role: "upgrader",
 			number: 3,
 			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "5bbcae159099fc012e63864e",
@@ -3615,6 +3615,20 @@ const config = {
 	}
 
 };
+
+// Game.market.createOrder({
+// 	type: ORDER_SELL,
+// 	resourceType: RESOURCE_HYDROGEN,
+// 	price: 6.3,
+// 	totalAmount: 20000,
+// 	roomName: "E18S54"
+// });
+
+// console.log(Game.market.getOrderById("买入的id").price - Game.market.calcTransactionCost(1, "你自己的房间名", Game.market.getOrderById("买入的id").roomName) * 1.5)
+// console.log(Game.market.getOrderById("623095a12a7a9fa93d1ee32e").price - Game.market.calcTransactionCost(1, "E18S54", Game.market.getOrderById("623095a12a7a9fa93d1ee32e").roomName) * 1.5)
+
+// "623077412a7a9f1ca3153d1d"
+// Game.market.deal('623077412a7a9f1ca3153d1d', 1000, "E18S54");
 
 const p_spawn = function () {
 	_.assign(Spawn.prototype, spawnExtension);
@@ -4154,9 +4168,11 @@ const role_builder = function (creep) {
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 			var targets = creep.room.allConstructionSite();
 			if (targets.length > 0) {
-				if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
-					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
-				}
+				// if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
+				// 	creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+				// }
+				creep.build(targets[0]);
+				creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
 			}
 		} else {
 			creep.to_room(creep.memory.targetRoomName);
@@ -4216,27 +4232,68 @@ const role_carrier = function (creep) {
 
 const roleCenter = function (creep) {
 	mount();
+
+	if (!link_to_storage(creep)) {
+		storage_to_terminal(creep, RESOURCE_HYDROGEN);
+	}
+
+	//
+	// 		//todo 转移资源
+	// 		//toTerminal(creep)
+	// 		//toStorage(creep)
+	//
+	// 		// RESOURCE_HYDROGEN
+};
+
+/**
+ * 把link中的能量转移
+ * @param creep
+ * @return boolean
+ */
+function link_to_storage(creep) {
+	var link = Game.getObjectById(creep.memory.selfId);
+	if (link.store.getUsedCapacity(RESOURCE_ENERGY) == 0) {
+		return false
+	}
 	if (creep.store.getFreeCapacity() == 0) {//可用容量没了 target
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
-			var target = Game.getObjectById(creep.memory.targetId);
-			if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
+			var target = Game.getObjectById(creep.memory.targetId);// 存放的Id
+			for (let sources in target.store) {
+				if (creep.transfer(target, sources) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
+				}
 			}
 		} else {
 			creep.to_room(creep.memory.targetRoomName);
 		}
 	} else {// self
 		if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
-			var target = Game.getObjectById(creep.memory.selfId);
-			if (creep.withdraw(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-				creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
+			if (creep.withdraw(link, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(link, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
 			}
 		} else {
 			creep.to_room(creep.memory.selfRoomName);
 		}
 	}
+	return true
+}
 
-};
+/**
+ * 资源从storage转移至terminal
+ * @param creep
+ * @param sources
+ */
+function storage_to_terminal(creep, sources) {
+	if (creep.store.getFreeCapacity() == 0) {
+		if(creep.transfer(creep.room.terminal, sources) === ERR_NOT_IN_RANGE) {
+			creep.moveTo(creep.room.terminal);
+		}
+	} else {
+		if(creep.withdraw(creep.room.storage, sources) === ERR_NOT_IN_RANGE) {
+			creep.moveTo(creep.room.storage);
+		}
+	}
+}
 
 const role_defender = function (creep) {
 		mount();
@@ -4344,7 +4401,7 @@ const role_repairer = function (creep) {
 			var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
-						structure.hits < 100000;
+						structure.hits < 300000;
 				}
 			});
 			if (target) {
@@ -4357,6 +4414,177 @@ const role_repairer = function (creep) {
 		}
 	}
 };
+
+/**
+
+特别感谢： @[E29N27|重构咕] CXuesong  提供技术支持
+
+使用方法：
+require 后，控制台输入：
+
+1. HelperRoomResource.showAllRes()
+
+2. 显示后 鼠标放在资源上面会显示全部自己房间的资源
+
+3. 点击房间 可以跳转到房间
+
+ */
+function tips(text, tipStrArray, id, left) {
+	left = left - 1;
+	left *= 100;
+	let showCore = tipStrArray.map(e => `<t onclick="goto('${e}')"> ${e} </t>`.replace(/[\\"]/g, '%')).join("<br>");
+	let time = Game.time;
+	return `<t class="a${id}-a${time}">${text}</t><script>
+function goto(e){
+    let roomName = e.split(":")[0].replace(/\\s+/g, "");
+    window.location.href = window.location.href.substring(0,window.location.href.lastIndexOf("/")+1)+roomName;
+};
+(() => {
+    const button = document.querySelector(".a${id}-a${time}");
+    let tip;
+    button.addEventListener("pointerenter", () => {
+        tip = document.createElement("div");
+        tip.style.backgroundColor = "rgba(43,43,43,1)"; 
+        tip.style.border = "1px solid";
+        tip.style.borderColor = "#ccc";
+        tip.style.borderRadius = "5px";
+        tip.style.position = "absolute";
+        tip.style.zIndex=10;
+        tip.style.color = "#ccc";
+        tip.style.marginLeft = "${left}px";
+        tip.width = "230px";
+        tip.innerHTML = "${showCore}".replace(/[\\%]/g,'"'); button.append(tip);
+    });
+    button.addEventListener("pointerleave", () => {tip && (tip.remove(), tip = undefined);});
+    })()
+</script>
+`.replace(/[\r\n]/g, "");
+}
+
+//alert(window.location.href.substr(0,window.location.href.lastIndexOf("/")+1)+roomName);
+let pro = {
+
+	getStorageTerminalRes: function (room) {
+		let store = {};
+		if (room.storage) pro.addStore(store, room.storage.store);
+		if (room.terminal) pro.addStore(store, room.terminal.store);
+		// if(room.factory)pro.addStore(store,room.factory.store)
+		return store
+	},
+	addStore: (store, b) => {
+		for (let v in b) if (b[v] > 0) store[v] = (store[v] || 0) + b[v];
+		return store
+	},
+	showAll() {
+
+		let rooms = _.values(Game.rooms).filter(e => e.controller && e.controller.my && (e.storage || e.terminal));
+		let roomResAll = rooms.map(e => [e.name, pro.getStorageTerminalRes(e)]).reduce((map, entry) => {
+			map[entry[0]] = entry[1];
+			return map
+		}, {});
+
+
+		let all = rooms.reduce((all, room) => pro.addStore(all, roomResAll[room.name]), {});
+
+
+		// StrategyMarket.showAllRes()
+		let time = Game.cpu.getUsed();
+		let base = [RESOURCE_ENERGY, "U", "L", "K", "Z", "X", "O", "H", RESOURCE_POWER, RESOURCE_OPS];
+		// 压缩列表
+		let bars = [RESOURCE_BATTERY, RESOURCE_UTRIUM_BAR, RESOURCE_LEMERGIUM_BAR, RESOURCE_KEANIUM_BAR, RESOURCE_ZYNTHIUM_BAR, RESOURCE_PURIFIER, RESOURCE_OXIDANT, RESOURCE_REDUCTANT, RESOURCE_GHODIUM_MELT];
+		// 商品
+		let c_grey = [RESOURCE_COMPOSITE, RESOURCE_CRYSTAL, RESOURCE_LIQUID];
+		let c_blue = [RESOURCE_DEVICE, RESOURCE_CIRCUIT, RESOURCE_MICROCHIP, RESOURCE_TRANSISTOR, RESOURCE_SWITCH, RESOURCE_WIRE, RESOURCE_SILICON].reverse();
+		let c_yellow = [RESOURCE_MACHINE, RESOURCE_HYDRAULICS, RESOURCE_FRAME, RESOURCE_FIXTURES, RESOURCE_TUBE, RESOURCE_ALLOY, RESOURCE_METAL].reverse();
+		let c_pink = [RESOURCE_ESSENCE, RESOURCE_EMANATION, RESOURCE_SPIRIT, RESOURCE_EXTRACT, RESOURCE_CONCENTRATE, RESOURCE_CONDENSATE, RESOURCE_MIST].reverse();
+		let c_green = [RESOURCE_ORGANISM, RESOURCE_ORGANOID, RESOURCE_MUSCLE, RESOURCE_TISSUE, RESOURCE_PHLEGM, RESOURCE_CELL, RESOURCE_BIOMASS].reverse();
+		// boost
+		let b_grey = ["OH", "ZK", "UL", "G"];
+		let gent = (r) => [r + "H", r + "H2O", "X" + r + "H2O", r + "O", r + "HO2", "X" + r + "HO2"];
+		let b_blue = gent("U");
+		let b_yellow = gent("Z");
+		let b_pink = gent("K");
+		let b_green = gent("L");
+		let b_withe = gent("G");
+
+
+		let formatNumber = function (n) {
+			var b = parseInt(n).toString();
+			var len = b.length;
+			if (len <= 3) {
+				return b;
+			}
+			var r = len % 3;
+			return r > 0 ? b.slice(0, r) + "," + b.slice(r, len).match(/\d{3}/g).join(",") : b.slice(r, len).match(/\d{3}/g).join(",");
+		};
+		let str = "";
+		let colorMap = {
+			[RESOURCE_ENERGY]: "rgb(255,242,0)",
+			"Z": "rgb(247, 212, 146)",
+			"L": "rgb(108, 240, 169)",
+			"U": "rgb(76, 167, 229)",
+			"K": "rgb(218, 107, 245)",
+			"X": "rgb(255, 192, 203)",
+			"G": "rgb(255,255,255)",
+			[RESOURCE_BATTERY]: "rgb(255,242,0)",
+			[RESOURCE_ZYNTHIUM_BAR]: "rgb(247, 212, 146)",
+			[RESOURCE_LEMERGIUM_BAR]: "rgb(108, 240, 169)",
+			[RESOURCE_UTRIUM_BAR]: "rgb(76, 167, 229)",
+			[RESOURCE_KEANIUM_BAR]: "rgb(218, 107, 245)",
+			[RESOURCE_PURIFIER]: "rgb(255, 192, 203)",
+			[RESOURCE_GHODIUM_MELT]: "rgb(255,255,255)",
+			[RESOURCE_POWER]: "rgb(224,90,90)",
+			[RESOURCE_OPS]: "rgb(224,90,90)",
+		};
+		let id = 0;
+		let addList = function (list, color) {
+			let uniqueColor = function (str, resType) {
+				if (colorMap[resType]) str = "<font style='color: " + colorMap[resType] + ";'>" + str + "</font>";
+				return str
+			};
+			if (color) str += "<div style='color: " + color + ";'>";
+			let left = 0;
+			let getAllRoom = function (text, resType) {
+				let arr = [];
+				for (let roomName in roomResAll) {
+					arr.push(_.padLeft(roomName, 6) + ":" + _.padLeft(formatNumber(roomResAll[roomName][resType] || 0), 9));
+				}
+				id += 1;
+				left += 1;
+				return tips(text, arr, id, left)
+			};
+			list.forEach(e => str += getAllRoom(uniqueColor(_.padLeft(e, 15), e), e));
+			str += "<br>";
+			list.forEach(e => str += uniqueColor(_.padLeft(formatNumber(all[e] || 0), 15), e));
+			str += "<br>";
+			if (color) str += "</div>";
+		};
+		str += "<br>基础资源:<br>";
+		addList(base);
+		str += "<br>压缩资源:<br>";
+		addList(bars);
+		str += "<br>商品资源:<br>";
+		addList(c_grey);
+		addList(c_blue, "rgb(76, 167, 229)");
+		addList(c_yellow, "rgb(247, 212, 146)");
+		addList(c_pink, "rgb(218, 107, 245)");
+		addList(c_green, "rgb(108, 240, 169)");
+		str += "<br>LAB资源:<br>";
+		addList(b_grey);
+		addList(b_blue, "rgb(76, 167, 229)");
+		addList(b_yellow, "rgb(247, 212, 146)");
+		addList(b_pink, "rgb(218, 107, 245)");
+		addList(b_green, "rgb(108, 240, 169)");
+		addList(b_withe, "rgb(255,255,255)");
+		console.log(str);
+
+		return "Game.cpu.used:" + (Game.cpu.getUsed() - time)
+	},
+};
+
+const HelperRoomResource = pro;
+
+// global.HelperRoomResource = pro
 
 const loop = errorMapper(() => {
 	console.log("本轮" + Game.time + "----------------------------------------");
@@ -4426,6 +4654,9 @@ const loop = errorMapper(() => {
 	if (Game.cpu.bucket === 10000) {
 		Game.cpu.generatePixel();
 	}
+
+	global.help = HelperRoomResource;
+
 });
 
 //todo 更改步入第二阶段, 从container取出
