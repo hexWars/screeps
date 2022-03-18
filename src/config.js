@@ -5,7 +5,7 @@ export const config = {
 	"E18S54": {
 		upgrader: {
 			role: "upgrader",
-			number: 1,
+			number: 2,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
@@ -55,9 +55,9 @@ export const config = {
 		},
 		harvester2: {// mineral 矿场资源
 			role: "harvester",
-			number: 0,
+			number: 3,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcb37b40062e4259e94431",
 			selfRoomName: "E18S54",
 			targetId: "623039ecef7f9c58acebd978",
@@ -75,9 +75,9 @@ export const config = {
 		},
 		carrie1: {
 			role: "carrier",
-			number: 0,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
+			body: [MOVE, CARRY, CARRY],
 			selfId: "623039ecef7f9c58acebd978",
 			selfRoomName: "E18S54",
 			targetId: "6229becbd834b5981b3b33d1",
@@ -129,12 +129,13 @@ export const config = {
 			}
 		},
 
-
+	},
+	"E19S54": {
 		harvester999: {
 			role: "harvester",
 			number: 1,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
+			spawnName: "Spawn2",
+			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae159099fc012e63864f",
 			selfRoomName: "E19S54",
 			targetId: "622dd62b6bc5f44dff635f60",
@@ -143,35 +144,13 @@ export const config = {
 		harvester998: {
 			role: "harvester",
 			number: 1,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
+			spawnName: "Spawn2",
+			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae159099fc012e638650",
 			selfRoomName: "E19S54",
-			targetId: "622dc93c40d11b64bed29cdd",
+			targetId: "6231e7a5acd95e5ba8876185",
 			targetRoomName: "E19S54"
 		},
-		upgrader999: {
-			role: "upgrader",
-			number: 0,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
-			selfId: "622dc93c40d11b64bed29cdd",
-			selfRoomName: "E19S54",
-			targetId: "5bbcae159099fc012e63864e",
-			targetRoomName: "E19S54"
-		},
-		upgrader998: {
-			role: "upgrader",
-			number: 0,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
-			selfId: "622dd62b6bc5f44dff635f60",
-			selfRoomName: "E19S54",
-			targetId: "5bbcae159099fc012e63864e",
-			targetRoomName: "E19S54"
-		},
-	},
-	"E19S54": {
 		occupier: {
 			role: "occupier",
 			number: 0,
@@ -194,7 +173,7 @@ export const config = {
 		},
 		builder1: {
 			role: "builder",
-			number: 2,
+			number: 0,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
@@ -204,7 +183,7 @@ export const config = {
 		},
 		upgrader: {
 			role: "upgrader",
-			number: 3,
+			number: 4,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
@@ -216,8 +195,8 @@ export const config = {
 			role: "carrier",
 			number: 1,
 			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
-			selfId: "622dc93c40d11b64bed29cdd",
+			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
+			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "no",
 			targetRoomName: "E19S54"
@@ -232,17 +211,28 @@ export const config = {
 			targetId: "no",
 			targetRoomName: "E19S54"
 		},
+		center: {
+			role: "center",
+			number: 1,
+			spawnName: "Spawn2",
+			body: [MOVE, CARRY, CARRY, CARRY, CARRY],
+			selfId: "6231e1afb8ba103c48ae1e4e",// link
+			selfRoomName: "E19S54",
+			targetId: "622fb9f05aaf2c52db20731e",// storage
+			targetRoomName: "E19S54"
+		},
 
 		structures: {
 			Link: {
-				center: "",
-				from: [],
+				center: "6231e1afb8ba103c48ae1e4e",
+				from: ["6231e7a5acd95e5ba8876185"],
 				to: []
 			},
 			Tower: {
 				attack: [],
 				repair: {
-					"622ed20e8792ad7fb29012ec": 25
+					"622ed20e8792ad7fb29012ec": 25,
+					"6231dfde68c7774300944ae8": 25
 				},
 			}
 		},
@@ -262,7 +252,7 @@ export const config = {
 // console.log(Game.market.getOrderById("623095a12a7a9fa93d1ee32e").price - Game.market.calcTransactionCost(1, "E18S54", Game.market.getOrderById("623095a12a7a9fa93d1ee32e").roomName) * 1.5)
 
 // "623077412a7a9f1ca3153d1d"
-// Game.market.deal('623077412a7a9f1ca3153d1d', 1000, "E18S54");
+// Game.market.deal('622c23bf5a2b2cbd1d286123', 10000, "E18S54");
 
 
 

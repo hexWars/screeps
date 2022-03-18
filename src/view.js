@@ -1,17 +1,4 @@
-/**
 
-特别感谢： @[E29N27|重构咕] CXuesong  提供技术支持
-
-使用方法：
-require 后，控制台输入：
-
-1. HelperRoomResource.showAllRes()
-
-2. 显示后 鼠标放在资源上面会显示全部自己房间的资源
-
-3. 点击房间 可以跳转到房间
-
- */
 function tips(text, tipStrArray, id, left) {
 	left = left - 1;
 	left *= 100;
@@ -44,30 +31,28 @@ function goto(e){
 `.replace(/[\r\n]/g, "");
 }
 
-//alert(window.location.href.substr(0,window.location.href.lastIndexOf("/")+1)+roomName);
-let pro = {
-
+export const view = {
 	getStorageTerminalRes: function (room) {
 		let store = {};
-		if (room.storage) pro.addStore(store, room.storage.store)
-		if (room.terminal) pro.addStore(store, room.terminal.store)
-		// if(room.factory)pro.addStore(store,room.factory.store)
+		if (room.storage) view.addStore(store, room.storage.store)
+		if (room.terminal) view.addStore(store, room.terminal.store)
+		// if(room.factory)view.addStore(store,room.factory.store)
 		return store
 	},
 	addStore: (store, b) => {
 		for (let v in b) if (b[v] > 0) store[v] = (store[v] || 0) + b[v];
 		return store
 	},
-	showAll() {
+	show() {
 
 		let rooms = _.values(Game.rooms).filter(e => e.controller && e.controller.my && (e.storage || e.terminal));
-		let roomResAll = rooms.map(e => [e.name, pro.getStorageTerminalRes(e)]).reduce((map, entry) => {
+		let roomResAll = rooms.map(e => [e.name, view.getStorageTerminalRes(e)]).reduce((map, entry) => {
 			map[entry[0]] = entry[1];
 			return map
 		}, {})
 
 
-		let all = rooms.reduce((all, room) => pro.addStore(all, roomResAll[room.name]), {});
+		let all = rooms.reduce((all, room) => view.addStore(all, roomResAll[room.name]), {});
 
 
 		// StrategyMarket.showAllRes()
@@ -165,7 +150,5 @@ let pro = {
 	},
 }
 
-export const HelperRoomResource = pro
 
-// global.HelperRoomResource = pro
 

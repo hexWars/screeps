@@ -16,12 +16,24 @@ export const role_repairer = function (creep) {
 			var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
-						structure.hits < 300000;
+						structure.hits < 500000;
 				}
 			});
 			if (target) {
 				if (creep.repair(target) === ERR_NOT_IN_RANGE) {
 					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+				}
+			} else {
+				target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+					filter: (structure) => {
+						return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
+							structure.hits < 600000;
+					}
+				});
+				if (target) {
+					if (creep.repair(target) === ERR_NOT_IN_RANGE) {
+						creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+					}
 				}
 			}
 		} else {

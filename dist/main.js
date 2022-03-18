@@ -3371,7 +3371,7 @@ const config = {
 	"E18S54": {
 		upgrader: {
 			role: "upgrader",
-			number: 1,
+			number: 2,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
@@ -3421,9 +3421,9 @@ const config = {
 		},
 		harvester2: {// mineral 矿场资源
 			role: "harvester",
-			number: 0,
+			number: 3,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcb37b40062e4259e94431",
 			selfRoomName: "E18S54",
 			targetId: "623039ecef7f9c58acebd978",
@@ -3441,9 +3441,9 @@ const config = {
 		},
 		carrie1: {
 			role: "carrier",
-			number: 0,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
+			body: [MOVE, CARRY, CARRY],
 			selfId: "623039ecef7f9c58acebd978",
 			selfRoomName: "E18S54",
 			targetId: "6229becbd834b5981b3b33d1",
@@ -3495,12 +3495,13 @@ const config = {
 			}
 		},
 
-
+	},
+	"E19S54": {
 		harvester999: {
 			role: "harvester",
 			number: 1,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
+			spawnName: "Spawn2",
+			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae159099fc012e63864f",
 			selfRoomName: "E19S54",
 			targetId: "622dd62b6bc5f44dff635f60",
@@ -3509,35 +3510,13 @@ const config = {
 		harvester998: {
 			role: "harvester",
 			number: 1,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
+			spawnName: "Spawn2",
+			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae159099fc012e638650",
 			selfRoomName: "E19S54",
-			targetId: "622dc93c40d11b64bed29cdd",
+			targetId: "6231e7a5acd95e5ba8876185",
 			targetRoomName: "E19S54"
 		},
-		upgrader999: {
-			role: "upgrader",
-			number: 0,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
-			selfId: "622dc93c40d11b64bed29cdd",
-			selfRoomName: "E19S54",
-			targetId: "5bbcae159099fc012e63864e",
-			targetRoomName: "E19S54"
-		},
-		upgrader998: {
-			role: "upgrader",
-			number: 0,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
-			selfId: "622dd62b6bc5f44dff635f60",
-			selfRoomName: "E19S54",
-			targetId: "5bbcae159099fc012e63864e",
-			targetRoomName: "E19S54"
-		},
-	},
-	"E19S54": {
 		occupier: {
 			role: "occupier",
 			number: 0,
@@ -3560,7 +3539,7 @@ const config = {
 		},
 		builder1: {
 			role: "builder",
-			number: 2,
+			number: 0,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
@@ -3570,7 +3549,7 @@ const config = {
 		},
 		upgrader: {
 			role: "upgrader",
-			number: 3,
+			number: 4,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
@@ -3582,8 +3561,8 @@ const config = {
 			role: "carrier",
 			number: 1,
 			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
-			selfId: "622dc93c40d11b64bed29cdd",
+			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
+			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "no",
 			targetRoomName: "E19S54"
@@ -3598,17 +3577,28 @@ const config = {
 			targetId: "no",
 			targetRoomName: "E19S54"
 		},
+		center: {
+			role: "center",
+			number: 1,
+			spawnName: "Spawn2",
+			body: [MOVE, CARRY, CARRY, CARRY, CARRY],
+			selfId: "6231e1afb8ba103c48ae1e4e",// link
+			selfRoomName: "E19S54",
+			targetId: "622fb9f05aaf2c52db20731e",// storage
+			targetRoomName: "E19S54"
+		},
 
 		structures: {
 			Link: {
-				center: "",
-				from: [],
+				center: "6231e1afb8ba103c48ae1e4e",
+				from: ["6231e7a5acd95e5ba8876185"],
 				to: []
 			},
 			Tower: {
 				attack: [],
 				repair: {
-					"622ed20e8792ad7fb29012ec": 25
+					"622ed20e8792ad7fb29012ec": 25,
+					"6231dfde68c7774300944ae8": 25
 				},
 			}
 		},
@@ -3628,7 +3618,7 @@ const config = {
 // console.log(Game.market.getOrderById("623095a12a7a9fa93d1ee32e").price - Game.market.calcTransactionCost(1, "E18S54", Game.market.getOrderById("623095a12a7a9fa93d1ee32e").roomName) * 1.5)
 
 // "623077412a7a9f1ca3153d1d"
-// Game.market.deal('623077412a7a9f1ca3153d1d', 1000, "E18S54");
+// Game.market.deal('622c23bf5a2b2cbd1d286123', 10000, "E18S54");
 
 const p_spawn = function () {
 	_.assign(Spawn.prototype, spawnExtension);
@@ -4401,12 +4391,24 @@ const role_repairer = function (creep) {
 			var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
-						structure.hits < 300000;
+						structure.hits < 500000;
 				}
 			});
 			if (target) {
 				if (creep.repair(target) === ERR_NOT_IN_RANGE) {
 					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+				}
+			} else {
+				target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+					filter: (structure) => {
+						return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
+							structure.hits < 600000;
+					}
+				});
+				if (target) {
+					if (creep.repair(target) === ERR_NOT_IN_RANGE) {
+						creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+					}
 				}
 			}
 		} else {
@@ -4415,20 +4417,6 @@ const role_repairer = function (creep) {
 	}
 };
 
-/**
-
-特别感谢： @[E29N27|重构咕] CXuesong  提供技术支持
-
-使用方法：
-require 后，控制台输入：
-
-1. HelperRoomResource.showAllRes()
-
-2. 显示后 鼠标放在资源上面会显示全部自己房间的资源
-
-3. 点击房间 可以跳转到房间
-
- */
 function tips(text, tipStrArray, id, left) {
 	left = left - 1;
 	left *= 100;
@@ -4461,30 +4449,28 @@ function goto(e){
 `.replace(/[\r\n]/g, "");
 }
 
-//alert(window.location.href.substr(0,window.location.href.lastIndexOf("/")+1)+roomName);
-let pro = {
-
+const view = {
 	getStorageTerminalRes: function (room) {
 		let store = {};
-		if (room.storage) pro.addStore(store, room.storage.store);
-		if (room.terminal) pro.addStore(store, room.terminal.store);
-		// if(room.factory)pro.addStore(store,room.factory.store)
+		if (room.storage) view.addStore(store, room.storage.store);
+		if (room.terminal) view.addStore(store, room.terminal.store);
+		// if(room.factory)view.addStore(store,room.factory.store)
 		return store
 	},
 	addStore: (store, b) => {
 		for (let v in b) if (b[v] > 0) store[v] = (store[v] || 0) + b[v];
 		return store
 	},
-	showAll() {
+	show() {
 
 		let rooms = _.values(Game.rooms).filter(e => e.controller && e.controller.my && (e.storage || e.terminal));
-		let roomResAll = rooms.map(e => [e.name, pro.getStorageTerminalRes(e)]).reduce((map, entry) => {
+		let roomResAll = rooms.map(e => [e.name, view.getStorageTerminalRes(e)]).reduce((map, entry) => {
 			map[entry[0]] = entry[1];
 			return map
 		}, {});
 
 
-		let all = rooms.reduce((all, room) => pro.addStore(all, roomResAll[room.name]), {});
+		let all = rooms.reduce((all, room) => view.addStore(all, roomResAll[room.name]), {});
 
 
 		// StrategyMarket.showAllRes()
@@ -4582,12 +4568,51 @@ let pro = {
 	},
 };
 
-const HelperRoomResource = pro;
+//todo 指定数据,如果低于购买超过卖出
+//todo 指定资源类型查看哪个买入最便宜
+//todo 指定资源查看卖出哪个盈利最多
 
-// global.HelperRoomResource = pro
+const market = {
+	/**
+	 * 买入的最小花费
+	 * @param Type
+	 * @param selfRoomName
+	 */
+	buy_min_cost: function (Type, selfRoomName) {
+		let sell = Game.market.getAllOrders({type: ORDER_SELL, resourceType: Type});
+		let minC = 999999;
+		let id = "id错误";
+		for (let x of sell) {
+			if (minC > market.get_buy_cost(x.id, selfRoomName)) {
+				minC = market.get_buy_cost(x.id, selfRoomName);
+				id = x.id;
+			}
+		}
+		console.log("需要 " + minC + " Cr");
+		console.log("id: " + id);
+		return id
+	},
+	/**
+	 * 返回买入所需的价格
+	 * @param id
+	 * @param roomName
+	 * @return {number}
+	 */
+	get_buy_cost: function (id, roomName) {
+		let obj = Game.market.getOrderById(id);
+		let transfer_cost = Game.market.calcTransactionCost(1, roomName, obj.roomName)*2;//乘以能量价格
+		// console.log("id:" + id + " 花费:" + Game.market.calcTransactionCost(1000, roomName, obj.roomName))
+		return obj.price + transfer_cost;
+	}
+};
+
+const cmd = {
+	market_buy_min_cost: function (Type, roomName) {
+		market.buy_min_cost(Type, roomName);
+	}
+};
 
 const loop = errorMapper(() => {
-	console.log("本轮" + Game.time + "----------------------------------------");
 
 	mount();
 
@@ -4650,12 +4675,13 @@ const loop = errorMapper(() => {
 	}
 
 
-	console.log("tickLimit: " + Game.cpu.tickLimit + " bucket: " + Game.cpu.bucket);
 	if (Game.cpu.bucket === 10000) {
 		Game.cpu.generatePixel();
 	}
 
-	global.help = HelperRoomResource;
+	global.view = view;
+	global.cmd = cmd;
+
 
 });
 

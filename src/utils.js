@@ -1,5 +1,5 @@
 
 
-export const utils = function () {
+export const utils = {
 
 }
