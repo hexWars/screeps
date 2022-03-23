@@ -94,9 +94,9 @@ const towerExtension = {
 		} else {
 			structure = this.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: function (structure) {
-					return (structure.structureType == STRUCTURE_WALL
-							|| structure.structureType == STRUCTURE_RAMPART)
-						&& structure.hits < 1000
+					return (structure.structureType === STRUCTURE_WALL
+							|| structure.structureType === STRUCTURE_RAMPART)
+						&& structure.hits < 1000000
 					// return structure.hits < structure.hitsMax
 				}
 			});
@@ -126,7 +126,7 @@ const towerExtension = {
 				filter: function (structure) {
 					return (structure.structureType == STRUCTURE_WALL
 							|| structure.structureType == STRUCTURE_RAMPART)
-						&& structure.hits < 300
+						&& structure.hits < 900000
 					// return structure.hits < structure.hitsMax
 				}
 			});

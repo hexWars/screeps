@@ -3,9 +3,15 @@ import {mount} from "../../mount";
 
 export const roleCenter = function (creep) {
 	mount()
-
 	if (!link_to_storage(creep)) {
-		storage_to_terminal(creep, RESOURCE_HYDROGEN)
+		// storage_to_terminal(creep, RESOURCE_HYDROGEN)
+		if (creep.room.name == "E19S54") {
+			// storage_to_terminal(creep, RESOURCE_ENERGY)
+		} else if (creep.room.name == "E18S54") {
+			// terminal_to_storage(creep, RESOURCE_ENERGY)
+			// storage_to_terminal(creep, RESOURCE_ENERGY)
+			// RESOURCE_HYDROGEN
+		}
 	}
 
 	//
@@ -29,11 +35,14 @@ function link_to_storage(creep) {
 	if (creep.store.getFreeCapacity() == 0) {//可用容量没了 target
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 			var target = Game.getObjectById(creep.memory.targetId)// 存放的Id
+			if (target) {
+			}
 			for (let sources in target.store) {
 				if (creep.transfer(target, sources) === ERR_NOT_IN_RANGE) {
 					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30})
 				}
 			}
+			creep.transfer(target, RESOURCE_ENERGY)
 		} else {
 			creep.to_room(creep.memory.targetRoomName)
 		}
@@ -65,14 +74,20 @@ function storage_to_terminal(creep, sources) {
 		}
 	}
 }
-function toStorage(creep) {
+
+/**
+ *
+ * @param creep
+ * @param sources
+ */
+function terminal_to_storage(creep, sources) {
 	if (creep.store.getFreeCapacity() == 0) {
-		if(creep.transfer(this.room.storage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(this.room.storage);
+		if(creep.transfer(creep.room.storage, sources) === ERR_NOT_IN_RANGE) {
+			creep.moveTo(creep.room.storage);
 		}
 	} else {
-		if(creep.withdraw(this.room.terminal, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-			creep.moveTo(this.room.terminal);
+		if(creep.withdraw(creep.room.terminal, sources) === ERR_NOT_IN_RANGE) {
+			creep.moveTo(creep.room.terminal);
 		}
 	}
 }

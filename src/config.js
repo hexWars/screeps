@@ -5,9 +5,11 @@ export const config = {
 	"E18S54": {
 		upgrader: {
 			role: "upgrader",
-			number: 2,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+				CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+				WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "5bbcae039099fc012e6384c4",
@@ -17,17 +19,7 @@ export const config = {
 			role: "builder",
 			number: 0/*1*/,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
-			selfId: "6229becbd834b5981b3b33d1",
-			selfRoomName: "E18S54",
-			targetId: "no",
-			targetRoomName: "E18S54"
-		},
-		builder_lins: {
-			role: "builder",
-			number: 0/*1*/,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "no",
@@ -55,7 +47,7 @@ export const config = {
 		},
 		harvester2: {// mineral 矿场资源
 			role: "harvester",
-			number: 3,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcb37b40062e4259e94431",
@@ -75,9 +67,9 @@ export const config = {
 		},
 		carrie1: {
 			role: "carrier",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn1",
-			body: [MOVE, CARRY, CARRY],
+			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
 			selfId: "623039ecef7f9c58acebd978",
 			selfRoomName: "E18S54",
 			targetId: "6229becbd834b5981b3b33d1",
@@ -85,7 +77,7 @@ export const config = {
 		},
 		repairer: {
 			role: "repairer",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
@@ -131,17 +123,17 @@ export const config = {
 
 	},
 	"E19S54": {
-		harvester999: {
+		harvester: {
 			role: "harvester",
 			number: 1,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae159099fc012e63864f",
 			selfRoomName: "E19S54",
-			targetId: "622dd62b6bc5f44dff635f60",
+			targetId: "6235e33cc40c1bc6eb082620",
 			targetRoomName: "E19S54"
 		},
-		harvester998: {
+		harvester1: {
 			role: "harvester",
 			number: 1,
 			spawnName: "Spawn2",
@@ -149,6 +141,16 @@ export const config = {
 			selfId: "5bbcae159099fc012e638650",
 			selfRoomName: "E19S54",
 			targetId: "6231e7a5acd95e5ba8876185",
+			targetRoomName: "E19S54"
+		},
+		harvester2: {// mineral 矿场资源
+			role: "harvester",
+			number: 1,
+			spawnName: "Spawn2",
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			selfId: "5bbcb38740062e4259e9449d",
+			selfRoomName: "E19S54",
+			targetId: "623664ec83eee454bab8e786",
 			targetRoomName: "E19S54"
 		},
 		occupier: {
@@ -166,16 +168,6 @@ export const config = {
 			number: 0,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK],
-			selfId: "622dd62b6bc5f44dff635f60",
-			selfRoomName: "E19S54",
-			targetId: "no",
-			targetRoomName: "E19S54"
-		},
-		builder1: {
-			role: "builder",
-			number: 0,
-			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "no",
@@ -183,9 +175,11 @@ export const config = {
 		},
 		upgrader: {
 			role: "upgrader",
-			number: 4,
+			number: 1,
 			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+				CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+				WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "5bbcae159099fc012e63864e",
@@ -203,7 +197,7 @@ export const config = {
 		},
 		carrie1: {
 			role: "carrier",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
 			selfId: "622dd62b6bc5f44dff635f60",
@@ -221,11 +215,20 @@ export const config = {
 			targetId: "622fb9f05aaf2c52db20731e",// storage
 			targetRoomName: "E19S54"
 		},
-
+		repairer: {
+			role: "repairer",
+			number: 0,
+			spawnName: "Spawn2",
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK],
+			selfId: "622fb9f05aaf2c52db20731e",
+			selfRoomName: "E19S54",
+			targetId: "no",
+			targetRoomName: "E19S54"
+		},
 		structures: {
 			Link: {
 				center: "6231e1afb8ba103c48ae1e4e",
-				from: ["6231e7a5acd95e5ba8876185"],
+				from: ["6231e7a5acd95e5ba8876185", "6235e33cc40c1bc6eb082620"],
 				to: []
 			},
 			Tower: {
@@ -242,9 +245,9 @@ export const config = {
 
 // Game.market.createOrder({
 // 	type: ORDER_SELL,
-// 	resourceType: RESOURCE_HYDROGEN,
-// 	price: 6.3,
-// 	totalAmount: 20000,
+// 	resourceType: PIXEL,
+// 	price: 18000,
+// 	totalAmount: 10,
 // 	roomName: "E18S54"
 // });
 
@@ -252,7 +255,11 @@ export const config = {
 // console.log(Game.market.getOrderById("623095a12a7a9fa93d1ee32e").price - Game.market.calcTransactionCost(1, "E18S54", Game.market.getOrderById("623095a12a7a9fa93d1ee32e").roomName) * 1.5)
 
 // "623077412a7a9f1ca3153d1d"
-// Game.market.deal('622c23bf5a2b2cbd1d286123', 10000, "E18S54");
+// Game.market.deal('623989829da05e58afb0e047', 100, "E18S54");
 
+
+// Game.getObjectById("623664ec83eee454bab8e786").send(RESOURCE_ENERGY, 100000, "E18S54", "升级资源")
+
+// Game.market.calcTransactionCost(1000, 'E18S54', 'W38S39');
 
 

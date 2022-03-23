@@ -22,11 +22,11 @@ export const role_upgrader = function (creep) {
 	} else {// target
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 			var target = Game.getObjectById(creep.memory.targetId)
-			// if (creep.upgradeController(target) === ERR_NOT_IN_RANGE) {
-			// 	creep.moveTo(target);
-			// }
-			creep.moveTo(target)
-			creep.upgradeController(target)
+			if (creep.upgradeController(target) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(target);
+			}
+			// creep.moveTo(target)
+			// creep.upgradeController(target)
 
 		} else {
 			creep.to_room(creep.memory.targetRoomName)

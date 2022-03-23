@@ -7,9 +7,6 @@ const mount = require('mount')
 let room_base = {
 	run_1: function (room) {// 布局1
 		mount()
-		// 塔
-		tower.run_1(Game.getObjectById("620d4e8351da53fd9193b024"))
-		tower.run_1(Game.getObjectById("62131c91803a815756709de8"))
 		// creep
 
 		//todo 化合物采集 修改
@@ -121,8 +118,6 @@ let room_base = {
 	},
 	run_2: function (room) {
 		// 塔
-		tower.run_1(Game.getObjectById("62183edc21e04a497120b848"))
-		tower.run(Game.getObjectById("621f34e782606abd0fcb5f92"))
 		// creep
 		room.keep_creep_num(1, "harvester",
 			"5bbcb0569099fc012e63bfc8", "E55N12",// source

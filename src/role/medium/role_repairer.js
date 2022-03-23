@@ -16,7 +16,7 @@ export const role_repairer = function (creep) {
 			var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
-						structure.hits < 500000;
+						structure.hits < 1000000;
 				}
 			});
 			if (target) {
@@ -27,7 +27,7 @@ export const role_repairer = function (creep) {
 				target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 					filter: (structure) => {
 						return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
-							structure.hits < 600000;
+							structure.hits < 2000000;
 					}
 				});
 				if (target) {

@@ -3371,9 +3371,11 @@ const config = {
 	"E18S54": {
 		upgrader: {
 			role: "upgrader",
-			number: 2,
+			number: 1,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+				CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+				WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "5bbcae039099fc012e6384c4",
@@ -3383,17 +3385,7 @@ const config = {
 			role: "builder",
 			number: 0/*1*/,
 			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
-			selfId: "6229becbd834b5981b3b33d1",
-			selfRoomName: "E18S54",
-			targetId: "no",
-			targetRoomName: "E18S54"
-		},
-		builder_lins: {
-			role: "builder",
-			number: 0/*1*/,
-			spawnName: "Spawn1",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
 			selfRoomName: "E18S54",
 			targetId: "no",
@@ -3421,7 +3413,7 @@ const config = {
 		},
 		harvester2: {// mineral 矿场资源
 			role: "harvester",
-			number: 3,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcb37b40062e4259e94431",
@@ -3441,9 +3433,9 @@ const config = {
 		},
 		carrie1: {
 			role: "carrier",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn1",
-			body: [MOVE, CARRY, CARRY],
+			body: [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY],
 			selfId: "623039ecef7f9c58acebd978",
 			selfRoomName: "E18S54",
 			targetId: "6229becbd834b5981b3b33d1",
@@ -3451,7 +3443,7 @@ const config = {
 		},
 		repairer: {
 			role: "repairer",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn1",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK],
 			selfId: "6229becbd834b5981b3b33d1",
@@ -3497,17 +3489,17 @@ const config = {
 
 	},
 	"E19S54": {
-		harvester999: {
+		harvester: {
 			role: "harvester",
 			number: 1,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "5bbcae159099fc012e63864f",
 			selfRoomName: "E19S54",
-			targetId: "622dd62b6bc5f44dff635f60",
+			targetId: "6235e33cc40c1bc6eb082620",
 			targetRoomName: "E19S54"
 		},
-		harvester998: {
+		harvester1: {
 			role: "harvester",
 			number: 1,
 			spawnName: "Spawn2",
@@ -3515,6 +3507,16 @@ const config = {
 			selfId: "5bbcae159099fc012e638650",
 			selfRoomName: "E19S54",
 			targetId: "6231e7a5acd95e5ba8876185",
+			targetRoomName: "E19S54"
+		},
+		harvester2: {// mineral 矿场资源
+			role: "harvester",
+			number: 1,
+			spawnName: "Spawn2",
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			selfId: "5bbcb38740062e4259e9449d",
+			selfRoomName: "E19S54",
+			targetId: "623664ec83eee454bab8e786",
 			targetRoomName: "E19S54"
 		},
 		occupier: {
@@ -3532,16 +3534,6 @@ const config = {
 			number: 0,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, WORK, WORK, WORK],
-			selfId: "622dd62b6bc5f44dff635f60",
-			selfRoomName: "E19S54",
-			targetId: "no",
-			targetRoomName: "E19S54"
-		},
-		builder1: {
-			role: "builder",
-			number: 0,
-			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "no",
@@ -3549,9 +3541,11 @@ const config = {
 		},
 		upgrader: {
 			role: "upgrader",
-			number: 4,
+			number: 1,
 			spawnName: "Spawn2",
-			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
+			body: [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE,
+				CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,
+				WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK],
 			selfId: "622fb9f05aaf2c52db20731e",
 			selfRoomName: "E19S54",
 			targetId: "5bbcae159099fc012e63864e",
@@ -3569,7 +3563,7 @@ const config = {
 		},
 		carrie1: {
 			role: "carrier",
-			number: 1,
+			number: 0,
 			spawnName: "Spawn2",
 			body: [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY],
 			selfId: "622dd62b6bc5f44dff635f60",
@@ -3587,11 +3581,20 @@ const config = {
 			targetId: "622fb9f05aaf2c52db20731e",// storage
 			targetRoomName: "E19S54"
 		},
-
+		repairer: {
+			role: "repairer",
+			number: 0,
+			spawnName: "Spawn2",
+			body: [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK],
+			selfId: "622fb9f05aaf2c52db20731e",
+			selfRoomName: "E19S54",
+			targetId: "no",
+			targetRoomName: "E19S54"
+		},
 		structures: {
 			Link: {
 				center: "6231e1afb8ba103c48ae1e4e",
-				from: ["6231e7a5acd95e5ba8876185"],
+				from: ["6231e7a5acd95e5ba8876185", "6235e33cc40c1bc6eb082620"],
 				to: []
 			},
 			Tower: {
@@ -3608,9 +3611,9 @@ const config = {
 
 // Game.market.createOrder({
 // 	type: ORDER_SELL,
-// 	resourceType: RESOURCE_HYDROGEN,
-// 	price: 6.3,
-// 	totalAmount: 20000,
+// 	resourceType: PIXEL,
+// 	price: 18000,
+// 	totalAmount: 10,
 // 	roomName: "E18S54"
 // });
 
@@ -3618,7 +3621,12 @@ const config = {
 // console.log(Game.market.getOrderById("623095a12a7a9fa93d1ee32e").price - Game.market.calcTransactionCost(1, "E18S54", Game.market.getOrderById("623095a12a7a9fa93d1ee32e").roomName) * 1.5)
 
 // "623077412a7a9f1ca3153d1d"
-// Game.market.deal('622c23bf5a2b2cbd1d286123', 10000, "E18S54");
+// Game.market.deal('623989829da05e58afb0e047', 100, "E18S54");
+
+
+// Game.getObjectById("623664ec83eee454bab8e786").send(RESOURCE_ENERGY, 100000, "E18S54", "升级资源")
+
+// Game.market.calcTransactionCost(1000, 'E18S54', 'W38S39');
 
 const p_spawn = function () {
 	_.assign(Spawn.prototype, spawnExtension);
@@ -3879,9 +3887,9 @@ const towerExtension = {
 		} else {
 			structure = this.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: function (structure) {
-					return (structure.structureType == STRUCTURE_WALL
-							|| structure.structureType == STRUCTURE_RAMPART)
-						&& structure.hits < 1000
+					return (structure.structureType === STRUCTURE_WALL
+							|| structure.structureType === STRUCTURE_RAMPART)
+						&& structure.hits < 1000000
 					// return structure.hits < structure.hitsMax
 				}
 			});
@@ -3911,7 +3919,7 @@ const towerExtension = {
 				filter: function (structure) {
 					return (structure.structureType == STRUCTURE_WALL
 							|| structure.structureType == STRUCTURE_RAMPART)
-						&& structure.hits < 300
+						&& structure.hits < 900000
 					// return structure.hits < structure.hitsMax
 				}
 			});
@@ -4122,11 +4130,11 @@ const role_upgrader = function (creep) {
 	} else {// target
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 			var target = Game.getObjectById(creep.memory.targetId);
-			// if (creep.upgradeController(target) === ERR_NOT_IN_RANGE) {
-			// 	creep.moveTo(target);
-			// }
-			creep.moveTo(target);
-			creep.upgradeController(target);
+			if (creep.upgradeController(target) === ERR_NOT_IN_RANGE) {
+				creep.moveTo(target);
+			}
+			// creep.moveTo(target)
+			// creep.upgradeController(target)
 
 		} else {
 			creep.to_room(creep.memory.targetRoomName);
@@ -4158,11 +4166,11 @@ const role_builder = function (creep) {
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 			var targets = creep.room.allConstructionSite();
 			if (targets.length > 0) {
-				// if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
-				// 	creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
-				// }
-				creep.build(targets[0]);
-				creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+				if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 20});
+				}
+				// creep.build(targets[0])
+				// creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 20});
 			}
 		} else {
 			creep.to_room(creep.memory.targetRoomName);
@@ -4180,51 +4188,57 @@ const role_carrier = function (creep) {
 	// 		creep.moveTo(target)
 	// 	}
 
-	if (creep.store.getUsedCapacity() == 0) {//没有资源, self
-		if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
-			var obj = Game.getObjectById(creep.memory.selfId);
-			if (obj.store[RESOURCE_ENERGY] == 0) {
-				for (let sources in obj.store) {
-					if (creep.withdraw(obj, sources) === ERR_NOT_IN_RANGE) {
+	try {
+		if (creep.store.getUsedCapacity() == 0) {//没有资源, self
+			if (creep.room == Game.rooms[creep.memory.selfRoomName]) {
+				var obj = Game.getObjectById(creep.memory.selfId);
+				if (obj.store[RESOURCE_ENERGY] == 0) {
+					for (let sources in obj.store) {
+						if (creep.withdraw(obj, sources) === ERR_NOT_IN_RANGE) {
+							creep.moveTo(obj, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+						}
+					}
+				} else {
+					if (creep.withdraw(obj, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
 						creep.moveTo(obj, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
 					}
 				}
-			} else {
-				if (creep.withdraw(obj, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-					creep.moveTo(obj, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
-				}
-			}
 
-		} else {
-			creep.to_room(creep.memory.selfRoomName);
-		}
-	} else {// target
-		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
-			if (creep.memory.targetId == "no") {
-				if (creep.fillSpawnEnergy()) {
-					if (creep.fillTower()) {
-						creep.fillStorage();
+			} else {
+				creep.to_room(creep.memory.selfRoomName);
+			}
+		} else {// target
+			if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
+				if (creep.memory.targetId == "no") {
+					if (creep.fillSpawnEnergy()) {
+						if (creep.fillTower()) {
+							creep.fillStorage();
+						}
+					}
+				} else {
+					let target = Game.getObjectById(creep.memory.targetId);
+					for (let sources in creep.store) {
+						if (creep.transfer(target, sources) === ERR_NOT_IN_RANGE) {
+							creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+						}
 					}
 				}
 			} else {
-				let target = Game.getObjectById(creep.memory.targetId);
-				for (let sources in creep.store) {
-					if (creep.transfer(target, sources) === ERR_NOT_IN_RANGE) {
-						creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
-					}
-				}
+				creep.to_room(creep.memory.targetRoomName);
 			}
-		} else {
-			creep.to_room(creep.memory.targetRoomName);
 		}
+	} catch (e) {
+		console.log(creep.id + " 有错误");
 	}
+
+
 };
 
 const roleCenter = function (creep) {
 	mount();
-
 	if (!link_to_storage(creep)) {
-		storage_to_terminal(creep, RESOURCE_HYDROGEN);
+		// storage_to_terminal(creep, RESOURCE_HYDROGEN)
+		if (creep.room.name == "E19S54") ; else if (creep.room.name == "E18S54") ;
 	}
 
 	//
@@ -4253,6 +4267,7 @@ function link_to_storage(creep) {
 					creep.moveTo(target, {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 30});
 				}
 			}
+			creep.transfer(target, RESOURCE_ENERGY);
 		} else {
 			creep.to_room(creep.memory.targetRoomName);
 		}
@@ -4266,23 +4281,6 @@ function link_to_storage(creep) {
 		}
 	}
 	return true
-}
-
-/**
- * 资源从storage转移至terminal
- * @param creep
- * @param sources
- */
-function storage_to_terminal(creep, sources) {
-	if (creep.store.getFreeCapacity() == 0) {
-		if(creep.transfer(creep.room.terminal, sources) === ERR_NOT_IN_RANGE) {
-			creep.moveTo(creep.room.terminal);
-		}
-	} else {
-		if(creep.withdraw(creep.room.storage, sources) === ERR_NOT_IN_RANGE) {
-			creep.moveTo(creep.room.storage);
-		}
-	}
 }
 
 const role_defender = function (creep) {
@@ -4391,7 +4389,7 @@ const role_repairer = function (creep) {
 			var target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 				filter: (structure) => {
 					return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
-						structure.hits < 500000;
+						structure.hits < 1000000;
 				}
 			});
 			if (target) {
@@ -4402,7 +4400,7 @@ const role_repairer = function (creep) {
 				target = creep.pos.findClosestByRange(FIND_STRUCTURES, {
 					filter: (structure) => {
 						return (structure.structureType === STRUCTURE_WALL || structure.structureType === STRUCTURE_RAMPART) &&
-							structure.hits < 600000;
+							structure.hits < 2000000;
 					}
 				});
 				if (target) {
@@ -4593,6 +4591,26 @@ const market = {
 		return id
 	},
 	/**
+	 * 卖出的最大盈利
+	 * @param Type
+	 * @param selfRoomName
+	 */
+	sell_max_cost: function (Type, selfRoomName) {
+		let buy = Game.market.getAllOrders({type: ORDER_BUY, resourceType: Type});
+		let maxC = 0;
+		let id = "id错误";
+		for (let x of buy) {
+			market.get_buy_cost(x.id, selfRoomName);
+			// if (maxC < market.get_buy_cost(x.id, selfRoomName)) {
+			// 	maxC = market.get_buy_cost(x.id, selfRoomName)
+			// 	id = x.id
+			// }
+		}
+		console.log("需要 " + maxC + " Cr");
+		console.log("id: " + id);
+		return id
+	},
+	/**
 	 * 返回买入所需的价格
 	 * @param id
 	 * @param roomName
@@ -4601,7 +4619,7 @@ const market = {
 	get_buy_cost: function (id, roomName) {
 		let obj = Game.market.getOrderById(id);
 		let transfer_cost = Game.market.calcTransactionCost(1, roomName, obj.roomName)*2;//乘以能量价格
-		// console.log("id:" + id + " 花费:" + Game.market.calcTransactionCost(1000, roomName, obj.roomName))
+		console.log("id:" + id + " 购入1000 花费:" + Game.market.calcTransactionCost(1000, roomName, obj.roomName) + "能量");
 		return obj.price + transfer_cost;
 	}
 };
@@ -4609,6 +4627,9 @@ const market = {
 const cmd = {
 	market_buy_min_cost: function (Type, roomName) {
 		market.buy_min_cost(Type, roomName);
+	},
+	market_sell_max_cost: function (Type, roomName) {
+		market.sell_max_cost(Type, roomName);
 	}
 };
 

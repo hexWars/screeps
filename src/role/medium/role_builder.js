@@ -24,11 +24,11 @@ export const role_builder = function (creep) {
 		if (creep.room == Game.rooms[creep.memory.targetRoomName]) {
 			var targets = creep.room.allConstructionSite()
 			if (targets.length > 0) {
-				// if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
-				// 	creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
-				// }
-				creep.build(targets[0])
-				creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 10});
+				if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
+					creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 20});
+				}
+				// creep.build(targets[0])
+				// creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffff00'}, reusePath: 20});
 			}
 		} else {
 			creep.to_room(creep.memory.targetRoomName)
